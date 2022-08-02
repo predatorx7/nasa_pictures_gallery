@@ -1,0 +1,18 @@
+{
+  "name": "nasa_pictures",
+  "version": "0.1.0",
+  "description": "Simple NodeJs script of shortcut commands for this code",
+  "scripts": {
+    "lint": "flutter analyze",
+    "clean": "flutter clean",
+    "fmt": "flutter format .",
+    "test": " flutter test test",
+    "pub:update": "dart pub get",
+    "generate": "yarn run pub:update && dart run build_runner build --delete-conflicting-outputs;",
+    "generate:new": "yarn run pub:update && dart run build_runner build;",
+    "generate:serializable": "cat cache/x.json | dart run scripts/serializable.dart > cache/class.dart",
+    "dev": "flutter run"
+  },
+  "author": "smushaheed@gmail.com",
+  "license": "UNLICENSED"
+}

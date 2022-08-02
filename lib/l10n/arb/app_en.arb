@@ -1,0 +1,38 @@
+{
+    "@@locale": "en",
+    "appTitle": "NASA Pictures",
+    "@appTitle": {
+        "description": "Application title"
+    },
+    "languageName": "English",
+    "@languageName": {
+        "description": "Name of the language locale"
+    },
+    "languageId": "1",
+    "selectLanguage": "Select a Language",
+    "termsConditions": "Terms & Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "appLanguage": "Application language",
+    "purchases": "Purchases",
+    "upcomingOrders": "Upcoming orders",
+    "purchaseHistory": "Purchase History",
+    "contactUs": "Contact Us",
+    "faq": "FAQ",
+    "logout": "Logout",
+    "shoppingCart": "Shopping Cart",
+    "cartEmpty": "Cart Empty",
+    "subtotal": "Subtotal",
+    "explore": "Browse Products",
+    "proceedToBuy": "Proceed to Buy",
+    "nItems": "{count,plural, =0{no item} =1{1 item} other{{count} items}}",
+    "@nItems": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "searchProducts": "Search products..",
+    "noProducts": "No products available..",
+    "noResults": "No results found.."
+}
