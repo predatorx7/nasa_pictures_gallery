@@ -9,7 +9,14 @@ class GalleryService {
     final start = page * size;
     final end = start + size;
     final _rawData = await getRawData();
-    return _rawData.sublist(start, end).map((json) {
+
+    final total = _rawData.length;
+
+    if (start >= total || end > total || start < 0 || end < 0) {
+      return <SamplePicture>[];
+    }
+
+    return _rawData.sublist(start, end).map<SamplePicture>((json) {
       return SamplePicture.fromJson(json);
     }).toList();
   }

@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'picture.g.dart';
 
 @JsonSerializable()
-class SamplePicture {
+class SamplePicture with EquatableMixin {
   @JsonKey(name: 'copyright')
   final String? copyright;
   @JsonKey(name: 'date')
@@ -36,4 +37,16 @@ class SamplePicture {
       _$SamplePictureFromJson(json);
 
   Map<String, dynamic> toJson() => _$SamplePictureToJson(this);
+
+  @override
+  List<Object?> get props => [
+        copyright,
+        date,
+        explanation,
+        hdurl,
+        mediaType,
+        serviceVersion,
+        title,
+        url,
+      ];
 }
