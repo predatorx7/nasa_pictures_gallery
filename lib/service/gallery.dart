@@ -21,6 +21,12 @@ class GalleryService {
     }).toList();
   }
 
+  Future<int> getTotalPictureCount() {
+    return getRawData().then((data) {
+      return data.length;
+    });
+  }
+
   Future<dynamic> getRawData() async {
     final nasaGalleryRawTextData = await rootBundle.loadString(
       Assets.data.data,

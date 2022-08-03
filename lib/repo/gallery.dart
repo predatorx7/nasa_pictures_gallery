@@ -60,4 +60,17 @@ class GalleryRepository {
       rethrow;
     }
   }
+
+  Future<int> getTotalPictureCount() async {
+    try {
+      return await service.getTotalPictureCount();
+    } catch (e, s) {
+      logging.severe(
+        'Failed to get total picture count',
+        e,
+        s,
+      );
+      return 0;
+    }
+  }
 }
