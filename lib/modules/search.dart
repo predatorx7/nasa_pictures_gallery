@@ -11,12 +11,13 @@ class SearchQueryProvider extends StateNotifier<String?> {
   Timer? _debounce;
 
   void onTextChanged(String value) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+
     if (value.trim().isEmpty) {
       state = null;
       return;
     }
 
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(_debounceDuration, () {
       state = value;
     });
@@ -38,5 +39,5 @@ final browsingSearchQueryProvider =
 
 final isSearchedAttemptedProvider = Provider((ref) {
   final query = ref.watch(browsingSearchQueryProvider);
-  return query != null;
+  return query != null && query.isNotEmpty;
 });

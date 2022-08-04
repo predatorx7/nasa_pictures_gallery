@@ -103,6 +103,13 @@ class ItemsGridView extends ConsumerWidget {
           (context, index) {
             final item = values.elementAt(index);
 
+            final isLastItem = values.length - 1 == index;
+            if (isLastItem) {
+              ref
+                  .read(itemsPaginationControllerProvider.notifier)
+                  .requestFetch();
+            }
+
             return ItemTile(
               picture: item,
               onItemSelected: () => onGridTileSelected(context, index, item),
