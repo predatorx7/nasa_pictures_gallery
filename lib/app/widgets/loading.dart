@@ -14,6 +14,25 @@ class LoadingWidget extends StatelessWidget {
   }
 }
 
+class SliverLoadingWidget extends StatelessWidget {
+  const SliverLoadingWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox.fromSize(
+            size: const Size.square(40),
+            child: const CircularProgressIndicator(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class LoadingTileWidget extends StatelessWidget {
   const LoadingTileWidget({Key? key}) : super(key: key);
 
