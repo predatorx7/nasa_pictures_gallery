@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nasa_pictures/app/pictures.dart';
+import 'package:nasa_pictures/configs/logging.dart';
 
 import '../../data/picture.dart';
 import '../../modules/search.dart';
@@ -75,8 +76,18 @@ class ItemsGridView extends ConsumerWidget {
     BuildContext context,
     int index,
     SamplePicture item,
-  ) {
-    context.push(PicturesScreen.routePath(index));
+  ) async {
+    final gorouter = GoRouter.of(context);
+
+    precacheImage(NetworkImage(item.hdurl ?? ''), context).catchError((e, s) {
+      logging('ItemsGridView.onGridTileSelected').severe(
+        'precaching image failed',
+        e,
+        s,
+      );
+    });
+
+    gorouter.push(PicturesScreen.routePath(index));
   }
 
   @override
@@ -147,7 +158,9 @@ class ItemTile extends StatelessWidget {
           Flexible(
             child: AspectRatio(
               aspectRatio: 1,
-              child: ItemImage(item: picture),
+              child: ItemImage(
+                item: picture,
+              ),
             ),
           ),
           ItemTileBar(

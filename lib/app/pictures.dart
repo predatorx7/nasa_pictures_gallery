@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nasa_pictures/app/gallery/items.dart';
 import 'package:nasa_pictures/app/widgets/error.dart';
+import 'package:nasa_pictures/app/widgets/picture.dart';
 import 'package:nasa_pictures/configs/logging.dart';
+import 'package:nasa_pictures/data/picture.dart';
 import 'package:nasa_pictures/navigation/router.dart';
 
 import '../modules/search.dart';
@@ -127,14 +128,50 @@ class PicturesScreenBody extends ConsumerWidget {
           return ErrorPlaceholderWidget('Failed loading at $index', null);
         }
 
-        return ItemTile(
-          picture: item,
+        return PicturePage(
+          item: item,
         );
       },
       onPageChanged: (index) {
         context.replace(PicturesScreen.routePath(index));
       },
       itemCount: valuesLength,
+    );
+  }
+}
+
+class PicturePage extends StatefulWidget {
+  const PicturePage({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
+
+  final SamplePicture item;
+
+  @override
+  State<PicturePage> createState() => _PicturePageState();
+}
+
+class _PicturePageState extends State<PicturePage> {
+  late TransformationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TransformationController();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InteractiveItemImage(
+      controller: controller,
+      item: widget.item,
     );
   }
 }

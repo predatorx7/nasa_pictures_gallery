@@ -5,22 +5,86 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../data/picture.dart';
 
+enum ImageQuality {
+  regular,
+  hd,
+}
+
 class ItemImage extends StatelessWidget {
   const ItemImage({
     Key? key,
     required this.item,
+    this.fit = BoxFit.fill,
+    this.quality = ImageQuality.regular,
+    this.height,
+    this.width,
   }) : super(key: key);
 
   final SamplePicture item;
+  final BoxFit fit;
+  final ImageQuality quality;
+  final double? height;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(8)),
-      child: FadeInImage.memoryNetwork(
-        placeholder: kTransparentImage,
-        image: item.url ?? '',
-        fit: BoxFit.fill,
+    final String? imageUrl;
+    switch (quality) {
+      case ImageQuality.hd:
+        imageUrl = item.hdurl ?? item.url;
+        break;
+      case ImageQuality.regular:
+        imageUrl = item.url ?? item.hdurl;
+        break;
+      default:
+        imageUrl = '';
+    }
+
+    return Hero(
+      tag: 'picture ${item.title}',
+      child: Material(
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        clipBehavior: Clip.antiAlias,
+        child: FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          image: imageUrl ?? '',
+          fit: fit,
+          height: height,
+          width: width,
+        ),
+      ),
+    );
+  }
+}
+
+class InteractiveItemImage extends StatelessWidget {
+  final SamplePicture item;
+  final TransformationController controller;
+
+  const InteractiveItemImage({
+    super.key,
+    required this.item,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final metrics = MediaQuery.of(context).size;
+
+    return InteractiveViewer(
+      transformationController: controller,
+      minScale: 1,
+      maxScale: 4,
+      boundaryMargin: const EdgeInsets.all(double.infinity),
+      onInteractionEnd: (_) {
+        controller.value = Matrix4.identity();
+      },
+      child: ItemImage(
+        item: item,
+        fit: BoxFit.contain,
+        quality: ImageQuality.hd,
+        height: metrics.height,
+        width: metrics.width,
       ),
     );
   }
