@@ -34,10 +34,6 @@ final informationVisibilityController = StateProvider((ref) {
   return true;
 });
 
-final panModeEnabledController = StateProvider((ref) {
-  return true;
-});
-
 final filteredValuesLengthProvider = Provider((ref) {
   return ref.watch(filteredValuesProvider(ref.watch(
     itemsPaginationControllerProvider.select(
@@ -110,7 +106,6 @@ class _PicturesScreenState extends State<PicturesScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         actions: const [
-          PanModeToggleButton(),
           MetadataToggleButton(),
         ],
         foregroundColor: Colors.white,
@@ -120,37 +115,6 @@ class _PicturesScreenState extends State<PicturesScreen> {
         index: widget.index,
         controller: pageController,
       ),
-    );
-  }
-}
-
-class PanModeToggleButton extends StatelessWidget {
-  const PanModeToggleButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final isVisible = ref.watch(panModeEnabledController);
-        void toggle() {
-          ref.read(panModeEnabledController.notifier).update((state) => !state);
-        }
-
-        return Padding(
-          padding: const EdgeInsetsDirectional.only(end: 16.0),
-          child: IconButton(
-            onPressed: toggle,
-            icon: isVisible
-                ? const Icon(FluentIcons.phone_span_out_24_regular)
-                : const Icon(FluentIcons.arrow_expand_24_regular),
-            tooltip: isVisible
-                ? 'Enable scrolling horizontally to change page'
-                : 'Enable pan & zoom',
-          ),
-        );
-      },
     );
   }
 }
@@ -242,38 +206,56 @@ class PicturesScreenBody extends ConsumerWidget {
       );
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Stack(
       children: [
-        IconButton(
-          onPressed: toPreviousPage,
-          icon: const Icon(Icons.arrow_back_ios_rounded),
-          color: Colors.white,
-        ),
-        Expanded(
-          child: PageView.builder(
-            controller: controller,
-            itemBuilder: (context, index) {
-              final item = ref.watch(indexedItemProvider(index));
-              if (item == null) {
-                return ErrorPlaceholderWidget('Failed loading at $index', null);
-              }
+        PageView.builder(
+          controller: controller,
+          itemBuilder: (context, index) {
+            final item = ref.watch(indexedItemProvider(index));
+            if (item == null) {
+              return ErrorPlaceholderWidget('Failed loading at $index', null);
+            }
 
-              return PicturePage(
-                item: item,
-              );
-            },
-            onPageChanged: (index) {
-              context.replace(PicturesScreen.routePath(index));
-            },
-            itemCount: valuesLength,
-          ),
+            return PicturePage(
+              item: item,
+            );
+          },
+          onPageChanged: (index) {
+            context.replace(PicturesScreen.routePath(index));
+          },
+          itemCount: valuesLength,
         ),
-        IconButton(
-          onPressed: () => toNextPage(ref),
-          icon: const Icon(Icons.arrow_forward_ios_rounded),
-          color: Colors.white,
+        AnimatedBuilder(
+          animation: controller,
+          builder: (context, _) {
+            final page = controller.page;
+            if (page == null || page <= 0) return const SizedBox();
+
+            return Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: IconButton(
+                onPressed: toPreviousPage,
+                icon: const Icon(Icons.arrow_back_ios_rounded),
+                color: Colors.white,
+              ),
+            );
+          },
+        ),
+        AnimatedBuilder(
+          animation: controller,
+          builder: (context, _) {
+            final page = controller.page;
+            if (page == null || page > valuesLength) return const SizedBox();
+
+            return Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: IconButton(
+                onPressed: () => toNextPage(ref),
+                icon: const Icon(Icons.arrow_forward_ios_rounded),
+                color: Colors.white,
+              ),
+            );
+          },
         ),
       ],
     );
@@ -311,15 +293,10 @@ class _PicturePageState extends ConsumerState<PicturePage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Consumer(
-          builder: (context, ref, child) {
-            final isPanEnabled = ref.watch(panModeEnabledController);
-            return InteractiveItemImage(
-              controller: controller,
-              item: widget.item,
-              isPanEnabled: isPanEnabled,
-            );
-          },
+        InteractiveItemImage(
+          controller: controller,
+          item: widget.item,
+          isPanEnabled: true,
         ),
         Consumer(
           builder: (context, ref, child) {
@@ -362,12 +339,15 @@ class ItemMetaData extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.typography.white;
 
+    final size = MediaQuery.of(context).size;
+    logging.info('size: ${size.width}');
+
     return ListView(
       shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 60.0,
+      padding: EdgeInsets.symmetric(
+        horizontal: size.width / 18,
         vertical: 40.0,
-      ),
+      ).add(const EdgeInsets.only(top: 80)),
       children: [
         SelectableText(
           item.title ?? '-',
