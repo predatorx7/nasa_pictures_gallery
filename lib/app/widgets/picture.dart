@@ -1,6 +1,5 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../data/picture.dart';
@@ -62,15 +61,33 @@ class ItemImage extends StatelessWidget {
 class InteractiveItemImage extends StatelessWidget {
   final SamplePicture item;
   final TransformationController controller;
+  final bool isPanEnabled;
 
   const InteractiveItemImage({
     super.key,
     required this.item,
     required this.controller,
+    required this.isPanEnabled,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (!isPanEnabled) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: ItemImage(
+              item: item,
+              fit: BoxFit.contain,
+              quality: ImageQuality.hd,
+            ),
+          ),
+        ],
+      );
+    }
+
     final metrics = MediaQuery.of(context).size;
 
     return InteractiveViewer(

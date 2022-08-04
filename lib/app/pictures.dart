@@ -34,6 +34,18 @@ final informationVisibilityController = StateProvider((ref) {
   return true;
 });
 
+final panModeEnabledController = StateProvider((ref) {
+  return true;
+});
+
+final filteredValuesLengthProvider = Provider((ref) {
+  return ref.watch(filteredValuesProvider(ref.watch(
+    itemsPaginationControllerProvider.select(
+      (value) => value.iterable ?? const [],
+    ),
+  )).select((value) => value.length));
+});
+
 class PicturesScreen extends StatefulWidget {
   const PicturesScreen({
     Key? key,
@@ -57,6 +69,9 @@ class PicturesScreen extends StatefulWidget {
   State<PicturesScreen> createState() => _PicturesScreenState();
 }
 
+const _pageScrollDuration = Duration(milliseconds: 300);
+const _pageScrollCurve = Curves.easeInOut;
+
 class _PicturesScreenState extends State<PicturesScreen> {
   late PageController pageController;
 
@@ -76,8 +91,8 @@ class _PicturesScreenState extends State<PicturesScreen> {
       );
       pageController.animateToPage(
         widget.index,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
+        duration: _pageScrollDuration,
+        curve: _pageScrollCurve,
       );
     }
   }
@@ -95,6 +110,7 @@ class _PicturesScreenState extends State<PicturesScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         actions: const [
+          PanModeToggleButton(),
           MetadataToggleButton(),
         ],
         foregroundColor: Colors.white,
@@ -104,6 +120,37 @@ class _PicturesScreenState extends State<PicturesScreen> {
         index: widget.index,
         controller: pageController,
       ),
+    );
+  }
+}
+
+class PanModeToggleButton extends StatelessWidget {
+  const PanModeToggleButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final isVisible = ref.watch(panModeEnabledController);
+        void toggle() {
+          ref.read(panModeEnabledController.notifier).update((state) => !state);
+        }
+
+        return Padding(
+          padding: const EdgeInsetsDirectional.only(end: 16.0),
+          child: IconButton(
+            onPressed: toggle,
+            icon: isVisible
+                ? const Icon(FluentIcons.phone_span_out_24_regular)
+                : const Icon(FluentIcons.arrow_expand_24_regular),
+            tooltip: isVisible
+                ? 'Enable scrolling horizontally to change page'
+                : 'Enable pan & zoom',
+          ),
+        );
+      },
     );
   }
 }
@@ -118,6 +165,7 @@ class MetadataToggleButton extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final isVisible = ref.watch(informationVisibilityController);
+
         void toggle() {
           ref
               .read(informationVisibilityController.notifier)
@@ -127,6 +175,9 @@ class MetadataToggleButton extends StatelessWidget {
         return Padding(
           padding: const EdgeInsetsDirectional.only(end: 16.0),
           child: TextButton.icon(
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+            ),
             onPressed: toggle,
             icon: isVisible
                 ? const Icon(FluentIcons.eye_off_24_regular)
@@ -149,13 +200,38 @@ class PicturesScreenBody extends ConsumerWidget {
   final int index;
   final PageController controller;
 
+  Future<void> toPage(int? Function(int current) page) {
+    final sc = controller;
+
+    final oldIndex = sc.page?.round();
+    if (oldIndex == null) return Future.value();
+    final newIndex = page(oldIndex);
+    if (newIndex == null) return Future.value();
+
+    return sc.animateToPage(
+      newIndex,
+      duration: _pageScrollDuration,
+      curve: _pageScrollCurve,
+    );
+  }
+
+  Future<void> toPreviousPage() {
+    return toPage((a) {
+      if (a == 0) return null;
+      return a - 1;
+    });
+  }
+
+  Future<void> toNextPage(WidgetRef ref) {
+    return toPage((a) {
+      if (a == ref.read(filteredValuesLengthProvider) - 1) return null;
+      return a + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final valuesLength = ref.watch(filteredValuesProvider(ref.watch(
-      itemsPaginationControllerProvider.select(
-        (value) => value.iterable ?? const [],
-      ),
-    )).select((value) => value.length));
+    final valuesLength = ref.watch(filteredValuesLengthProvider);
 
     if (valuesLength == 0) {
       return NoResults(
@@ -166,27 +242,45 @@ class PicturesScreenBody extends ConsumerWidget {
       );
     }
 
-    return PageView.builder(
-      controller: controller,
-      itemBuilder: (context, index) {
-        final item = ref.watch(indexedItemProvider(index));
-        if (item == null) {
-          return ErrorPlaceholderWidget('Failed loading at $index', null);
-        }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: toPreviousPage,
+          icon: const Icon(Icons.arrow_back_ios_rounded),
+          color: Colors.white,
+        ),
+        Expanded(
+          child: PageView.builder(
+            controller: controller,
+            itemBuilder: (context, index) {
+              final item = ref.watch(indexedItemProvider(index));
+              if (item == null) {
+                return ErrorPlaceholderWidget('Failed loading at $index', null);
+              }
 
-        return PicturePage(
-          item: item,
-        );
-      },
-      onPageChanged: (index) {
-        context.replace(PicturesScreen.routePath(index));
-      },
-      itemCount: valuesLength,
+              return PicturePage(
+                item: item,
+              );
+            },
+            onPageChanged: (index) {
+              context.replace(PicturesScreen.routePath(index));
+            },
+            itemCount: valuesLength,
+          ),
+        ),
+        IconButton(
+          onPressed: () => toNextPage(ref),
+          icon: const Icon(Icons.arrow_forward_ios_rounded),
+          color: Colors.white,
+        ),
+      ],
     );
   }
 }
 
-class PicturePage extends StatefulWidget {
+class PicturePage extends ConsumerStatefulWidget {
   const PicturePage({
     Key? key,
     required this.item,
@@ -195,10 +289,10 @@ class PicturePage extends StatefulWidget {
   final SamplePicture item;
 
   @override
-  State<PicturePage> createState() => _PicturePageState();
+  ConsumerState<PicturePage> createState() => _PicturePageState();
 }
 
-class _PicturePageState extends State<PicturePage> {
+class _PicturePageState extends ConsumerState<PicturePage> {
   late TransformationController controller;
 
   @override
@@ -217,9 +311,15 @@ class _PicturePageState extends State<PicturePage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        InteractiveItemImage(
-          controller: controller,
-          item: widget.item,
+        Consumer(
+          builder: (context, ref, child) {
+            final isPanEnabled = ref.watch(panModeEnabledController);
+            return InteractiveItemImage(
+              controller: controller,
+              item: widget.item,
+              isPanEnabled: isPanEnabled,
+            );
+          },
         ),
         Consumer(
           builder: (context, ref, child) {
