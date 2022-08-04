@@ -1,31 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/pagination.dart';
 import '../../data/picture.dart';
-import '../../modules/gallery.dart';
-import '../../modules/pagination.dart';
 import '../../modules/search.dart';
 import '../widgets/error.dart';
 import '../widgets/loading.dart';
 import '../widgets/no_results.dart';
 import '../widgets/picture.dart';
-
-final itemsPaginationControllerProvider = StateNotifierProvider<
-    PaginatedDataController<SamplePicture>,
-    PaginationData<SamplePicture>>((ref) {
-  final repo = ref.watch(galleryItemsRepository);
-
-  return PaginatedDataController(fetch: (current, limit) {
-    return repo.getPictures(page: current, size: limit);
-  });
-});
-
-final paginationProvider = Provider.autoDispose((ref) {
-  return ref.watch(
-    itemsPaginationControllerProvider.notifier.select((value) => value),
-  );
-});
+import 'conrollers.dart';
 
 class GalleryItems extends ConsumerWidget {
   const GalleryItems({Key? key}) : super(key: key);
@@ -78,22 +60,6 @@ class GalleryItems extends ConsumerWidget {
     );
   }
 }
-
-final filteredValuesProvider = Provider.family((
-  ref,
-  Iterable<SamplePicture> values,
-) {
-  final query = ref.watch(browsingSearchQueryProvider);
-  final isSearched = ref.watch(isSearchedAttemptedProvider);
-
-  if (isSearched) {
-    return values.where(
-      (item) => item.title?.contains(query!) == true,
-    );
-  } else {
-    return values;
-  }
-});
 
 class ItemsGridView extends ConsumerWidget {
   const ItemsGridView({

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nasa_pictures/data/picture.dart';
 
 class SearchQueryProvider extends StateNotifier<String?> {
   SearchQueryProvider([

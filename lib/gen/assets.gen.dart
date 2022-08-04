@@ -14,14 +14,6 @@ class $AssetsBrandGen {
 
   /// File path: assets/brand/icon.png
   AssetGenImage get icon => const AssetGenImage('assets/brand/icon.png');
-
-  /// File path: assets/brand/icon_background.png
-  AssetGenImage get iconBackground =>
-      const AssetGenImage('assets/brand/icon_background.png');
-
-  /// File path: assets/brand/icon_single-01.png
-  AssetGenImage get iconSingle01 =>
-      const AssetGenImage('assets/brand/icon_single-01.png');
 }
 
 class $AssetsDataGen {

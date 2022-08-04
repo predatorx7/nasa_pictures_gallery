@@ -73,7 +73,7 @@ class _BrowsingSearchBarState extends ConsumerState<BrowsingSearchBar> {
           color: Colors.black,
           width: 0.4,
         )),
-        hintText: context.l10n.searchProducts,
+        hintText: context.l10n.searchPictures,
         hintStyle: textTheme.labelMedium?.merge(TextStyle(
           color: Colors.grey.shade600,
         )),

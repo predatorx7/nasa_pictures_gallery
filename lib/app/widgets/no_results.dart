@@ -37,7 +37,7 @@ class SliverNoResults extends ConsumerWidget {
                 child: Text(
                   wasSearched
                       ? context.l10n.noResults
-                      : context.l10n.noProducts,
+                      : context.l10n.noPictures,
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
