@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../data/picture.dart';
+import '../../utils/date.dart';
 
 enum ImageQuality {
   regular,
@@ -45,6 +46,7 @@ class ItemImage extends StatelessWidget {
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         clipBehavior: Clip.antiAlias,
+        type: MaterialType.transparency,
         child: FadeInImage.memoryNetwork(
           placeholder: kTransparentImage,
           image: imageUrl ?? '',
@@ -100,10 +102,6 @@ class ItemTileBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context);
-    final reversedDateFormat = DateFormat("yyyy-MM-dd", locale.toString());
-    final dateLabelFormat = DateFormat("dd MMM, yyyy", locale.toString());
-
     final textTheme = Theme.of(context).textTheme;
 
     return Column(
@@ -137,9 +135,11 @@ class ItemTileBar extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: dateLabelFormat.format(
-                      reversedDateFormat.parse(item.date ?? ''),
-                    ),
+                    text: neatlyFormatDate(
+                          context,
+                          item.date,
+                        ) ??
+                        '',
                   ),
                 ],
               ),

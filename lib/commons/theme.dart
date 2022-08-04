@@ -7,6 +7,7 @@ class AppStyles {
 
   static ColorScheme colorScheme = ColorScheme.fromSeed(
     seedColor: Colors.deepPurple,
+    tertiary: Colors.amber,
   );
 
   static ThemeData theme = ThemeData(
