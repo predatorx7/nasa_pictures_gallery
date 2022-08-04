@@ -31,11 +31,13 @@ class SliverErrorPlaceholderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     logging('SliverErrorPlaceholderWidget').warning('Error', error, stacktrace);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Icon(Icons.error),
-      ],
+    return SliverToBoxAdapter(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Icon(Icons.error),
+        ],
+      ),
     );
   }
 }

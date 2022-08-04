@@ -31,7 +31,6 @@ class _BrowsingSearchBarState extends ConsumerState<BrowsingSearchBar> {
 
   @override
   void dispose() {
-    _controller.dispose();
     _focusNode.dispose();
     _controller.dispose();
     super.dispose();

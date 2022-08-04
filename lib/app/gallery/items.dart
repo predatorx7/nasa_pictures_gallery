@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nasa_pictures/app/pictures.dart';
 
 import '../../data/picture.dart';
 import '../../modules/search.dart';
@@ -74,7 +76,7 @@ class ItemsGridView extends ConsumerWidget {
     int index,
     SamplePicture item,
   ) {
-    //
+    context.push(PicturesScreen.routePath(index));
   }
 
   @override
@@ -126,7 +128,7 @@ class ItemTile extends StatelessWidget {
   const ItemTile({
     Key? key,
     required this.picture,
-    required this.onItemSelected,
+    this.onItemSelected,
   }) : super(key: key);
 
   final SamplePicture picture;
