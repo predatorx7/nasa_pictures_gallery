@@ -90,5 +90,26 @@ void main() {
             'unique elements have length: ${unique.length} and original data had length: ${data.length}',
       );
     });
+
+    test('item count of fetched equals to the total', () async {
+      final data = await service.getRawData();
+      final totalCount = data.length;
+
+      const size = 10;
+      int page = 0;
+
+      int lastPageSize = -1;
+      int totalFetched = 0;
+
+      do {
+        final items = await service.getPictures(page, size);
+        lastPageSize = items.length;
+        totalFetched += items.length;
+        page += 1;
+        // print('start page: $page\n ${items.map((e) => e.title).join("\n ")}\nsize: $lastPageSize end');
+      } while (lastPageSize == size);
+
+      expect(totalFetched, totalCount);
+    });
   });
 }

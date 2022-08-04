@@ -12,11 +12,16 @@ class GalleryService {
 
     final total = _rawData.length;
 
-    if (start >= total || end > total || start < 0 || end < 0) {
-      return <SamplePicture>[];
+    const int lowerLimit = 0;
+    final int upperLimit = total;
+
+    int limited(int value) {
+      return value.clamp(lowerLimit, upperLimit);
     }
 
-    return _rawData.sublist(start, end).map<SamplePicture>((json) {
+    return _rawData
+        .sublist(limited(start), limited(end))
+        .map<SamplePicture>((json) {
       return SamplePicture.fromJson(json);
     }).toList();
   }
