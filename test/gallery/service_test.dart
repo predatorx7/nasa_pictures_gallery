@@ -114,9 +114,6 @@ void main() {
     });
 
     test('data must be sorted chronologically with latest first', () async {
-      final data = await service.getRawData();
-      final totalCount = data.length;
-
       const size = 10;
       int page = 0;
 
