@@ -147,26 +147,30 @@ class ItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onItemSelected,
-      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Flexible(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: ItemImage(
-                item: picture,
+    return GridTile(
+      footer: ItemFooter(picture: picture),
+      child: InkWell(
+        onTap: onItemSelected,
+        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: ItemImage(
+                  item: picture,
+                  isDarkMode: false,
+                ),
               ),
             ),
-          ),
-          ItemTileBar(
-            item: picture,
-          ),
-        ],
+            ItemTileBar(
+              item: picture,
+            ),
+          ],
+        ),
       ),
     );
   }

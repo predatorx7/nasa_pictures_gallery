@@ -1,6 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:nasa_pictures/app/widgets/loading.dart';
 
 import '../../data/picture.dart';
 import '../../utils/date.dart';
@@ -18,6 +18,7 @@ class ItemImage extends StatelessWidget {
     this.quality = ImageQuality.regular,
     this.height,
     this.width,
+    required this.isDarkMode,
   }) : super(key: key);
 
   final SamplePicture item;
@@ -25,6 +26,7 @@ class ItemImage extends StatelessWidget {
   final ImageQuality quality;
   final double? height;
   final double? width;
+  final bool isDarkMode;
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +48,16 @@ class ItemImage extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         clipBehavior: Clip.antiAlias,
         type: MaterialType.transparency,
-        child: FadeInImage.memoryNetwork(
-          placeholder: kTransparentImage,
-          image: imageUrl ?? '',
-          fit: fit,
-          height: height,
-          width: width,
-        ),
+        child: LayoutBuilder(builder: (context, contraints) {
+          return LoadingListenableImage(
+            image: NetworkImage(imageUrl ?? ''),
+            fit: fit,
+            radius: 8,
+            height: height ?? contraints.maxHeight,
+            width: width ?? contraints.maxWidth,
+            isDarkMode: isDarkMode,
+          );
+        }),
       ),
     );
   }
@@ -62,12 +67,14 @@ class InteractiveItemImage extends StatelessWidget {
   final SamplePicture item;
   final TransformationController controller;
   final bool isPanEnabled;
+  final bool isDarkMode;
 
   const InteractiveItemImage({
     super.key,
     required this.item,
     required this.controller,
     required this.isPanEnabled,
+    required this.isDarkMode,
   });
 
   @override
@@ -82,6 +89,7 @@ class InteractiveItemImage extends StatelessWidget {
               item: item,
               fit: BoxFit.contain,
               quality: ImageQuality.hd,
+              isDarkMode: isDarkMode,
             ),
           ),
         ],
@@ -104,6 +112,7 @@ class InteractiveItemImage extends StatelessWidget {
         quality: ImageQuality.hd,
         height: metrics.height,
         width: metrics.width,
+        isDarkMode: isDarkMode,
       ),
     );
   }
@@ -132,43 +141,76 @@ class ItemTileBar extends StatelessWidget {
             item.title ?? '-',
             maxLines: 2,
             textAlign: TextAlign.start,
-            overflow: TextOverflow.fade,
+            overflow: TextOverflow.ellipsis,
             style: textTheme.titleSmall,
           ),
         ),
+      ],
+    );
+  }
+}
+
+class ItemFooter extends StatelessWidget {
+  const ItemFooter({
+    Key? key,
+    required this.picture,
+  }) : super(key: key);
+
+  final SamplePicture picture;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
         Flexible(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  const WidgetSpan(
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.only(end: 4.0),
-                      child: Icon(
-                        FluentIcons.calendar_ltr_12_regular,
-                        size: 12,
-                      ),
-                    ),
-                  ),
-                  TextSpan(
-                    text: neatlyFormatDate(
-                          context,
-                          item.date,
-                        ) ??
-                        '',
-                  ),
-                ],
-              ),
-              style: textTheme.caption?.merge(TextStyle(
-                color: Theme.of(context).colorScheme.primary.withRed(200),
-                fontSize: 10,
-              )),
-              textAlign: TextAlign.start,
-            ),
-          ),
+          child: ItemDateLabel(item: picture),
         ),
       ],
+    );
+  }
+}
+
+class ItemDateLabel extends StatelessWidget {
+  const ItemDateLabel({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
+
+  final SamplePicture item;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Text.rich(
+        TextSpan(
+          children: [
+            const WidgetSpan(
+              child: Padding(
+                padding: EdgeInsetsDirectional.only(end: 4.0),
+                child: Icon(
+                  FluentIcons.calendar_ltr_12_regular,
+                  size: 12,
+                ),
+              ),
+            ),
+            TextSpan(
+              text: neatlyFormatDate(
+                    context,
+                    item.date,
+                  ) ??
+                  '',
+            ),
+          ],
+        ),
+        style: textTheme.caption?.merge(TextStyle(
+          color: Theme.of(context).colorScheme.primary.withRed(200),
+          fontSize: 10,
+        )),
+        textAlign: TextAlign.start,
+      ),
     );
   }
 }

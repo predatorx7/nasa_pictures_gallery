@@ -85,6 +85,7 @@ class _PicturesScreenState extends State<PicturesScreen> {
       logging('_PicturesScreenState.didUpdateWidget').info(
         'animating to page ${widget.index}',
       );
+
       pageController.animateToPage(
         widget.index,
         duration: _pageScrollDuration,
@@ -229,7 +230,7 @@ class PicturesScreenBody extends ConsumerWidget {
           animation: controller,
           builder: (context, _) {
             final page = controller.page;
-            if (page == null || page <= 0) return const SizedBox();
+            if (page != null && page <= 0) return const SizedBox();
 
             return Align(
               alignment: AlignmentDirectional.centerStart,
@@ -245,7 +246,7 @@ class PicturesScreenBody extends ConsumerWidget {
           animation: controller,
           builder: (context, _) {
             final page = controller.page;
-            if (page == null || page > valuesLength) return const SizedBox();
+            if (page != null && page > valuesLength) return const SizedBox();
 
             return Align(
               alignment: AlignmentDirectional.centerEnd,
@@ -297,6 +298,7 @@ class _PicturePageState extends ConsumerState<PicturePage> {
           controller: controller,
           item: widget.item,
           isPanEnabled: true,
+          isDarkMode: true,
         ),
         Consumer(
           builder: (context, ref, child) {
@@ -340,7 +342,6 @@ class ItemMetaData extends StatelessWidget {
     final textTheme = theme.typography.white;
 
     final size = MediaQuery.of(context).size;
-    logging.info('size: ${size.width}');
 
     return ListView(
       shrinkWrap: true,
