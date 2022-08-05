@@ -21,11 +21,9 @@ class GalleryService {
 
     _rawData.sort(_compareByDate);
 
-    return _rawData
-        .sublist(limited(start), limited(end))
-        .map<SamplePicture>((json) {
-      return SamplePicture.fromJson(json);
-    }).toList();
+    return SamplePicture.fromJsonList(
+      _rawData.sublist(limited(start), limited(end)),
+    );
   }
 
   Future<int> getTotalPictureCount() {

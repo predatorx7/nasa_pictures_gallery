@@ -36,6 +36,11 @@ class SamplePicture with EquatableMixin {
   factory SamplePicture.fromJson(Map<String, dynamic> json) =>
       _$SamplePictureFromJson(json);
 
+  static List<SamplePicture> fromJsonList(Iterable<dynamic> data) =>
+      data.map<SamplePicture>((json) {
+        return SamplePicture.fromJson(json);
+      }).toList();
+
   Map<String, dynamic> toJson() => _$SamplePictureToJson(this);
 
   @override
