@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nasa_pictures/app/pictures.dart';
-import 'package:nasa_pictures/configs/logging.dart';
 
 import '../../data/picture.dart';
 import '../../modules/search.dart';
@@ -79,14 +78,6 @@ class ItemsGridView extends ConsumerWidget {
   ) async {
     final gorouter = GoRouter.of(context);
 
-    precacheImage(NetworkImage(item.hdurl ?? ''), context).catchError((e, s) {
-      logging('ItemsGridView.onGridTileSelected').severe(
-        'precaching image failed',
-        e,
-        s,
-      );
-    });
-
     gorouter.push(PicturesScreen.routePath(index));
   }
 
@@ -104,7 +95,11 @@ class ItemsGridView extends ConsumerWidget {
     }
 
     return SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+      ).add(const EdgeInsets.only(
+        bottom: 40.0,
+      )),
       sliver: SliverGrid(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,

@@ -34,6 +34,10 @@ final informationVisibilityController = StateProvider((ref) {
   return true;
 });
 
+final panModeEnabledController = StateProvider((ref) {
+  return false;
+});
+
 final filteredValuesLengthProvider = Provider((ref) {
   return ref.watch(filteredValuesProvider(ref.watch(
     itemsPaginationControllerProvider.select(
@@ -107,6 +111,7 @@ class _PicturesScreenState extends State<PicturesScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         actions: const [
+          PanModeToggleButton(),
           MetadataToggleButton(),
         ],
         foregroundColor: Colors.white,
@@ -148,6 +153,37 @@ class MetadataToggleButton extends StatelessWidget {
                 ? const Icon(FluentIcons.eye_off_24_regular)
                 : const Icon(FluentIcons.eye_24_regular),
             label: isVisible ? const Text('Hide') : const Text('Info'),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class PanModeToggleButton extends StatelessWidget {
+  const PanModeToggleButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final isVisible = ref.watch(panModeEnabledController);
+        void toggle() {
+          ref.read(panModeEnabledController.notifier).update((state) => !state);
+        }
+
+        return Padding(
+          padding: const EdgeInsetsDirectional.only(end: 16.0),
+          child: IconButton(
+            onPressed: toggle,
+            icon: isVisible
+                ? const Icon(FluentIcons.phone_span_out_24_regular)
+                : const Icon(FluentIcons.arrow_expand_24_regular),
+            tooltip: isVisible
+                ? 'Enable scrolling horizontally to change page'
+                : 'Enable pan & zoom',
           ),
         );
       },
@@ -230,32 +266,44 @@ class PicturesScreenBody extends ConsumerWidget {
           animation: controller,
           builder: (context, _) {
             final page = controller.page;
-            if (page != null && page <= 0) return const SizedBox();
 
-            return Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: IconButton(
-                onPressed: toPreviousPage,
-                icon: const Icon(Icons.arrow_back_ios_rounded),
-                color: Colors.white,
-              ),
-            );
+            return Consumer(builder: (context, ref, __) {
+              final isInfoVisible = ref.watch(informationVisibilityController);
+              if (isInfoVisible || (page != null && page <= 0)) {
+                return const SizedBox();
+              }
+
+              return Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: IconButton(
+                  onPressed: toPreviousPage,
+                  icon: const Icon(Icons.arrow_back_ios_rounded),
+                  color: Colors.white,
+                ),
+              );
+            });
           },
         ),
         AnimatedBuilder(
           animation: controller,
           builder: (context, _) {
             final page = controller.page;
-            if (page != null && page > valuesLength) return const SizedBox();
 
-            return Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: IconButton(
-                onPressed: () => toNextPage(ref),
-                icon: const Icon(Icons.arrow_forward_ios_rounded),
-                color: Colors.white,
-              ),
-            );
+            return Consumer(builder: (context, ref, __) {
+              final isInfoVisible = ref.watch(informationVisibilityController);
+              if (isInfoVisible || (page != null && page > valuesLength)) {
+                return const SizedBox();
+              }
+
+              return Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: IconButton(
+                  onPressed: () => toNextPage(ref),
+                  icon: const Icon(Icons.arrow_forward_ios_rounded),
+                  color: Colors.white,
+                ),
+              );
+            });
           },
         ),
       ],
@@ -294,11 +342,16 @@ class _PicturePageState extends ConsumerState<PicturePage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        InteractiveItemImage(
-          controller: controller,
-          item: widget.item,
-          isPanEnabled: true,
-          isDarkMode: true,
+        Consumer(
+          builder: (context, ref, child) {
+            final isPanEnabled = ref.watch(panModeEnabledController);
+            return InteractiveItemImage(
+              controller: controller,
+              item: widget.item,
+              isPanEnabled: isPanEnabled,
+              isDarkMode: true,
+            );
+          },
         ),
         Consumer(
           builder: (context, ref, child) {

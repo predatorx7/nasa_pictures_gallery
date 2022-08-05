@@ -4,6 +4,7 @@ import 'package:nasa_pictures/app/widgets/loading.dart';
 
 import '../../data/picture.dart';
 import '../../utils/date.dart';
+import '../../utils/image.dart';
 
 enum ImageQuality {
   regular,
@@ -47,10 +48,11 @@ class ItemImage extends StatelessWidget {
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         clipBehavior: Clip.antiAlias,
-        type: MaterialType.transparency,
+        type: isDarkMode ? MaterialType.transparency : MaterialType.canvas,
+        color: isDarkMode ? null : Colors.grey.shade300,
         child: LayoutBuilder(builder: (context, contraints) {
           return LoadingListenableImage(
-            image: NetworkImage(imageUrl ?? ''),
+            image: defaultImageProvider(imageUrl ?? ''),
             fit: fit,
             radius: 8,
             height: height ?? contraints.maxHeight,
