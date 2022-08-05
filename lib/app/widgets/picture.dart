@@ -165,7 +165,10 @@ class ItemFooter extends StatelessWidget {
     return Row(
       children: [
         Flexible(
-          child: ItemDateLabel(item: picture),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: ItemDateLabel(item: picture),
+          ),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nasa_pictures/data/picture.dart';
 import 'package:nasa_pictures/service/gallery.dart';
 
 void main() {
@@ -110,6 +111,34 @@ void main() {
       } while (lastPageSize == size);
 
       expect(totalFetched, totalCount);
+    });
+
+    test('data must be sorted chronologically with latest first', () async {
+      final data = await service.getRawData();
+      final totalCount = data.length;
+
+      const size = 10;
+      int page = 0;
+
+      int lastPageSize = -1;
+      SamplePicture? lastItem;
+
+      do {
+        final items = await service.getPictures(page, size);
+        lastPageSize = items.length;
+        for (final it in items) {
+          if (lastItem != null) {
+            expect(
+              lastItem.date?.compareTo(it.date ?? ''),
+              greaterThanOrEqualTo(0),
+              reason:
+                  '${lastItem.date} should be arranged before ${it.date}. Because the actual result is reversed to present items in descending order by date, we are expecting comparison value to be positive (Default value for default sorting i.e ascending).',
+            );
+          }
+          lastItem = it;
+        }
+        page += 1;
+      } while (lastPageSize == size);
     });
   });
 }

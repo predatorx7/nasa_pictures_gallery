@@ -19,6 +19,8 @@ class GalleryService {
       return value.clamp(lowerLimit, upperLimit);
     }
 
+    _rawData.sort(_compareByDate);
+
     return _rawData
         .sublist(limited(start), limited(end))
         .map<SamplePicture>((json) {
@@ -37,5 +39,14 @@ class GalleryService {
       Assets.data.data,
     );
     return parseJsonInIsolate(nasaGalleryRawTextData);
+  }
+
+  static int _compareByDate(a, b) {
+    final as = a['date'];
+    final bs = b['date'];
+    if (as is! String && bs is! String) return 0;
+    if (as is! String) return -1;
+    if (bs is! String) return 1;
+    return as.compareTo(bs) * -1;
   }
 }
