@@ -6,11 +6,31 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox.fromSize(
-        size: const Size.square(40),
-        child: const CircularProgressIndicator(),
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 200,
+        childAspectRatio: 0.70,
+        mainAxisSpacing: 8.0,
+        crossAxisSpacing: 8.0,
       ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+      ).add(const EdgeInsets.only(
+        bottom: 40.0,
+      )),
+      itemBuilder: (context, index) {
+        return LayoutBuilder(builder: (context, contraints) {
+          return ShimmerLoadingWidget(
+            isLoading: true,
+            isDarkMode: false,
+            radius: 8,
+            height: contraints.maxHeight,
+            width: contraints.maxWidth,
+            child: const SizedBox(),
+          );
+        });
+      },
+      itemCount: 40,
     );
   }
 }

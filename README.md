@@ -2,61 +2,58 @@
 
 ## Frontend designs
 
-- As a file in [this repository](https://github.com/predatorx7/)
+- As a file in [this repository](https://github.com/predatorx7/nasa_pictures_gallery)
 - [Online at Excalidraw](https://excalidraw.com/#json=)
 
 ## Flutter application
 
-- The main flutter code resides at [`/flutter`.](https://github.com/predatorx7/-/tree/main/flutter).
-- yarn can optionally be used with `flutter/package.json` for managing the project, for ex., `yarn dev` runs the app in debug mode.
+- Following rules of the assignment, the app can be ran by just a simple `flutter run` command.
+- The required JSON file is located at `assets/data/data.json` as is available to the app as an asset.
+- yarn (or npm) can optionally be used with `package.json` for managing the project, for ex., `yarn dev` runs the app in debug mode.
+- All tests are located in the `test` folder and they can be ran by executing `flutter test` command.
+- https://pub.dev/packages/logging package is used to handle logs in the app.
+- https://pub.dev/packages/flutter_riverpod package is used for di & state management.
 
 #### Structure
 
 ```
 .
+├── app
+│   ├── app.dart
+│   ├── gallery
+│   │   ├── conrollers.dart
+│   │   └── items.dart
+│   ├── home.dart
+│   ├── launch_screen.dart
+│   ├── pictures.dart
+│   └── widgets
+├── commons
+│   └── theme.dart
+├── configs
+│   ├── bootstrap.dart
+│   ├── config.dart
+│   └── logging.dart
+├── data
+│   ├── pagination.dart
+│   ├── picture.dart
 ├── gen
-│   └── assets.gen.dart
+│   └── assets.gen.dart
+├── generated_plugin_registrant.dart
 ├── l10n
-│   ├── arb
-│   │   ├── app_ar.arb
-│   │   ├── app_en.arb
-│   │   └── app_hi.arb
-│   └── l10n.dart
+│   ├── arb
+│   │   ├── app_ar.arb
+│   │   ├── app_en.arb
+│   │   └── app_hi.arb
+│   └── l10n.dart
 ├── main.dart
-├── main_devel.dart
-├── main_stag.dart
-└── src
-    ├── commons
-    │   ├── dependencies.dart
-    │   ├── settings.dart
-    │   └── theme.dart
-    ├── config
-    │   ├── bootstrap.dart
-    │   ├── build_options.dart
-    │   ├── firebase
-    │   │   ├── firebase_options.dart
-    │   │   ├── firebase_options_dev.dart
-    │   │   └── firebase_options_stg.dart
-    │   └── under_construction.dart
-    ├── data
-    ├── di
-    ├── modules
-    ├── navigation
-    │   └── router.dart
-    ├── repo
-    ├── services
-    ├── storage
-    ├── ui
-    │   ├── components
-    │   ├── main
-    │   │   ├── app.dart
-    │   │   └── launch.dart
-    │   └── screens
-    │       ├── browsing.dart
-    │       ├── checkout.dart
-    │       ├── home.dart
-    │       └── my_stuff.dart
-    └── utils
+├── modules
+├── navigation
+│   ├── router.dart
+│   └── routes.dart
+├── repo
+├── service
+├── storage
+└── utils
 ```
 
 1. `gen/`
@@ -67,43 +64,47 @@ Contains generated code for assets
 
 Translation related arb files, and localization controller
 
-3. main files
+3. the `main.dart`
 
-The main entry point files for development, staging & production.
+The main entry point file for the application.
 
 4. `common`
 
-Contains app dependencies, settings, themes, etc
+Contains common app settings like themes, etc
 
-5. `config`
+5. `configs`
 
-App configurations for firebase, startup, etc
+App configurations for startup, logging, (firebase if added) etc
 
 6. `data`
 
-Collection of data classes for json serializable, forms, plain models, etc
+Collection of model data classes for json serializable, forms, plain models, etc
 
-7. `di` & `modules`
+7. `modules`
 
-Commonly used providers, notifiers, di modules, controllers, etc
+Commonly used modules, notifiers, etc
 
 8. `navigation`
 
 Contains routes, and router configurations
 
-9. `repo` & `services`
+9. `repo`
 
-Contains services, and repositories for http, local storage, etc.
+Contains repositories provides data from different sources like http, local storage, in-memory caching, etc.
 
-10. `storage`
+10. `services`
+
+Contains services which provide data using http, local storage, etc.
+
+11. `storage`
 
 Code related to local data persistence, migrations, database, etc.
 
-11. `ui`
+12. `app`
 
 Code related to the UI resides here.
 
-12. `utils`
+13. `utils`
 
 Contains commonly used utility classes, and functions.
 
