@@ -1,6 +1,6 @@
 {
-    "name": "nasa_pictures",
-    "short_name": "nasa_pictures",
+    "name": "Nasa Pictures Gallery",
+    "short_name": "Nasa Pictures",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
