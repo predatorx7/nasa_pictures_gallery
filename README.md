@@ -3,7 +3,7 @@
 ## Frontend designs
 
 - As a file in [this repository](https://github.com/predatorx7/nasa_pictures_gallery)
-- [Online at Excalidraw](https://excalidraw.com/#json=)
+- [Online at Excalidraw](https://excalidraw.com/#json=RCjrsEFVFtGSXsBdyp-li,2-Vcqcb9-sQ1nP9X1rgR7Q)
 
 ## Flutter application
 
@@ -109,3 +109,12 @@ Code related to the UI resides here.
 Contains commonly used utility classes, and functions.
 
 #### Screenshots
+
+
+<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/4f12aa29e647c1c70d5c13a00d541da44bfe7c44/screenshots/flutter_01.png" width="400" />
+
+<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/4f12aa29e647c1c70d5c13a00d541da44bfe7c44/screenshots/flutter_02.png" width="400" />
+
+<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/4f12aa29e647c1c70d5c13a00d541da44bfe7c44/screenshots/flutter_03.png" width="400" />
+
+<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/4f12aa29e647c1c70d5c13a00d541da44bfe7c44/screenshots/flutter_04.png" width="400" />
