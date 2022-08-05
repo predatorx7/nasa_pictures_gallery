@@ -7,12 +7,13 @@
 
 ## Flutter application
 
-- Following rules of the assignment, the app can be ran by just a simple `flutter run` command.
+- Following the rules of the assignment, the app can be run by just a simple `flutter run` command.
 - The required JSON file is located at `assets/data/data.json` as is available to the app as an asset.
 - yarn (or npm) can optionally be used with `package.json` for managing the project, for ex., `yarn dev` runs the app in debug mode.
-- All tests are located in the `test` folder and they can be ran by executing `flutter test` command.
+- All tests are located in the `test` folder and they can be run by executing the `flutter test` command.
 - https://pub.dev/packages/logging package is used to handle logs in the app.
 - https://pub.dev/packages/flutter_riverpod package is used for di & state management.
+- https://pub.dev/packages/go_router package is used for navigation.
 
 #### Structure
 
