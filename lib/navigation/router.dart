@@ -11,11 +11,16 @@ T? getTypeIf<T>(dynamic value) {
   return null;
 }
 
+final routerInitialLocationProvider = Provider<String?>((ref) {
+  return null;
+});
+
 final routerProviderRef = Provider(
   (ref) {
     final List<GoRoute> routes = ref.watch(routesProvider);
     return GoRouter(
       debugLogDiagnostics: buildConfigurations.isDiagnosticsEnabled,
+      initialLocation: ref.watch(routerInitialLocationProvider),
       routes: routes,
     );
   },

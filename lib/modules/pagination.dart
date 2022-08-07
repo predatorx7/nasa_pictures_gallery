@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nasa_pictures/configs/logging.dart';
 
+import '../configs/config.dart';
 import '../data/pagination.dart';
 
 typedef OnFetchCallback<T> = Future<Iterable<T>> Function(
@@ -65,7 +66,9 @@ class PaginatedDataController<T> extends StateNotifier<PaginationData<T>> {
   Future<void> _loadData() async {
     assert(state.nextAvailable);
     try {
-      await Future.delayed(const Duration(milliseconds: 800));
+      if (!buildConfigurations.isTestMode) {
+        await Future.delayed(const Duration(milliseconds: 800));
+      }
 
       final nextPage = state.currentPage + 1;
       final data = await fetch(nextPage, state.limit);

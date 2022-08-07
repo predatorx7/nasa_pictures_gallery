@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_manager/logging.dart';
 import 'package:nasa_pictures/configs/logging.dart';
 
+import '../../configs/config.dart';
 import '../../modules/logging.dart';
 
 const _loading = ShimmerLoadingWidget(
@@ -88,6 +89,10 @@ class ShimmerLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (buildConfigurations.isTestMode) {
+      return const Text('LOADING');
+    }
+
     final fadeTheme = isDarkMode ? FadeTheme.dark : FadeTheme.light;
     if (height == null || width == null) {
       return LayoutBuilder(

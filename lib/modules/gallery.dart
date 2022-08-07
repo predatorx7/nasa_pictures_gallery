@@ -2,10 +2,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nasa_pictures/repo/gallery.dart';
 import 'package:nasa_pictures/service/gallery.dart';
 
-final galleryCache = Provider((ref) {
+final galleryCacheProvider = Provider((ref) {
   return GalleryInMemoryCache();
 });
 
+final galleryServiceProvider = Provider((ref) {
+  return GalleryService();
+});
+
 final galleryItemsRepository = Provider((ref) {
-  return GalleryRepository(GalleryService(), ref.watch(galleryCache));
+  return GalleryRepository(
+    ref.watch(galleryServiceProvider),
+    ref.watch(galleryCacheProvider),
+  );
 });

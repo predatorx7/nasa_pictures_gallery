@@ -19,7 +19,7 @@ class GalleryService {
       return value.clamp(lowerLimit, upperLimit);
     }
 
-    _rawData.sort(_compareByDate);
+    _rawData.sort(compareByDate);
 
     return SamplePicture.fromJsonList(
       _rawData.sublist(limited(start), limited(end)),
@@ -39,7 +39,7 @@ class GalleryService {
     return parseJsonInIsolate(nasaGalleryRawTextData);
   }
 
-  static int _compareByDate(a, b) {
+  static int compareByDate(a, b) {
     final as = a['date'];
     final bs = b['date'];
     if (as is! String && bs is! String) return 0;
