@@ -6,7 +6,7 @@ import 'configs/logging.dart';
 
 void main() {
   final bootstrap = BootstrapApp(
-    getLoggingManager: () => appLoggingManager,
+    loggingManager: appLoggingManager,
     runApp: () {
       return const ProviderScope(
         child: MainApp(),

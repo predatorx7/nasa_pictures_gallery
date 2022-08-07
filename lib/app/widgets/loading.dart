@@ -1,5 +1,15 @@
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging_manager/logging.dart';
+import 'package:nasa_pictures/configs/logging.dart';
+
+import '../../modules/logging.dart';
+
+const _loading = ShimmerLoadingWidget(
+  isDarkMode: false,
+  radius: 8,
+);
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({Key? key}) : super(key: key);
@@ -19,16 +29,7 @@ class LoadingWidget extends StatelessWidget {
         bottom: 40.0,
       )),
       itemBuilder: (context, index) {
-        return LayoutBuilder(builder: (context, contraints) {
-          return ShimmerLoadingWidget(
-            isLoading: true,
-            isDarkMode: false,
-            radius: 8,
-            height: contraints.maxHeight,
-            width: contraints.maxWidth,
-            child: const SizedBox(),
-          );
-        });
+        return _loading;
       },
       itemCount: 40,
     );
@@ -45,7 +46,7 @@ class SliverLoadingWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox.fromSize(
-            size: const Size.square(40),
+            size: const Size.square(20),
             child: const CircularProgressIndicator(),
           ),
         ],
@@ -72,120 +73,179 @@ class LoadingTileWidget extends StatelessWidget {
 }
 
 class ShimmerLoadingWidget extends StatelessWidget {
-  final bool isLoading;
-  final Widget child;
-
-  /// Prefer static Stateless widget instance for better performance
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
   final double radius;
   final bool isDarkMode;
 
   const ShimmerLoadingWidget({
     Key? key,
-    required this.isLoading,
-    required this.child,
-    required this.height,
-    required this.width,
+    this.height,
+    this.width,
     required this.radius,
     required this.isDarkMode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return FadeShimmer(
-        height: height,
-        width: width,
-        radius: radius,
-        fadeTheme: isDarkMode ? FadeTheme.dark : FadeTheme.light,
+    final fadeTheme = isDarkMode ? FadeTheme.dark : FadeTheme.light;
+    if (height == null || width == null) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final h = height ?? constraints.maxHeight;
+          final w = width ?? constraints.maxWidth;
+
+          return FadeShimmer(
+            height: h,
+            width: w,
+            radius: radius,
+            fadeTheme: fadeTheme,
+          );
+        },
       );
-    } else {
-      return child;
     }
+
+    return FadeShimmer(
+      height: height!,
+      width: width!,
+      radius: radius,
+      fadeTheme: fadeTheme,
+    );
   }
 }
 
-class LoadingListenableImage extends StatefulWidget {
+class LoadingListenableImage extends StatelessWidget {
   final ImageProvider<Object> image;
   final BoxFit? fit;
-  final double? aspectRatio;
   final bool isDarkMode;
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
   final double radius;
+  final bool isDownloadProgressVisible;
 
   const LoadingListenableImage({
     Key? key,
     required this.image,
     required this.isDarkMode,
     this.fit,
-    this.aspectRatio,
     required this.height,
     required this.width,
     required this.radius,
+    required this.isDownloadProgressVisible,
   }) : super(key: key);
 
   @override
-  State<LoadingListenableImage> createState() => _LoadingListenableImageState();
+  Widget build(BuildContext context) {
+    late Logging logger = logging('_LoadingListenableImageState');
+    final img = image;
+    if (img is NetworkImage) {
+      logger = logger(img.url);
+    }
+
+    final _loadingWidget = ShimmerLoadingWidget(
+      height: height,
+      width: width,
+      isDarkMode: isDarkMode,
+      radius: radius,
+    );
+
+    Widget onLoadingBuild(
+      BuildContext context,
+      Widget child,
+      ImageChunkEvent? loadingProgress,
+    ) {
+      if (loadingProgress != null) {
+        return ImageLoadingProgress(
+          event: loadingProgress,
+          child: _loadingWidget,
+        );
+      }
+
+      return Center(
+        child: child,
+      );
+    }
+
+    Widget onFrameBuild(
+      BuildContext context,
+      Widget child,
+      int? frame,
+      bool wasSynchronouslyLoaded,
+    ) {
+      if (wasSynchronouslyLoaded || frame != null) {
+        return child;
+      }
+      return _loadingWidget;
+    }
+
+    return ProviderScope(
+      overrides: [
+        loggingProvider.overrideWithValue(logger),
+      ],
+      child: Image(
+        image: image,
+        fit: fit,
+        filterQuality: FilterQuality.none,
+        frameBuilder: !isDownloadProgressVisible ? onFrameBuild : null,
+        loadingBuilder: isDownloadProgressVisible ? onLoadingBuild : null,
+        height: height,
+        width: width,
+      ),
+    );
+  }
 }
 
-class _LoadingListenableImageState extends State<LoadingListenableImage> {
-  bool _loading = false;
+class ImageLoadingProgress extends StatelessWidget {
+  const ImageLoadingProgress({
+    Key? key,
+    required this.event,
+    required this.child,
+  }) : super(key: key);
 
-  void _notifyLoaded() {
-    if (_loading == false) return;
-    if (mounted) {
-      Future.microtask(() {
-        if (mounted) {
-          setState(() {
-            _loading = false;
-          });
-        }
-      });
+  final ImageChunkEvent event;
+  final Widget child;
+
+  double? progressFrom(ImageChunkEvent event) {
+    final total = event.expectedTotalBytes;
+    final n = event.cumulativeBytesLoaded;
+
+    if (total == null || total <= 0 || n < 0 || total <= n) {
+      return null;
     }
+
+    return n / total;
   }
 
   @override
-  Widget build(BuildContext context) {
-    final _loadingWidget = ShimmerLoadingWidget(
-      isLoading: true,
-      isDarkMode: widget.isDarkMode,
-      height: widget.height,
-      width: widget.width,
-      radius: widget.radius,
-      child: const SizedBox(),
-    );
+  Widget build(
+    BuildContext context,
+  ) {
+    final progress = progressFrom(event);
 
-    return Image(
-      image: widget.image,
-      fit: widget.fit,
-      frameBuilder: (
-        BuildContext context,
-        Widget child,
-        int? frame,
-        bool wasSynchronouslyLoaded,
-      ) {
-        if (wasSynchronouslyLoaded) {
-          _loading = false;
-          return child;
-        }
-        return _loading ? _loadingWidget : child;
-      },
-      loadingBuilder: (
-        BuildContext context,
-        Widget child,
-        ImageChunkEvent? loadingProgress,
-      ) {
-        if (loadingProgress == null) {
-          _notifyLoaded();
-          return child;
-        }
-        _loading = true;
-        return _loadingWidget;
-      },
-      height: widget.height,
-      width: widget.width,
+    if (progress == null) return child;
+
+    return Stack(
+      alignment: Alignment.center,
+      fit: StackFit.passthrough,
+      clipBehavior: Clip.none,
+      children: [
+        Center(
+          child: child,
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 30.0),
+            child: SizedBox(
+              width: 200,
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 2,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

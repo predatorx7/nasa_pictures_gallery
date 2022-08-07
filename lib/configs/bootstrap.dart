@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:logging_manager_flutter/logging_manager_flutter.dart';
 
-import 'logging.dart';
-
 class BootstrapApp {
   BootstrapApp({
     this.onStart,
-    required this.getLoggingManager,
+    required this.loggingManager,
     this.onStarted,
     this.level = Level.ALL,
     required this.runApp,
@@ -18,6 +16,8 @@ class BootstrapApp {
 
   final bool runGuarded;
 
+  /// Override the level for this particular [Logger] and its children.
+  /// Setting this to null makes it inherit the [parent]s level.
   @protected
   final Level? level;
 
@@ -28,7 +28,7 @@ class BootstrapApp {
   @protected
 
   /// Get logging manager.
-  final FlutterLoggingManager Function() getLoggingManager;
+  final FlutterLoggingManager loggingManager;
 
   @protected
   final Widget Function() runApp;
@@ -39,9 +39,10 @@ class BootstrapApp {
   final List<Future<dynamic>> Function()? onStarted;
 
   Future<void> _bootstrap() async {
+    /// This is required in a new zone before using plugins.
     WidgetsFlutterBinding.ensureInitialized();
 
-    FlutterError.onError = appLoggingManager.onFlutterError;
+    FlutterError.onError = loggingManager.onFlutterError;
 
     if (onStarted != null) {
       await Future.wait(onStarted!());
@@ -58,14 +59,13 @@ class BootstrapApp {
 
     await onStart?.call();
 
-    final lm = getLoggingManager();
-    lm.logger.level = level;
+    loggingManager.logger.level = level;
 
     if (!runGuarded) {
       return _runGuarded();
     }
 
-    lm.runFlutterInZoneGuardedWithLogging(
+    loggingManager.runFlutterInZoneGuardedWithLogging(
       _runGuarded,
     );
   }

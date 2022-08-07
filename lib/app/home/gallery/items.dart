@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nasa_pictures/app/pictures.dart';
+import 'package:nasa_pictures/app/pictures/pictures.dart';
 
-import '../../data/picture.dart';
-import '../../modules/search.dart';
-import '../widgets/error.dart';
-import '../widgets/loading.dart';
-import '../widgets/no_results.dart';
-import '../widgets/picture.dart';
+import '../../../data/picture.dart';
+import '../../../modules/search.dart';
+import '../../widgets/error.dart';
+import '../../widgets/loading.dart';
+import '../../widgets/no_results.dart';
+import '../../widgets/picture.dart';
 import 'conrollers.dart';
 
 class GalleryItems extends ConsumerWidget {
@@ -149,7 +149,7 @@ class ItemTile extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
@@ -157,6 +157,7 @@ class ItemTile extends StatelessWidget {
                 aspectRatio: 1,
                 child: ItemImage(
                   item: picture,
+                  fit: BoxFit.cover,
                   isDarkMode: false,
                 ),
               ),

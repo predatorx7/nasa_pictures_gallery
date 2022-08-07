@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/pagination.dart';
-import '../../data/picture.dart';
-import '../../modules/gallery.dart';
-import '../../modules/pagination.dart';
-import '../../modules/search.dart';
+import '../../../data/pagination.dart';
+import '../../../data/picture.dart';
+import '../../../modules/gallery.dart';
+import '../../../modules/pagination.dart';
+import '../../../modules/search.dart';
 
 final itemsPaginationControllerProvider = StateNotifierProvider<
     PaginatedDataController<SamplePicture>,
@@ -30,10 +30,22 @@ final filteredValuesProvider = Provider.family((
   final isSearched = ref.watch(isSearchedAttemptedProvider);
 
   if (isSearched) {
-    return values.where(
-      (item) => item.title?.contains(query!) == true,
-    );
+    return performSearch(query!, values);
   } else {
     return values;
   }
 });
+
+Iterable<SamplePicture> performSearch(
+  String query,
+  Iterable<SamplePicture> data,
+) {
+  return data.where(
+    (item) {
+      return item.title?.toLowerCase().trim().contains(
+                query.toLowerCase().trim(),
+              ) ==
+          true;
+    },
+  );
+}

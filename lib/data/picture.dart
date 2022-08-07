@@ -47,7 +47,6 @@ class SamplePicture with EquatableMixin {
   List<Object?> get props => [
         copyright,
         date,
-        explanation,
         hdurl,
         mediaType,
         serviceVersion,

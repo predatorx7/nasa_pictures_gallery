@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../app/home.dart';
+import '../app/home/home.dart';
 import '../app/launch_screen.dart';
-import '../app/pictures.dart';
+import '../app/pictures/pictures.dart';
 
 final routesProvider = Provider<List<GoRoute>>((ref) {
   return [

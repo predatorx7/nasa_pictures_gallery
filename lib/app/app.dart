@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../l10n/l10n.dart';
 import '../../commons/theme.dart';
 import '../../navigation/router.dart';
-import '../l10n/di.dart';
 
 class MainApp extends ConsumerStatefulWidget {
   const MainApp({Key? key}) : super(key: key);

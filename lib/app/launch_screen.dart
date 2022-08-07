@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nasa_pictures/app/widgets/splash.dart';
 
 import '../navigation/router.dart';
-import 'home.dart';
+import 'home/home.dart';
 
 class LaunchScreen extends ConsumerStatefulWidget {
   final String redirect;
@@ -45,6 +45,9 @@ class _LaunchScreenState extends ConsumerState<LaunchScreen> {
     );
   }
 
+  /// Change page only when both splash animation and dependencies are completed.
+  ///
+  /// -- No deps right now
   void _navigateToRedirect() {
     context.go(widget.redirect);
   }

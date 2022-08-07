@@ -1,5 +1,7 @@
 # NASA Pictures App
 
+A simple app to browse nasa astronomy pictures from Astronomy Picture of the Day (December 2019)
+
 ## Frontend designs
 
 - As a file in [this repository](https://github.com/predatorx7/nasa_pictures_gallery)

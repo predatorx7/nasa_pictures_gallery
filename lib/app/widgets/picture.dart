@@ -15,10 +15,11 @@ class ItemImage extends StatelessWidget {
   const ItemImage({
     Key? key,
     required this.item,
-    this.fit = BoxFit.fill,
+    this.fit = BoxFit.contain,
     this.quality = ImageQuality.regular,
     this.height,
     this.width,
+    this.isDownloadProgressVisible = false,
     required this.isDarkMode,
   }) : super(key: key);
 
@@ -28,6 +29,7 @@ class ItemImage extends StatelessWidget {
   final double? height;
   final double? width;
   final bool isDarkMode;
+  final bool isDownloadProgressVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -50,16 +52,15 @@ class ItemImage extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         type: isDarkMode ? MaterialType.transparency : MaterialType.canvas,
         color: isDarkMode ? null : Colors.grey.shade300,
-        child: LayoutBuilder(builder: (context, contraints) {
-          return LoadingListenableImage(
-            image: defaultImageProvider(imageUrl ?? ''),
-            fit: fit,
-            radius: 8,
-            height: height ?? contraints.maxHeight,
-            width: width ?? contraints.maxWidth,
-            isDarkMode: isDarkMode,
-          );
-        }),
+        child: LoadingListenableImage(
+          image: defaultImageProvider(imageUrl ?? ''),
+          fit: fit,
+          radius: 8,
+          height: height,
+          width: width,
+          isDarkMode: isDarkMode,
+          isDownloadProgressVisible: isDownloadProgressVisible,
+        ),
       ),
     );
   }
@@ -68,20 +69,20 @@ class ItemImage extends StatelessWidget {
 class InteractiveItemImage extends StatelessWidget {
   final SamplePicture item;
   final TransformationController controller;
-  final bool isPanEnabled;
+  final bool isInteractiveViewEnabled;
   final bool isDarkMode;
 
   const InteractiveItemImage({
     super.key,
     required this.item,
     required this.controller,
-    required this.isPanEnabled,
+    required this.isInteractiveViewEnabled,
     required this.isDarkMode,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (!isPanEnabled) {
+    if (!isInteractiveViewEnabled) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,6 +93,7 @@ class InteractiveItemImage extends StatelessWidget {
               fit: BoxFit.contain,
               quality: ImageQuality.hd,
               isDarkMode: isDarkMode,
+              isDownloadProgressVisible: true,
             ),
           ),
         ],
@@ -110,11 +112,12 @@ class InteractiveItemImage extends StatelessWidget {
       },
       child: ItemImage(
         item: item,
-        fit: BoxFit.contain,
+        fit: BoxFit.scaleDown,
         quality: ImageQuality.hd,
         height: metrics.height,
         width: metrics.width,
         isDarkMode: isDarkMode,
+        isDownloadProgressVisible: true,
       ),
     );
   }
@@ -132,22 +135,12 @@ class ItemTileBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(),
-        Flexible(
-          child: Text(
-            item.title ?? '-',
-            maxLines: 2,
-            textAlign: TextAlign.start,
-            overflow: TextOverflow.ellipsis,
-            style: textTheme.titleSmall,
-          ),
-        ),
-      ],
+    return Text(
+      item.title ?? '-',
+      maxLines: 2,
+      textAlign: TextAlign.start,
+      overflow: TextOverflow.ellipsis,
+      style: textTheme.titleSmall,
     );
   }
 }
@@ -203,10 +196,9 @@ class ItemDateLabel extends StatelessWidget {
             ),
             TextSpan(
               text: neatlyFormatDate(
-                    context,
-                    item.date,
-                  ) ??
-                  '',
+                context,
+                item.date,
+              ),
             ),
           ],
         ),
