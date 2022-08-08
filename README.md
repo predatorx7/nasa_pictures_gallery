@@ -17,6 +17,17 @@ A simple app to browse nasa astronomy pictures from Astronomy Picture of the Day
 - https://pub.dev/packages/flutter_riverpod package is used for di & state management.
 - https://pub.dev/packages/go_router package is used for navigation.
 
+### Tests
+
+- Tests for Widgets, Services, Repos, Controllers, etc can be found in the `test/` directory.
+- Integration test code runner is located in `integration_test/` directory.
+
+Tests atleast verifies the following goals:
+1. [x] - Homescreen shows a scrollable grid of pictures starting with the latest images first.
+2. [x] - When the user taps on an image that should open the image detail screen.
+3. [x] - The pictures screen displays the full size image along with the metadata like title, description, date, etc.
+4. [x] - The user should also be able to swipe through images.
+
 #### Structure
 
 ```

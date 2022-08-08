@@ -14,7 +14,6 @@ final indexedItemProvider = Provider.family.autoDispose((ref, int index) {
   return ref.watch(filteredValuesProvider(values).select((data) {
     final length = data.length;
     if (length - 1 == index) {
-      
       pagination.requestFetch();
     }
     return data.elementAt(index);
