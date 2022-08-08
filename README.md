@@ -32,42 +32,33 @@ Tests atleast verifies the following goals:
 
 ```
 .
-├── app
-│   ├── app.dart
-│   ├── gallery
-│   │   ├── conrollers.dart
-│   │   └── items.dart
-│   ├── home.dart
-│   ├── launch_screen.dart
-│   ├── pictures.dart
-│   └── widgets
-├── commons
+├───app
+│   ├───home
+│   ├───pictures
+│   └───widgets
+├───commons
 │   └── theme.dart
-├── configs
+├───configs
 │   ├── bootstrap.dart
 │   ├── config.dart
 │   └── logging.dart
-├── data
-│   ├── pagination.dart
-│   ├── picture.dart
-├── gen
-│   └── assets.gen.dart
-├── generated_plugin_registrant.dart
-├── l10n
+├───data
+├───gen
+├───l10n
 │   ├── arb
 │   │   ├── app_ar.arb
 │   │   ├── app_en.arb
 │   │   └── app_hi.arb
 │   └── l10n.dart
 ├── main.dart
-├── modules
-├── navigation
+├───modules
+├───navigation
 │   ├── router.dart
 │   └── routes.dart
-├── repo
-├── service
-├── storage
-└── utils
+├───repo
+├───service
+├───storage
+└───utils
 ```
 
 1. `gen/`
@@ -125,10 +116,10 @@ Contains commonly used utility classes, and functions.
 #### Screenshots
 
 
-<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/4f12aa29e647c1c70d5c13a00d541da44bfe7c44/screenshots/flutter_01.png" width="400" />
+<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/fbe669ef0d4b0c42dc7cc513811473e53d72c7b1/screenshots/flutter_01.png" width="400" />
 
-<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/4f12aa29e647c1c70d5c13a00d541da44bfe7c44/screenshots/flutter_02.png" width="400" />
+<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/fbe669ef0d4b0c42dc7cc513811473e53d72c7b1/screenshots/flutter_02.png" width="400" />
 
-<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/4f12aa29e647c1c70d5c13a00d541da44bfe7c44/screenshots/flutter_03.png" width="400" />
+<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/fbe669ef0d4b0c42dc7cc513811473e53d72c7b1/screenshots/flutter_03.png" width="400" />
 
-<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/4f12aa29e647c1c70d5c13a00d541da44bfe7c44/screenshots/flutter_04.png" width="400" />
+<img src="https://github.com/predatorx7/nasa_pictures_gallery/raw/fbe669ef0d4b0c42dc7cc513811473e53d72c7b1/screenshots/flutter_04.png" width="400" />
