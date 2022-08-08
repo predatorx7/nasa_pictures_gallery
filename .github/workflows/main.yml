@@ -32,7 +32,8 @@ jobs:
           flutter-version: 3.0 # optional
           # The Flutter build release channel
           channel: stable # optional, default is stable
-
+      - name: Make cache/
+        run: mkdir -p cache/
       - name: Flutter doctor
         run: |
           flutter doctor -v;
@@ -64,5 +65,7 @@ jobs:
           flutter-version: 3.0 # optional
           # The Flutter build release channel
           channel: stable # optional, default is stable
+      - name: Make cache/
+        run: mkdir -p cache/
       - name: run tests
         run: flutter test
