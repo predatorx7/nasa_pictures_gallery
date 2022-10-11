@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:nasa_pictures/data/picture.dart';
 
 import '../db.dart';
 import '../table/bookmarks.dart';
@@ -22,5 +23,22 @@ class BookmarksDao extends DatabaseAccessor<AppDatabase>
     final q = select(bookmarks);
     q.where((tbl) => tbl.date.equals(date));
     return q.getSingleOrNull();
+  }
+
+  Future<int> saveBookmarkByDate(SamplePicture picture) async {
+    final date = picture.date;
+    if (date == null) {
+      throw ArgumentError.notNull('picture.date');
+    }
+    return into(bookmarks).insert(BookmarksCompanion.insert(
+      title: Value.ofNullable(picture.title),
+      date: date,
+      hdurl: Value.ofNullable(picture.hdurl),
+      explanation: Value.ofNullable(picture.explanation),
+      url: Value.ofNullable(picture.url),
+      mediaType: Value.ofNullable(picture.mediaType),
+      serviceVersion: Value.ofNullable(picture.serviceVersion),
+      copyright: Value.ofNullable(picture.copyright),
+    ));
   }
 }

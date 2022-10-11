@@ -8,38 +8,52 @@ part of 'db.dart';
 
 // ignore_for_file: type=lint
 class Bookmark extends DataClass implements Insertable<Bookmark> {
-  final String copyright;
+  final String? copyright;
   final String date;
-  final String explanation;
-  final String hdurl;
-  final String mediaType;
-  final String serviceVersion;
-  final String title;
-  final String url;
+  final String? explanation;
+  final String? hdurl;
+  final String? mediaType;
+  final String? serviceVersion;
+  final String? title;
+  final String? url;
   final DateTime createdAt;
   final DateTime updatedAt;
   const Bookmark(
-      {required this.copyright,
+      {this.copyright,
       required this.date,
-      required this.explanation,
-      required this.hdurl,
-      required this.mediaType,
-      required this.serviceVersion,
-      required this.title,
-      required this.url,
+      this.explanation,
+      this.hdurl,
+      this.mediaType,
+      this.serviceVersion,
+      this.title,
+      this.url,
       required this.createdAt,
       required this.updatedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['copyright'] = Variable<String>(copyright);
+    if (!nullToAbsent || copyright != null) {
+      map['copyright'] = Variable<String>(copyright);
+    }
     map['date'] = Variable<String>(date);
-    map['explanation'] = Variable<String>(explanation);
-    map['hdurl'] = Variable<String>(hdurl);
-    map['media_type'] = Variable<String>(mediaType);
-    map['service_version'] = Variable<String>(serviceVersion);
-    map['title'] = Variable<String>(title);
-    map['url'] = Variable<String>(url);
+    if (!nullToAbsent || explanation != null) {
+      map['explanation'] = Variable<String>(explanation);
+    }
+    if (!nullToAbsent || hdurl != null) {
+      map['hdurl'] = Variable<String>(hdurl);
+    }
+    if (!nullToAbsent || mediaType != null) {
+      map['media_type'] = Variable<String>(mediaType);
+    }
+    if (!nullToAbsent || serviceVersion != null) {
+      map['service_version'] = Variable<String>(serviceVersion);
+    }
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || url != null) {
+      map['url'] = Variable<String>(url);
+    }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
@@ -47,14 +61,24 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
 
   BookmarksCompanion toCompanion(bool nullToAbsent) {
     return BookmarksCompanion(
-      copyright: Value(copyright),
+      copyright: copyright == null && nullToAbsent
+          ? const Value.absent()
+          : Value(copyright),
       date: Value(date),
-      explanation: Value(explanation),
-      hdurl: Value(hdurl),
-      mediaType: Value(mediaType),
-      serviceVersion: Value(serviceVersion),
-      title: Value(title),
-      url: Value(url),
+      explanation: explanation == null && nullToAbsent
+          ? const Value.absent()
+          : Value(explanation),
+      hdurl:
+          hdurl == null && nullToAbsent ? const Value.absent() : Value(hdurl),
+      mediaType: mediaType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(mediaType),
+      serviceVersion: serviceVersion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(serviceVersion),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      url: url == null && nullToAbsent ? const Value.absent() : Value(url),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
@@ -64,14 +88,14 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Bookmark(
-      copyright: serializer.fromJson<String>(json['copyright']),
+      copyright: serializer.fromJson<String?>(json['copyright']),
       date: serializer.fromJson<String>(json['date']),
-      explanation: serializer.fromJson<String>(json['explanation']),
-      hdurl: serializer.fromJson<String>(json['hdurl']),
-      mediaType: serializer.fromJson<String>(json['mediaType']),
-      serviceVersion: serializer.fromJson<String>(json['serviceVersion']),
-      title: serializer.fromJson<String>(json['title']),
-      url: serializer.fromJson<String>(json['url']),
+      explanation: serializer.fromJson<String?>(json['explanation']),
+      hdurl: serializer.fromJson<String?>(json['hdurl']),
+      mediaType: serializer.fromJson<String?>(json['mediaType']),
+      serviceVersion: serializer.fromJson<String?>(json['serviceVersion']),
+      title: serializer.fromJson<String?>(json['title']),
+      url: serializer.fromJson<String?>(json['url']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -80,39 +104,40 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'copyright': serializer.toJson<String>(copyright),
+      'copyright': serializer.toJson<String?>(copyright),
       'date': serializer.toJson<String>(date),
-      'explanation': serializer.toJson<String>(explanation),
-      'hdurl': serializer.toJson<String>(hdurl),
-      'mediaType': serializer.toJson<String>(mediaType),
-      'serviceVersion': serializer.toJson<String>(serviceVersion),
-      'title': serializer.toJson<String>(title),
-      'url': serializer.toJson<String>(url),
+      'explanation': serializer.toJson<String?>(explanation),
+      'hdurl': serializer.toJson<String?>(hdurl),
+      'mediaType': serializer.toJson<String?>(mediaType),
+      'serviceVersion': serializer.toJson<String?>(serviceVersion),
+      'title': serializer.toJson<String?>(title),
+      'url': serializer.toJson<String?>(url),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
 
   Bookmark copyWith(
-          {String? copyright,
+          {Value<String?> copyright = const Value.absent(),
           String? date,
-          String? explanation,
-          String? hdurl,
-          String? mediaType,
-          String? serviceVersion,
-          String? title,
-          String? url,
+          Value<String?> explanation = const Value.absent(),
+          Value<String?> hdurl = const Value.absent(),
+          Value<String?> mediaType = const Value.absent(),
+          Value<String?> serviceVersion = const Value.absent(),
+          Value<String?> title = const Value.absent(),
+          Value<String?> url = const Value.absent(),
           DateTime? createdAt,
           DateTime? updatedAt}) =>
       Bookmark(
-        copyright: copyright ?? this.copyright,
+        copyright: copyright.present ? copyright.value : this.copyright,
         date: date ?? this.date,
-        explanation: explanation ?? this.explanation,
-        hdurl: hdurl ?? this.hdurl,
-        mediaType: mediaType ?? this.mediaType,
-        serviceVersion: serviceVersion ?? this.serviceVersion,
-        title: title ?? this.title,
-        url: url ?? this.url,
+        explanation: explanation.present ? explanation.value : this.explanation,
+        hdurl: hdurl.present ? hdurl.value : this.hdurl,
+        mediaType: mediaType.present ? mediaType.value : this.mediaType,
+        serviceVersion:
+            serviceVersion.present ? serviceVersion.value : this.serviceVersion,
+        title: title.present ? title.value : this.title,
+        url: url.present ? url.value : this.url,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -153,14 +178,14 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
 }
 
 class BookmarksCompanion extends UpdateCompanion<Bookmark> {
-  final Value<String> copyright;
+  final Value<String?> copyright;
   final Value<String> date;
-  final Value<String> explanation;
-  final Value<String> hdurl;
-  final Value<String> mediaType;
-  final Value<String> serviceVersion;
-  final Value<String> title;
-  final Value<String> url;
+  final Value<String?> explanation;
+  final Value<String?> hdurl;
+  final Value<String?> mediaType;
+  final Value<String?> serviceVersion;
+  final Value<String?> title;
+  final Value<String?> url;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   const BookmarksCompanion({
@@ -176,24 +201,17 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
     this.updatedAt = const Value.absent(),
   });
   BookmarksCompanion.insert({
-    required String copyright,
+    this.copyright = const Value.absent(),
     required String date,
-    required String explanation,
-    required String hdurl,
-    required String mediaType,
-    required String serviceVersion,
-    required String title,
-    required String url,
+    this.explanation = const Value.absent(),
+    this.hdurl = const Value.absent(),
+    this.mediaType = const Value.absent(),
+    this.serviceVersion = const Value.absent(),
+    this.title = const Value.absent(),
+    this.url = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
-  })  : copyright = Value(copyright),
-        date = Value(date),
-        explanation = Value(explanation),
-        hdurl = Value(hdurl),
-        mediaType = Value(mediaType),
-        serviceVersion = Value(serviceVersion),
-        title = Value(title),
-        url = Value(url);
+  }) : date = Value(date);
   static Insertable<Bookmark> custom({
     Expression<String>? copyright,
     Expression<String>? date,
@@ -221,14 +239,14 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
   }
 
   BookmarksCompanion copyWith(
-      {Value<String>? copyright,
+      {Value<String?>? copyright,
       Value<String>? date,
-      Value<String>? explanation,
-      Value<String>? hdurl,
-      Value<String>? mediaType,
-      Value<String>? serviceVersion,
-      Value<String>? title,
-      Value<String>? url,
+      Value<String?>? explanation,
+      Value<String?>? hdurl,
+      Value<String?>? mediaType,
+      Value<String?>? serviceVersion,
+      Value<String?>? title,
+      Value<String?>? url,
       Value<DateTime>? createdAt,
       Value<DateTime>? updatedAt}) {
     return BookmarksCompanion(
@@ -308,8 +326,8 @@ class $BookmarksTable extends Bookmarks
   final VerificationMeta _copyrightMeta = const VerificationMeta('copyright');
   @override
   late final GeneratedColumn<String> copyright = GeneratedColumn<String>(
-      'copyright', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'copyright', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<String> date = GeneratedColumn<String>(
@@ -319,34 +337,34 @@ class $BookmarksTable extends Bookmarks
       const VerificationMeta('explanation');
   @override
   late final GeneratedColumn<String> explanation = GeneratedColumn<String>(
-      'explanation', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'explanation', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _hdurlMeta = const VerificationMeta('hdurl');
   @override
   late final GeneratedColumn<String> hdurl = GeneratedColumn<String>(
-      'hdurl', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'hdurl', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _mediaTypeMeta = const VerificationMeta('mediaType');
   @override
   late final GeneratedColumn<String> mediaType = GeneratedColumn<String>(
-      'media_type', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'media_type', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _serviceVersionMeta =
       const VerificationMeta('serviceVersion');
   @override
   late final GeneratedColumn<String> serviceVersion = GeneratedColumn<String>(
-      'service_version', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'service_version', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'title', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _urlMeta = const VerificationMeta('url');
   @override
   late final GeneratedColumn<String> url = GeneratedColumn<String>(
-      'url', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'url', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
@@ -386,8 +404,6 @@ class $BookmarksTable extends Bookmarks
     if (data.containsKey('copyright')) {
       context.handle(_copyrightMeta,
           copyright.isAcceptableOrUnknown(data['copyright']!, _copyrightMeta));
-    } else if (isInserting) {
-      context.missing(_copyrightMeta);
     }
     if (data.containsKey('date')) {
       context.handle(
@@ -400,40 +416,28 @@ class $BookmarksTable extends Bookmarks
           _explanationMeta,
           explanation.isAcceptableOrUnknown(
               data['explanation']!, _explanationMeta));
-    } else if (isInserting) {
-      context.missing(_explanationMeta);
     }
     if (data.containsKey('hdurl')) {
       context.handle(
           _hdurlMeta, hdurl.isAcceptableOrUnknown(data['hdurl']!, _hdurlMeta));
-    } else if (isInserting) {
-      context.missing(_hdurlMeta);
     }
     if (data.containsKey('media_type')) {
       context.handle(_mediaTypeMeta,
           mediaType.isAcceptableOrUnknown(data['media_type']!, _mediaTypeMeta));
-    } else if (isInserting) {
-      context.missing(_mediaTypeMeta);
     }
     if (data.containsKey('service_version')) {
       context.handle(
           _serviceVersionMeta,
           serviceVersion.isAcceptableOrUnknown(
               data['service_version']!, _serviceVersionMeta));
-    } else if (isInserting) {
-      context.missing(_serviceVersionMeta);
     }
     if (data.containsKey('title')) {
       context.handle(
           _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
     }
     if (data.containsKey('url')) {
       context.handle(
           _urlMeta, url.isAcceptableOrUnknown(data['url']!, _urlMeta));
-    } else if (isInserting) {
-      context.missing(_urlMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -453,21 +457,21 @@ class $BookmarksTable extends Bookmarks
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Bookmark(
       copyright: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}copyright'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}copyright']),
       date: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}date'])!,
       explanation: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}explanation'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}explanation']),
       hdurl: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}hdurl'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}hdurl']),
       mediaType: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}media_type'])!,
-      serviceVersion: attachedDatabase.options.types.read(
-          DriftSqlType.string, data['${effectivePrefix}service_version'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}media_type']),
+      serviceVersion: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}service_version']),
       title: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}title']),
       url: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}url'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}url']),
       createdAt: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.options.types
@@ -485,6 +489,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   _$AppDatabase.connect(DatabaseConnection c) : super.connect(c);
   late final $BookmarksTable bookmarks = $BookmarksTable(this);
+  late final BookmarksDao bookmarksDao = BookmarksDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, dynamic>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
