@@ -19,7 +19,7 @@ class MetadataToggleButton extends ConsumerWidget {
       padding: const EdgeInsetsDirectional.only(end: 16.0),
       child: TextButton.icon(
         style: TextButton.styleFrom(
-          primary: Colors.white,
+          foregroundColor: Colors.white,
         ),
         onPressed: toggle,
         icon: isVisible
