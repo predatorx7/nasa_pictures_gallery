@@ -2,10 +2,7 @@
 
 part of 'bookmarks.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$BookmarksDaoMixin on DatabaseAccessor<AppDatabase> {
   $BookmarksTable get bookmarks => attachedDatabase.bookmarks;
 }

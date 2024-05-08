@@ -13,7 +13,9 @@
     "generate:serializable": "cat cache/x.json | dart run scripts/serializable.dart > cache/class.dart",
     "dev": "flutter run",
     "dev:windows": "flutter run -d windows",
-    "dev:web": "flutter run -d web"
+    "dev:web": "flutter run -d web",
+    "dev:macos": "flutter run -d macos",
+    "test:macos": "flutter test integration_test"
   },
   "author": "smushaheed@gmail.com",
   "license": "UNLICENSED"

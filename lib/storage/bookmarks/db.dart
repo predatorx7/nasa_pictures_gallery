@@ -14,10 +14,10 @@ part 'db.g.dart';
   ],
 )
 class AppDatabase extends _$AppDatabase {
-  AppDatabase(QueryExecutor e) : super(e);
+  AppDatabase(super.e);
 
   /// Creates database connection from a custom database connection and returns a database instance.
-  AppDatabase.connect(DatabaseConnection c) : super.connect(c);
+  AppDatabase.connect(super.c) : super.connect();
 
   @override
   int get schemaVersion => 1;

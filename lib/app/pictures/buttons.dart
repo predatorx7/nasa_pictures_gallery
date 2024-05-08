@@ -2,8 +2,8 @@ part of 'pictures.dart';
 
 class MetadataToggleButton extends ConsumerWidget {
   const MetadataToggleButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,8 +33,8 @@ class MetadataToggleButton extends ConsumerWidget {
 
 class InteractiveViewToggleButton extends ConsumerWidget {
   const InteractiveViewToggleButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,7 +62,7 @@ class InteractiveViewToggleButton extends ConsumerWidget {
 }
 
 class PreviousPageButton extends ConsumerWidget {
-  const PreviousPageButton({Key? key}) : super(key: key);
+  const PreviousPageButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -82,7 +82,7 @@ class PreviousPageButton extends ConsumerWidget {
 }
 
 class NextPageButton extends ConsumerWidget {
-  const NextPageButton({Key? key}) : super(key: key);
+  const NextPageButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

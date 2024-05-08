@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nasa_pictures/gen/assets.gen.dart';
 
 class _AppSplashFragment extends StatelessWidget {
-  const _AppSplashFragment({Key? key}) : super(key: key);
+  const _AppSplashFragment();
 
   @override
   Widget build(BuildContext context) {

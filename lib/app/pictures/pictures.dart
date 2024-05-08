@@ -20,9 +20,9 @@ part 'controllers.dart';
 
 class PicturesScreen extends StatefulWidget {
   const PicturesScreen({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
   final int index;
 
   static const $routePath = '/item/:index';
@@ -32,7 +32,7 @@ class PicturesScreen extends StatefulWidget {
     path: $routePath,
     builder: (context, s) {
       return PicturesScreen(
-        index: int.parse(getTypeIf<String>(s.params['index'])!),
+        index: int.parse(getTypeIf<String>(s.pathParameters['index'])!),
       );
     },
   );
@@ -99,8 +99,8 @@ class _PicturesScreenState extends State<PicturesScreen> {
 
 class PicturesScreenBody extends ConsumerWidget {
   const PicturesScreenBody({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -112,8 +112,8 @@ class PicturesScreenBody extends ConsumerWidget {
       return const _NoResultsPage();
     }
 
-    return Stack(
-      children: const [
+    return const Stack(
+      children: [
         PicturesPageView(),
         Align(
           alignment: AlignmentDirectional.centerStart,
@@ -130,8 +130,8 @@ class PicturesScreenBody extends ConsumerWidget {
 
 class PicturesPageView extends ConsumerWidget {
   const PicturesPageView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(
@@ -163,9 +163,9 @@ class PicturesPageView extends ConsumerWidget {
 
 class PicturePage extends ConsumerStatefulWidget {
   const PicturePage({
-    Key? key,
+    super.key,
     required this.item,
-  }) : super(key: key);
+  });
 
   final SamplePicture item;
 
@@ -234,9 +234,9 @@ class _PicturePageState extends ConsumerState<PicturePage> {
 
 class ItemMetaData extends StatelessWidget {
   const ItemMetaData({
-    Key? key,
+    super.key,
     required this.item,
-  }) : super(key: key);
+  });
 
   final SamplePicture item;
 
@@ -302,7 +302,7 @@ class ItemMetaData extends StatelessWidget {
 }
 
 class _NoResultsPage extends ConsumerWidget {
-  const _NoResultsPage({Key? key}) : super(key: key);
+  const _NoResultsPage();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

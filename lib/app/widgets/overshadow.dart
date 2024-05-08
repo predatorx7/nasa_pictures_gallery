@@ -28,10 +28,10 @@ const _decorationIfVisible = BoxDecoration(
 
 class Overshadow extends StatelessWidget {
   const Overshadow({
-    Key? key,
+    super.key,
     this.isVisible = false,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final bool isVisible;

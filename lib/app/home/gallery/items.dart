@@ -12,7 +12,7 @@ import '../../widgets/picture.dart';
 import 'conrollers.dart';
 
 class GalleryItems extends ConsumerWidget {
-  const GalleryItems({Key? key}) : super(key: key);
+  const GalleryItems({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -65,9 +65,9 @@ class GalleryItems extends ConsumerWidget {
 
 class ItemsGridView extends ConsumerWidget {
   const ItemsGridView({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   final Iterable<SamplePicture> data;
 
@@ -132,10 +132,10 @@ class ItemsGridView extends ConsumerWidget {
 
 class ItemTile extends StatelessWidget {
   const ItemTile({
-    Key? key,
+    super.key,
     required this.picture,
     this.onItemSelected,
-  }) : super(key: key);
+  });
 
   final SamplePicture picture;
   final VoidCallback? onItemSelected;

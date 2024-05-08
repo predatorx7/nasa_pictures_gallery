@@ -13,7 +13,7 @@ enum ImageQuality {
 
 class ItemImage extends StatelessWidget {
   const ItemImage({
-    Key? key,
+    super.key,
     required this.item,
     this.fit = BoxFit.contain,
     this.quality = ImageQuality.regular,
@@ -21,7 +21,7 @@ class ItemImage extends StatelessWidget {
     this.width,
     this.isDownloadProgressVisible = false,
     required this.isDarkMode,
-  }) : super(key: key);
+  });
 
   final SamplePicture item;
   final BoxFit fit;
@@ -125,9 +125,9 @@ class InteractiveItemImage extends StatelessWidget {
 
 class ItemTileBar extends StatelessWidget {
   const ItemTileBar({
-    Key? key,
+    super.key,
     required this.item,
-  }) : super(key: key);
+  });
 
   final SamplePicture item;
 
@@ -147,9 +147,9 @@ class ItemTileBar extends StatelessWidget {
 
 class ItemFooter extends StatelessWidget {
   const ItemFooter({
-    Key? key,
+    super.key,
     required this.picture,
-  }) : super(key: key);
+  });
 
   final SamplePicture picture;
 
@@ -170,9 +170,9 @@ class ItemFooter extends StatelessWidget {
 
 class ItemDateLabel extends StatelessWidget {
   const ItemDateLabel({
-    Key? key,
+    super.key,
     required this.item,
-  }) : super(key: key);
+  });
 
   final SamplePicture item;
 
@@ -202,7 +202,7 @@ class ItemDateLabel extends StatelessWidget {
             ),
           ],
         ),
-        style: textTheme.caption?.merge(TextStyle(
+        style: textTheme.bodySmall?.merge(TextStyle(
           color: Theme.of(context).colorScheme.primary.withRed(200),
           fontSize: 10,
         )),

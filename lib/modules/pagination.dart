@@ -86,7 +86,7 @@ class PaginatedDataController<T> extends StateNotifier<PaginationData<T>> {
         value: asyncValue,
       );
     } catch (e, s) {
-      final asyncValue = AsyncValue<Iterable<T>>.error(e, stackTrace: s);
+      final asyncValue = AsyncValue<Iterable<T>>.error(e, s);
       if (mounted) {
         state = state.copyWith(value: asyncValue);
       } else {

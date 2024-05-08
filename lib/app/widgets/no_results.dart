@@ -5,10 +5,10 @@ import 'package:nasa_pictures/l10n/l10n.dart';
 
 class SliverNoResults extends ConsumerWidget {
   const SliverNoResults({
-    Key? key,
+    super.key,
     required this.wasSearched,
     required this.onRefreshPress,
-  }) : super(key: key);
+  });
 
   final bool wasSearched;
   final VoidCallback onRefreshPress;
@@ -30,10 +30,10 @@ class SliverNoResults extends ConsumerWidget {
 
 class NoResults extends StatelessWidget {
   const NoResults({
-    Key? key,
+    super.key,
     required this.wasSearched,
     required this.onRefreshPress,
-  }) : super(key: key);
+  });
 
   final bool wasSearched;
   final VoidCallback onRefreshPress;

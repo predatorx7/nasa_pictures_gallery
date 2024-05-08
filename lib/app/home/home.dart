@@ -5,7 +5,7 @@ import 'gallery/items.dart';
 import '../widgets/appbar.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   static const String routeName = '/home';
 

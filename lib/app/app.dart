@@ -8,7 +8,7 @@ import '../../commons/theme.dart';
 import '../../navigation/router.dart';
 
 class MainApp extends ConsumerStatefulWidget {
-  const MainApp({Key? key}) : super(key: key);
+  const MainApp({super.key});
 
   @override
   ConsumerState<MainApp> createState() => MainAppState();

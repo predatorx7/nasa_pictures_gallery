@@ -6,7 +6,7 @@ import 'package:nasa_pictures/l10n/l10n.dart';
 import '../../modules/search.dart';
 
 class BrowsingSearchBar extends ConsumerStatefulWidget {
-  const BrowsingSearchBar({Key? key}) : super(key: key);
+  const BrowsingSearchBar({super.key});
 
   @override
   ConsumerState<BrowsingSearchBar> createState() => _BrowsingSearchBarState();
@@ -87,12 +87,11 @@ class _BrowsingSearchBarState extends ConsumerState<BrowsingSearchBar> {
 
 class ClearSearch extends StatelessWidget {
   const ClearSearch({
-    Key? key,
+    super.key,
     required FocusNode focusNode,
     required TextEditingController controller,
   })  : _focusNode = focusNode,
-        _controller = controller,
-        super(key: key);
+        _controller = controller;
 
   final FocusNode _focusNode;
   final TextEditingController _controller;

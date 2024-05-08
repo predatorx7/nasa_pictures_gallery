@@ -5,8 +5,8 @@ class ErrorPlaceholderWidget extends StatelessWidget {
   const ErrorPlaceholderWidget(
     this.error,
     this.stacktrace, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Object? error;
   final StackTrace? stacktrace;
@@ -22,8 +22,8 @@ class SliverErrorPlaceholderWidget extends StatelessWidget {
   const SliverErrorPlaceholderWidget(
     this.error,
     this.stacktrace, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Object? error;
   final StackTrace? stacktrace;
@@ -31,10 +31,10 @@ class SliverErrorPlaceholderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     logging('SliverErrorPlaceholderWidget').warning('Error', error, stacktrace);
-    return SliverToBoxAdapter(
+    return const SliverToBoxAdapter(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Icon(Icons.error),
         ],
       ),

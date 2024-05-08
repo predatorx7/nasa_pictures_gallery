@@ -13,7 +13,7 @@ const _loading = ShimmerLoadingWidget(
 );
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({Key? key}) : super(key: key);
+  const LoadingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class LoadingWidget extends StatelessWidget {
 }
 
 class SliverLoadingWidget extends StatelessWidget {
-  const SliverLoadingWidget({Key? key}) : super(key: key);
+  const SliverLoadingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class SliverLoadingWidget extends StatelessWidget {
 }
 
 class LoadingTileWidget extends StatelessWidget {
-  const LoadingTileWidget({Key? key}) : super(key: key);
+  const LoadingTileWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,12 +80,12 @@ class ShimmerLoadingWidget extends StatelessWidget {
   final bool isDarkMode;
 
   const ShimmerLoadingWidget({
-    Key? key,
+    super.key,
     this.height,
     this.width,
     required this.radius,
     required this.isDarkMode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +129,7 @@ class LoadingListenableImage extends StatelessWidget {
   final bool isDownloadProgressVisible;
 
   const LoadingListenableImage({
-    Key? key,
+    super.key,
     required this.image,
     required this.isDarkMode,
     this.fit,
@@ -137,7 +137,7 @@ class LoadingListenableImage extends StatelessWidget {
     required this.width,
     required this.radius,
     required this.isDownloadProgressVisible,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -202,10 +202,10 @@ class LoadingListenableImage extends StatelessWidget {
 
 class ImageLoadingProgress extends StatelessWidget {
   const ImageLoadingProgress({
-    Key? key,
+    super.key,
     required this.event,
     required this.child,
-  }) : super(key: key);
+  });
 
   final ImageChunkEvent event;
   final Widget child;

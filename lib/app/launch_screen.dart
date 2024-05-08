@@ -12,9 +12,9 @@ class LaunchScreen extends ConsumerStatefulWidget {
   final String redirect;
 
   const LaunchScreen({
-    Key? key,
+    super.key,
     required this.redirect,
-  }) : super(key: key);
+  });
 
   static const String routeName = '/';
 
@@ -22,7 +22,7 @@ class LaunchScreen extends ConsumerStatefulWidget {
     name: LaunchScreen.routeName,
     path: LaunchScreen.routeName,
     builder: (context, s) {
-      final redirectPath = getTypeIf<String>(s.queryParams['redirect']);
+      final redirectPath = getTypeIf<String>(s.uri.queryParameters['redirect']);
 
       return LaunchScreen(
         redirect: redirectPath ?? HomeScreen.routeName,
