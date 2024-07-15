@@ -4,6 +4,7 @@
 /// ```bash
 /// cat cache/x.json | dart run scripts/serializable.dart > cache/class.dart
 /// ```
+library;
 
 // ignore_for_file: avoid_print
 

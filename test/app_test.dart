@@ -322,7 +322,7 @@ void main() {
           expect(
             tester.widget(pageView),
             isA<PageView>().having(
-              (c) => c.controller.page,
+              (c) => c.controller?.page,
               'pageController.page',
               1.0,
             ),
@@ -390,7 +390,7 @@ void main() {
           expect(
             tester.widget(pageView),
             isA<PageView>().having(
-              (c) => c.controller.page,
+              (c) => c.controller?.page,
               'pageController.page',
               0.0,
             ),
@@ -405,7 +405,7 @@ void main() {
           expect(
             tester.widget(pageView),
             isA<PageView>().having(
-              (c) => c.controller.page,
+              (c) => c.controller?.page,
               'pageController.page',
               1.0,
             ),
@@ -420,7 +420,7 @@ void main() {
           expect(
             tester.widget(pageView),
             isA<PageView>().having(
-              (c) => c.controller.page,
+              (c) => c.controller?.page,
               'pageController.page',
               1.0,
             ),
@@ -436,7 +436,7 @@ void main() {
           expect(
             tester.widget(pageView),
             isA<PageView>().having(
-              (c) => c.controller.page,
+              (c) => c.controller?.page,
               'pageController.page',
               0.0,
             ),

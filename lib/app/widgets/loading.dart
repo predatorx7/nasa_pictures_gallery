@@ -1,7 +1,6 @@
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logging_manager/logging.dart';
 import 'package:nasa_pictures/configs/logging.dart';
 
 import '../../configs/config.dart';
@@ -141,7 +140,7 @@ class LoadingListenableImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late Logging logger = logging('_LoadingListenableImageState');
+    late var logger = logging('_LoadingListenableImageState');
     final img = image;
     if (img is NetworkImage) {
       logger = logger(img.url);

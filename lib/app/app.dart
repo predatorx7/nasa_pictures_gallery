@@ -21,9 +21,7 @@ class MainAppState extends ConsumerState<MainApp> {
     final locale = ref.watch(localeControllerProvider);
 
     Widget app = MaterialApp.router(
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      routerConfig: router,
       locale: locale,
       title: 'NASA Pictures',
       theme: AppStyles.theme,
