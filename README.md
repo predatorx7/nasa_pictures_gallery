@@ -28,6 +28,12 @@ Tests atleast verifies the following goals:
 3. [x] - The pictures screen displays the full size image along with the metadata like title, description, date, etc.
 4. [x] - The user should also be able to swipe through images.
 
+#### How to run tests?
+
+1. Run tests _headlessly_ by running `flutter test`
+2. Run integration tests on a device by running `flutter test ./integration_test/app_test.dart`.
+3. Learn more about integration testing at https://docs.flutter.dev/testing/integration-tests#run-integration-tests. 
+
 #### Structure
 
 ```
