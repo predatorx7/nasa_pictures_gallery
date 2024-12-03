@@ -310,6 +310,24 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
+  Bookmark copyWithCompanion(BookmarksCompanion data) {
+    return Bookmark(
+      copyright: data.copyright.present ? data.copyright.value : this.copyright,
+      date: data.date.present ? data.date.value : this.date,
+      explanation:
+          data.explanation.present ? data.explanation.value : this.explanation,
+      hdurl: data.hdurl.present ? data.hdurl.value : this.hdurl,
+      mediaType: data.mediaType.present ? data.mediaType.value : this.mediaType,
+      serviceVersion: data.serviceVersion.present
+          ? data.serviceVersion.value
+          : this.serviceVersion,
+      title: data.title.present ? data.title.value : this.title,
+      url: data.url.present ? data.url.value : this.url,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Bookmark(')
@@ -500,7 +518,7 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   _$AppDatabase.connect(DatabaseConnection c) : super.connect(c);
-  _$AppDatabaseManager get managers => _$AppDatabaseManager(this);
+  $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $BookmarksTable bookmarks = $BookmarksTable(this);
   late final BookmarksDao bookmarksDao = BookmarksDao(this as AppDatabase);
   @override
@@ -510,7 +528,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [bookmarks];
 }
 
-typedef $$BookmarksTableInsertCompanionBuilder = BookmarksCompanion Function({
+typedef $$BookmarksTableCreateCompanionBuilder = BookmarksCompanion Function({
   Value<String?> copyright,
   required String date,
   Value<String?> explanation,
@@ -537,26 +555,151 @@ typedef $$BookmarksTableUpdateCompanionBuilder = BookmarksCompanion Function({
   Value<int> rowid,
 });
 
+class $$BookmarksTableFilterComposer
+    extends Composer<_$AppDatabase, $BookmarksTable> {
+  $$BookmarksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get copyright => $composableBuilder(
+      column: $table.copyright, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get date => $composableBuilder(
+      column: $table.date, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get explanation => $composableBuilder(
+      column: $table.explanation, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get hdurl => $composableBuilder(
+      column: $table.hdurl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get mediaType => $composableBuilder(
+      column: $table.mediaType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get serviceVersion => $composableBuilder(
+      column: $table.serviceVersion,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get url => $composableBuilder(
+      column: $table.url, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$BookmarksTableOrderingComposer
+    extends Composer<_$AppDatabase, $BookmarksTable> {
+  $$BookmarksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get copyright => $composableBuilder(
+      column: $table.copyright, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get date => $composableBuilder(
+      column: $table.date, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get explanation => $composableBuilder(
+      column: $table.explanation, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get hdurl => $composableBuilder(
+      column: $table.hdurl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get mediaType => $composableBuilder(
+      column: $table.mediaType, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get serviceVersion => $composableBuilder(
+      column: $table.serviceVersion,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get url => $composableBuilder(
+      column: $table.url, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$BookmarksTableAnnotationComposer
+    extends Composer<_$AppDatabase, $BookmarksTable> {
+  $$BookmarksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get copyright =>
+      $composableBuilder(column: $table.copyright, builder: (column) => column);
+
+  GeneratedColumn<String> get date =>
+      $composableBuilder(column: $table.date, builder: (column) => column);
+
+  GeneratedColumn<String> get explanation => $composableBuilder(
+      column: $table.explanation, builder: (column) => column);
+
+  GeneratedColumn<String> get hdurl =>
+      $composableBuilder(column: $table.hdurl, builder: (column) => column);
+
+  GeneratedColumn<String> get mediaType =>
+      $composableBuilder(column: $table.mediaType, builder: (column) => column);
+
+  GeneratedColumn<String> get serviceVersion => $composableBuilder(
+      column: $table.serviceVersion, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get url =>
+      $composableBuilder(column: $table.url, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
 class $$BookmarksTableTableManager extends RootTableManager<
     _$AppDatabase,
     $BookmarksTable,
     Bookmark,
     $$BookmarksTableFilterComposer,
     $$BookmarksTableOrderingComposer,
-    $$BookmarksTableProcessedTableManager,
-    $$BookmarksTableInsertCompanionBuilder,
-    $$BookmarksTableUpdateCompanionBuilder> {
+    $$BookmarksTableAnnotationComposer,
+    $$BookmarksTableCreateCompanionBuilder,
+    $$BookmarksTableUpdateCompanionBuilder,
+    (Bookmark, BaseReferences<_$AppDatabase, $BookmarksTable, Bookmark>),
+    Bookmark,
+    PrefetchHooks Function()> {
   $$BookmarksTableTableManager(_$AppDatabase db, $BookmarksTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$BookmarksTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$BookmarksTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$BookmarksTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          createFilteringComposer: () =>
+              $$BookmarksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BookmarksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BookmarksTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
             Value<String?> copyright = const Value.absent(),
             Value<String> date = const Value.absent(),
             Value<String?> explanation = const Value.absent(),
@@ -582,7 +725,7 @@ class $$BookmarksTableTableManager extends RootTableManager<
             updatedAt: updatedAt,
             rowid: rowid,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<String?> copyright = const Value.absent(),
             required String date,
             Value<String?> explanation = const Value.absent(),
@@ -608,132 +751,29 @@ class $$BookmarksTableTableManager extends RootTableManager<
             updatedAt: updatedAt,
             rowid: rowid,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$BookmarksTableProcessedTableManager extends ProcessedTableManager<
+typedef $$BookmarksTableProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
     $BookmarksTable,
     Bookmark,
     $$BookmarksTableFilterComposer,
     $$BookmarksTableOrderingComposer,
-    $$BookmarksTableProcessedTableManager,
-    $$BookmarksTableInsertCompanionBuilder,
-    $$BookmarksTableUpdateCompanionBuilder> {
-  $$BookmarksTableProcessedTableManager(super.$state);
-}
+    $$BookmarksTableAnnotationComposer,
+    $$BookmarksTableCreateCompanionBuilder,
+    $$BookmarksTableUpdateCompanionBuilder,
+    (Bookmark, BaseReferences<_$AppDatabase, $BookmarksTable, Bookmark>),
+    Bookmark,
+    PrefetchHooks Function()>;
 
-class $$BookmarksTableFilterComposer
-    extends FilterComposer<_$AppDatabase, $BookmarksTable> {
-  $$BookmarksTableFilterComposer(super.$state);
-  ColumnFilters<String> get copyright => $state.composableBuilder(
-      column: $state.table.copyright,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get date => $state.composableBuilder(
-      column: $state.table.date,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get explanation => $state.composableBuilder(
-      column: $state.table.explanation,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get hdurl => $state.composableBuilder(
-      column: $state.table.hdurl,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get mediaType => $state.composableBuilder(
-      column: $state.table.mediaType,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get serviceVersion => $state.composableBuilder(
-      column: $state.table.serviceVersion,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get title => $state.composableBuilder(
-      column: $state.table.title,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get url => $state.composableBuilder(
-      column: $state.table.url,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get updatedAt => $state.composableBuilder(
-      column: $state.table.updatedAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$BookmarksTableOrderingComposer
-    extends OrderingComposer<_$AppDatabase, $BookmarksTable> {
-  $$BookmarksTableOrderingComposer(super.$state);
-  ColumnOrderings<String> get copyright => $state.composableBuilder(
-      column: $state.table.copyright,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get date => $state.composableBuilder(
-      column: $state.table.date,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get explanation => $state.composableBuilder(
-      column: $state.table.explanation,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get hdurl => $state.composableBuilder(
-      column: $state.table.hdurl,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get mediaType => $state.composableBuilder(
-      column: $state.table.mediaType,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get serviceVersion => $state.composableBuilder(
-      column: $state.table.serviceVersion,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get title => $state.composableBuilder(
-      column: $state.table.title,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get url => $state.composableBuilder(
-      column: $state.table.url,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get updatedAt => $state.composableBuilder(
-      column: $state.table.updatedAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-class _$AppDatabaseManager {
+class $AppDatabaseManager {
   final _$AppDatabase _db;
-  _$AppDatabaseManager(this._db);
+  $AppDatabaseManager(this._db);
   $$BookmarksTableTableManager get bookmarks =>
       $$BookmarksTableTableManager(_db, _db.bookmarks);
 }

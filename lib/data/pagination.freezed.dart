@@ -21,7 +21,9 @@ mixin _$PaginationData<T> {
   Iterable<T>? get iterable => throw _privateConstructorUsedError;
   AsyncValue<Iterable<T>> get value => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaginationData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaginationDataCopyWith<T, PaginationData<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +51,8 @@ class _$PaginationDataCopyWithImpl<T, $Res, $Val extends PaginationData<T>>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PaginationData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +105,8 @@ class __$$PaginationDataImplCopyWithImpl<T, $Res>
       $Res Function(_$PaginationDataImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaginationData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -167,7 +173,9 @@ class _$PaginationDataImpl<T> extends _PaginationData<T> {
   int get hashCode => Object.hash(runtimeType, currentPage, limit,
       const DeepCollectionEquality().hash(iterable), value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaginationData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaginationDataImplCopyWith<T, _$PaginationDataImpl<T>> get copyWith =>
@@ -191,8 +199,11 @@ abstract class _PaginationData<T> extends PaginationData<T> {
   Iterable<T>? get iterable;
   @override
   AsyncValue<Iterable<T>> get value;
+
+  /// Create a copy of PaginationData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaginationDataImplCopyWith<T, _$PaginationDataImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
