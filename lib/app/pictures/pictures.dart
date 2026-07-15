@@ -7,7 +7,7 @@ import 'package:nasa_pictures/app/widgets/error.dart';
 import 'package:nasa_pictures/app/widgets/picture.dart';
 import 'package:nasa_pictures/configs/logging.dart';
 import 'package:nasa_pictures/data/picture.dart';
-import 'package:nasa_pictures/navigation/router.dart';
+import 'package:nasa_pictures/navigation/routes.dart';
 
 import '../../modules/search.dart';
 import '../../utils/date.dart';
