@@ -13,13 +13,11 @@ import '../bookmarks/db.dart';
 
 // ISSUE: Always throws failed to fetch a service worker
 DatabaseConnection _connectToWorker(String databaseName) {
-  const workerPath =
-      kReleaseMode ? 'dart_worker.dart.min.js' : 'dart_worker.dart.js';
+  const workerPath = kReleaseMode
+      ? 'dart_worker.dart.min.js'
+      : 'dart_worker.dart.js';
 
-  final worker = SharedWorker(
-    workerPath,
-    databaseName,
-  );
+  final worker = SharedWorker(workerPath, databaseName);
 
   worker.onError.asBroadcastStream().listen((event) {
     logging.warning('worker error stream', event);

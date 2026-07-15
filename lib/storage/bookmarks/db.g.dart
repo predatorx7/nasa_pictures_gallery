@@ -9,134 +9,202 @@ class $BookmarksTable extends Bookmarks
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $BookmarksTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _copyrightMeta =
-      const VerificationMeta('copyright');
+  static const VerificationMeta _copyrightMeta = const VerificationMeta(
+    'copyright',
+  );
   @override
   late final GeneratedColumn<String> copyright = GeneratedColumn<String>(
-      'copyright', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'copyright',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<String> date = GeneratedColumn<String>(
-      'date', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _explanationMeta =
-      const VerificationMeta('explanation');
+    'date',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _explanationMeta = const VerificationMeta(
+    'explanation',
+  );
   @override
   late final GeneratedColumn<String> explanation = GeneratedColumn<String>(
-      'explanation', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'explanation',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _hdurlMeta = const VerificationMeta('hdurl');
   @override
   late final GeneratedColumn<String> hdurl = GeneratedColumn<String>(
-      'hdurl', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _mediaTypeMeta =
-      const VerificationMeta('mediaType');
+    'hdurl',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _mediaTypeMeta = const VerificationMeta(
+    'mediaType',
+  );
   @override
   late final GeneratedColumn<String> mediaType = GeneratedColumn<String>(
-      'media_type', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _serviceVersionMeta =
-      const VerificationMeta('serviceVersion');
+    'media_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _serviceVersionMeta = const VerificationMeta(
+    'serviceVersion',
+  );
   @override
   late final GeneratedColumn<String> serviceVersion = GeneratedColumn<String>(
-      'service_version', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'service_version',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'title',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _urlMeta = const VerificationMeta('url');
   @override
   late final GeneratedColumn<String> url = GeneratedColumn<String>(
-      'url', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
+    'url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
-      'created_at', aliasedName, false,
-      type: DriftSqlType.dateTime,
-      requiredDuringInsert: false,
-      defaultValue: currentDateAndTime);
-  static const VerificationMeta _updatedAtMeta =
-      const VerificationMeta('updatedAt');
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-      'updated_at', aliasedName, false,
-      type: DriftSqlType.dateTime,
-      requiredDuringInsert: false,
-      defaultValue: currentDateAndTime);
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
   @override
   List<GeneratedColumn> get $columns => [
-        copyright,
-        date,
-        explanation,
-        hdurl,
-        mediaType,
-        serviceVersion,
-        title,
-        url,
-        createdAt,
-        updatedAt
-      ];
+    copyright,
+    date,
+    explanation,
+    hdurl,
+    mediaType,
+    serviceVersion,
+    title,
+    url,
+    createdAt,
+    updatedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'bookmarks';
   @override
-  VerificationContext validateIntegrity(Insertable<Bookmark> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Bookmark> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('copyright')) {
-      context.handle(_copyrightMeta,
-          copyright.isAcceptableOrUnknown(data['copyright']!, _copyrightMeta));
+      context.handle(
+        _copyrightMeta,
+        copyright.isAcceptableOrUnknown(data['copyright']!, _copyrightMeta),
+      );
     }
     if (data.containsKey('date')) {
       context.handle(
-          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+        _dateMeta,
+        date.isAcceptableOrUnknown(data['date']!, _dateMeta),
+      );
     } else if (isInserting) {
       context.missing(_dateMeta);
     }
     if (data.containsKey('explanation')) {
       context.handle(
+        _explanationMeta,
+        explanation.isAcceptableOrUnknown(
+          data['explanation']!,
           _explanationMeta,
-          explanation.isAcceptableOrUnknown(
-              data['explanation']!, _explanationMeta));
+        ),
+      );
     }
     if (data.containsKey('hdurl')) {
       context.handle(
-          _hdurlMeta, hdurl.isAcceptableOrUnknown(data['hdurl']!, _hdurlMeta));
+        _hdurlMeta,
+        hdurl.isAcceptableOrUnknown(data['hdurl']!, _hdurlMeta),
+      );
     }
     if (data.containsKey('media_type')) {
-      context.handle(_mediaTypeMeta,
-          mediaType.isAcceptableOrUnknown(data['media_type']!, _mediaTypeMeta));
+      context.handle(
+        _mediaTypeMeta,
+        mediaType.isAcceptableOrUnknown(data['media_type']!, _mediaTypeMeta),
+      );
     }
     if (data.containsKey('service_version')) {
       context.handle(
+        _serviceVersionMeta,
+        serviceVersion.isAcceptableOrUnknown(
+          data['service_version']!,
           _serviceVersionMeta,
-          serviceVersion.isAcceptableOrUnknown(
-              data['service_version']!, _serviceVersionMeta));
+        ),
+      );
     }
     if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     }
     if (data.containsKey('url')) {
       context.handle(
-          _urlMeta, url.isAcceptableOrUnknown(data['url']!, _urlMeta));
+        _urlMeta,
+        url.isAcceptableOrUnknown(data['url']!, _urlMeta),
+      );
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     }
     if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
     }
     return context;
   }
@@ -147,26 +215,46 @@ class $BookmarksTable extends Bookmarks
   Bookmark map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Bookmark(
-      copyright: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}copyright']),
-      date: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}date'])!,
-      explanation: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}explanation']),
-      hdurl: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}hdurl']),
-      mediaType: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}media_type']),
-      serviceVersion: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}service_version']),
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title']),
-      url: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}url']),
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
-      updatedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+      copyright: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}copyright'],
+      ),
+      date: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}date'],
+      )!,
+      explanation: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}explanation'],
+      ),
+      hdurl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}hdurl'],
+      ),
+      mediaType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}media_type'],
+      ),
+      serviceVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}service_version'],
+      ),
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      ),
+      url: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}url'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
     );
   }
 
@@ -187,17 +275,18 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
   final String? url;
   final DateTime createdAt;
   final DateTime updatedAt;
-  const Bookmark(
-      {this.copyright,
-      required this.date,
-      this.explanation,
-      this.hdurl,
-      this.mediaType,
-      this.serviceVersion,
-      this.title,
-      this.url,
-      required this.createdAt,
-      required this.updatedAt});
+  const Bookmark({
+    this.copyright,
+    required this.date,
+    this.explanation,
+    this.hdurl,
+    this.mediaType,
+    this.serviceVersion,
+    this.title,
+    this.url,
+    required this.createdAt,
+    required this.updatedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -237,24 +326,28 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
       explanation: explanation == null && nullToAbsent
           ? const Value.absent()
           : Value(explanation),
-      hdurl:
-          hdurl == null && nullToAbsent ? const Value.absent() : Value(hdurl),
+      hdurl: hdurl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(hdurl),
       mediaType: mediaType == null && nullToAbsent
           ? const Value.absent()
           : Value(mediaType),
       serviceVersion: serviceVersion == null && nullToAbsent
           ? const Value.absent()
           : Value(serviceVersion),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      title: title == null && nullToAbsent
+          ? const Value.absent()
+          : Value(title),
       url: url == null && nullToAbsent ? const Value.absent() : Value(url),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
   }
 
-  factory Bookmark.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory Bookmark.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Bookmark(
       copyright: serializer.fromJson<String?>(json['copyright']),
@@ -286,36 +379,38 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
     };
   }
 
-  Bookmark copyWith(
-          {Value<String?> copyright = const Value.absent(),
-          String? date,
-          Value<String?> explanation = const Value.absent(),
-          Value<String?> hdurl = const Value.absent(),
-          Value<String?> mediaType = const Value.absent(),
-          Value<String?> serviceVersion = const Value.absent(),
-          Value<String?> title = const Value.absent(),
-          Value<String?> url = const Value.absent(),
-          DateTime? createdAt,
-          DateTime? updatedAt}) =>
-      Bookmark(
-        copyright: copyright.present ? copyright.value : this.copyright,
-        date: date ?? this.date,
-        explanation: explanation.present ? explanation.value : this.explanation,
-        hdurl: hdurl.present ? hdurl.value : this.hdurl,
-        mediaType: mediaType.present ? mediaType.value : this.mediaType,
-        serviceVersion:
-            serviceVersion.present ? serviceVersion.value : this.serviceVersion,
-        title: title.present ? title.value : this.title,
-        url: url.present ? url.value : this.url,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-      );
+  Bookmark copyWith({
+    Value<String?> copyright = const Value.absent(),
+    String? date,
+    Value<String?> explanation = const Value.absent(),
+    Value<String?> hdurl = const Value.absent(),
+    Value<String?> mediaType = const Value.absent(),
+    Value<String?> serviceVersion = const Value.absent(),
+    Value<String?> title = const Value.absent(),
+    Value<String?> url = const Value.absent(),
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => Bookmark(
+    copyright: copyright.present ? copyright.value : this.copyright,
+    date: date ?? this.date,
+    explanation: explanation.present ? explanation.value : this.explanation,
+    hdurl: hdurl.present ? hdurl.value : this.hdurl,
+    mediaType: mediaType.present ? mediaType.value : this.mediaType,
+    serviceVersion: serviceVersion.present
+        ? serviceVersion.value
+        : this.serviceVersion,
+    title: title.present ? title.value : this.title,
+    url: url.present ? url.value : this.url,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
   Bookmark copyWithCompanion(BookmarksCompanion data) {
     return Bookmark(
       copyright: data.copyright.present ? data.copyright.value : this.copyright,
       date: data.date.present ? data.date.value : this.date,
-      explanation:
-          data.explanation.present ? data.explanation.value : this.explanation,
+      explanation: data.explanation.present
+          ? data.explanation.value
+          : this.explanation,
       hdurl: data.hdurl.present ? data.hdurl.value : this.hdurl,
       mediaType: data.mediaType.present ? data.mediaType.value : this.mediaType,
       serviceVersion: data.serviceVersion.present
@@ -346,8 +441,18 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
   }
 
   @override
-  int get hashCode => Object.hash(copyright, date, explanation, hdurl,
-      mediaType, serviceVersion, title, url, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+    copyright,
+    date,
+    explanation,
+    hdurl,
+    mediaType,
+    serviceVersion,
+    title,
+    url,
+    createdAt,
+    updatedAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -430,18 +535,19 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
     });
   }
 
-  BookmarksCompanion copyWith(
-      {Value<String?>? copyright,
-      Value<String>? date,
-      Value<String?>? explanation,
-      Value<String?>? hdurl,
-      Value<String?>? mediaType,
-      Value<String?>? serviceVersion,
-      Value<String?>? title,
-      Value<String?>? url,
-      Value<DateTime>? createdAt,
-      Value<DateTime>? updatedAt,
-      Value<int>? rowid}) {
+  BookmarksCompanion copyWith({
+    Value<String?>? copyright,
+    Value<String>? date,
+    Value<String?>? explanation,
+    Value<String?>? hdurl,
+    Value<String?>? mediaType,
+    Value<String?>? serviceVersion,
+    Value<String?>? title,
+    Value<String?>? url,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
     return BookmarksCompanion(
       copyright: copyright ?? this.copyright,
       date: date ?? this.date,
@@ -528,32 +634,34 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [bookmarks];
 }
 
-typedef $$BookmarksTableCreateCompanionBuilder = BookmarksCompanion Function({
-  Value<String?> copyright,
-  required String date,
-  Value<String?> explanation,
-  Value<String?> hdurl,
-  Value<String?> mediaType,
-  Value<String?> serviceVersion,
-  Value<String?> title,
-  Value<String?> url,
-  Value<DateTime> createdAt,
-  Value<DateTime> updatedAt,
-  Value<int> rowid,
-});
-typedef $$BookmarksTableUpdateCompanionBuilder = BookmarksCompanion Function({
-  Value<String?> copyright,
-  Value<String> date,
-  Value<String?> explanation,
-  Value<String?> hdurl,
-  Value<String?> mediaType,
-  Value<String?> serviceVersion,
-  Value<String?> title,
-  Value<String?> url,
-  Value<DateTime> createdAt,
-  Value<DateTime> updatedAt,
-  Value<int> rowid,
-});
+typedef $$BookmarksTableCreateCompanionBuilder =
+    BookmarksCompanion Function({
+      Value<String?> copyright,
+      required String date,
+      Value<String?> explanation,
+      Value<String?> hdurl,
+      Value<String?> mediaType,
+      Value<String?> serviceVersion,
+      Value<String?> title,
+      Value<String?> url,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+typedef $$BookmarksTableUpdateCompanionBuilder =
+    BookmarksCompanion Function({
+      Value<String?> copyright,
+      Value<String> date,
+      Value<String?> explanation,
+      Value<String?> hdurl,
+      Value<String?> mediaType,
+      Value<String?> serviceVersion,
+      Value<String?> title,
+      Value<String?> url,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
 
 class $$BookmarksTableFilterComposer
     extends Composer<_$AppDatabase, $BookmarksTable> {
@@ -565,35 +673,54 @@ class $$BookmarksTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<String> get copyright => $composableBuilder(
-      column: $table.copyright, builder: (column) => ColumnFilters(column));
+    column: $table.copyright,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get date => $composableBuilder(
-      column: $table.date, builder: (column) => ColumnFilters(column));
+    column: $table.date,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get explanation => $composableBuilder(
-      column: $table.explanation, builder: (column) => ColumnFilters(column));
+    column: $table.explanation,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get hdurl => $composableBuilder(
-      column: $table.hdurl, builder: (column) => ColumnFilters(column));
+    column: $table.hdurl,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get mediaType => $composableBuilder(
-      column: $table.mediaType, builder: (column) => ColumnFilters(column));
+    column: $table.mediaType,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get serviceVersion => $composableBuilder(
-      column: $table.serviceVersion,
-      builder: (column) => ColumnFilters(column));
+    column: $table.serviceVersion,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnFilters(column));
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get url => $composableBuilder(
-      column: $table.url, builder: (column) => ColumnFilters(column));
+    column: $table.url,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
-      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$BookmarksTableOrderingComposer
@@ -606,35 +733,54 @@ class $$BookmarksTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<String> get copyright => $composableBuilder(
-      column: $table.copyright, builder: (column) => ColumnOrderings(column));
+    column: $table.copyright,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get date => $composableBuilder(
-      column: $table.date, builder: (column) => ColumnOrderings(column));
+    column: $table.date,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get explanation => $composableBuilder(
-      column: $table.explanation, builder: (column) => ColumnOrderings(column));
+    column: $table.explanation,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get hdurl => $composableBuilder(
-      column: $table.hdurl, builder: (column) => ColumnOrderings(column));
+    column: $table.hdurl,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get mediaType => $composableBuilder(
-      column: $table.mediaType, builder: (column) => ColumnOrderings(column));
+    column: $table.mediaType,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get serviceVersion => $composableBuilder(
-      column: $table.serviceVersion,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.serviceVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnOrderings(column));
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get url => $composableBuilder(
-      column: $table.url, builder: (column) => ColumnOrderings(column));
+    column: $table.url,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$BookmarksTableAnnotationComposer
@@ -653,7 +799,9 @@ class $$BookmarksTableAnnotationComposer
       $composableBuilder(column: $table.date, builder: (column) => column);
 
   GeneratedColumn<String> get explanation => $composableBuilder(
-      column: $table.explanation, builder: (column) => column);
+    column: $table.explanation,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get hdurl =>
       $composableBuilder(column: $table.hdurl, builder: (column) => column);
@@ -662,7 +810,9 @@ class $$BookmarksTableAnnotationComposer
       $composableBuilder(column: $table.mediaType, builder: (column) => column);
 
   GeneratedColumn<String> get serviceVersion => $composableBuilder(
-      column: $table.serviceVersion, builder: (column) => column);
+    column: $table.serviceVersion,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get title =>
       $composableBuilder(column: $table.title, builder: (column) => column);
@@ -677,20 +827,24 @@ class $$BookmarksTableAnnotationComposer
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
 
-class $$BookmarksTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $BookmarksTable,
-    Bookmark,
-    $$BookmarksTableFilterComposer,
-    $$BookmarksTableOrderingComposer,
-    $$BookmarksTableAnnotationComposer,
-    $$BookmarksTableCreateCompanionBuilder,
-    $$BookmarksTableUpdateCompanionBuilder,
-    (Bookmark, BaseReferences<_$AppDatabase, $BookmarksTable, Bookmark>),
-    Bookmark,
-    PrefetchHooks Function()> {
+class $$BookmarksTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $BookmarksTable,
+          Bookmark,
+          $$BookmarksTableFilterComposer,
+          $$BookmarksTableOrderingComposer,
+          $$BookmarksTableAnnotationComposer,
+          $$BookmarksTableCreateCompanionBuilder,
+          $$BookmarksTableUpdateCompanionBuilder,
+          (Bookmark, BaseReferences<_$AppDatabase, $BookmarksTable, Bookmark>),
+          Bookmark,
+          PrefetchHooks Function()
+        > {
   $$BookmarksTableTableManager(_$AppDatabase db, $BookmarksTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -699,77 +853,80 @@ class $$BookmarksTableTableManager extends RootTableManager<
               $$BookmarksTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$BookmarksTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<String?> copyright = const Value.absent(),
-            Value<String> date = const Value.absent(),
-            Value<String?> explanation = const Value.absent(),
-            Value<String?> hdurl = const Value.absent(),
-            Value<String?> mediaType = const Value.absent(),
-            Value<String?> serviceVersion = const Value.absent(),
-            Value<String?> title = const Value.absent(),
-            Value<String?> url = const Value.absent(),
-            Value<DateTime> createdAt = const Value.absent(),
-            Value<DateTime> updatedAt = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              BookmarksCompanion(
-            copyright: copyright,
-            date: date,
-            explanation: explanation,
-            hdurl: hdurl,
-            mediaType: mediaType,
-            serviceVersion: serviceVersion,
-            title: title,
-            url: url,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            Value<String?> copyright = const Value.absent(),
-            required String date,
-            Value<String?> explanation = const Value.absent(),
-            Value<String?> hdurl = const Value.absent(),
-            Value<String?> mediaType = const Value.absent(),
-            Value<String?> serviceVersion = const Value.absent(),
-            Value<String?> title = const Value.absent(),
-            Value<String?> url = const Value.absent(),
-            Value<DateTime> createdAt = const Value.absent(),
-            Value<DateTime> updatedAt = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              BookmarksCompanion.insert(
-            copyright: copyright,
-            date: date,
-            explanation: explanation,
-            hdurl: hdurl,
-            mediaType: mediaType,
-            serviceVersion: serviceVersion,
-            title: title,
-            url: url,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            rowid: rowid,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<String?> copyright = const Value.absent(),
+                Value<String> date = const Value.absent(),
+                Value<String?> explanation = const Value.absent(),
+                Value<String?> hdurl = const Value.absent(),
+                Value<String?> mediaType = const Value.absent(),
+                Value<String?> serviceVersion = const Value.absent(),
+                Value<String?> title = const Value.absent(),
+                Value<String?> url = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BookmarksCompanion(
+                copyright: copyright,
+                date: date,
+                explanation: explanation,
+                hdurl: hdurl,
+                mediaType: mediaType,
+                serviceVersion: serviceVersion,
+                title: title,
+                url: url,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                Value<String?> copyright = const Value.absent(),
+                required String date,
+                Value<String?> explanation = const Value.absent(),
+                Value<String?> hdurl = const Value.absent(),
+                Value<String?> mediaType = const Value.absent(),
+                Value<String?> serviceVersion = const Value.absent(),
+                Value<String?> title = const Value.absent(),
+                Value<String?> url = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BookmarksCompanion.insert(
+                copyright: copyright,
+                date: date,
+                explanation: explanation,
+                hdurl: hdurl,
+                mediaType: mediaType,
+                serviceVersion: serviceVersion,
+                title: title,
+                url: url,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$BookmarksTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $BookmarksTable,
-    Bookmark,
-    $$BookmarksTableFilterComposer,
-    $$BookmarksTableOrderingComposer,
-    $$BookmarksTableAnnotationComposer,
-    $$BookmarksTableCreateCompanionBuilder,
-    $$BookmarksTableUpdateCompanionBuilder,
-    (Bookmark, BaseReferences<_$AppDatabase, $BookmarksTable, Bookmark>),
-    Bookmark,
-    PrefetchHooks Function()>;
+typedef $$BookmarksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $BookmarksTable,
+      Bookmark,
+      $$BookmarksTableFilterComposer,
+      $$BookmarksTableOrderingComposer,
+      $$BookmarksTableAnnotationComposer,
+      $$BookmarksTableCreateCompanionBuilder,
+      $$BookmarksTableUpdateCompanionBuilder,
+      (Bookmark, BaseReferences<_$AppDatabase, $BookmarksTable, Bookmark>),
+      Bookmark,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;

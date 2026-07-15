@@ -1,9 +1,7 @@
 part of 'pictures.dart';
 
 class MetadataToggleButton extends ConsumerWidget {
-  const MetadataToggleButton({
-    super.key,
-  });
+  const MetadataToggleButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,9 +16,7 @@ class MetadataToggleButton extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsetsDirectional.only(end: 16.0),
       child: TextButton.icon(
-        style: TextButton.styleFrom(
-          foregroundColor: Colors.white,
-        ),
+        style: TextButton.styleFrom(foregroundColor: Colors.white),
         onPressed: toggle,
         icon: isVisible
             ? const Icon(FluentIcons.eye_off_24_regular)
@@ -32,9 +28,7 @@ class MetadataToggleButton extends ConsumerWidget {
 }
 
 class InteractiveViewToggleButton extends ConsumerWidget {
-  const InteractiveViewToggleButton({
-    super.key,
-  });
+  const InteractiveViewToggleButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

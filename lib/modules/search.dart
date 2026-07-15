@@ -31,11 +31,9 @@ class SearchQueryProvider extends StateNotifier<String?> {
 }
 
 final browsingSearchQueryProvider =
-    StateNotifierProvider<SearchQueryProvider, String?>(
-  (ref) {
-    return SearchQueryProvider();
-  },
-);
+    StateNotifierProvider<SearchQueryProvider, String?>((ref) {
+      return SearchQueryProvider();
+    });
 
 final isSearchedAttemptedProvider = Provider((ref) {
   final query = ref.watch(browsingSearchQueryProvider);

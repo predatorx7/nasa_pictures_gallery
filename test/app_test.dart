@@ -32,132 +32,93 @@ void main() {
 
     testWidgets('renders LaunchScreen', (tester) async {
       await tester.pumpWidget(
-        appWithOverridenProviders(
-          overrides: [galleryServiceOverride],
-        ),
+        appWithOverridenProviders(overrides: [galleryServiceOverride]),
       );
 
-      expect(
-        find.byType(LaunchScreen),
-        findsOneWidget,
-      );
+      expect(find.byType(LaunchScreen), findsOneWidget);
     });
 
     testWidgets(
-        'renders LaunchScreen (initial route) and then navigates to homescreen',
-        (tester) async {
-      await tester.pumpWidget(
-        appWithOverridenProviders(
-          overrides: [galleryServiceOverride],
-        ),
-      );
-
-      expect(
-        find.byType(LaunchScreen),
-        findsOneWidget,
-      );
-
-      await mockNetworkImages(() async {
-        await tester.pumpAndSettle(
-          durationOfSplashWithoutAnimations,
-        );
-        expect(
-          find.byType(HomeScreen),
-          findsOneWidget,
-        );
-      });
-    });
-
-    testWidgets(
-        'displays list of items in a gridview on homescreen with scrollable grid of pictures',
-        (tester) async {
-      await tester.pumpWidget(
-        appWithOverridenProviders(
-          overrides: [galleryServiceOverride],
-        ),
-      );
-
-      expect(
-        find.byType(LaunchScreen),
-        findsOneWidget,
-      );
-
-      await mockNetworkImages(() async {
-        await tester.pumpAndSettle(
-          durationOfSplashWithoutAnimations,
-        );
-
-        expect(
-          find.byType(HomeScreen),
-          findsOneWidget,
-        );
-
-        expect(find.byType(ItemTile), findsNWidgets(2));
-        expect(find.byType(Image), findsNWidgets(2));
-
-        final firstItem = GalleryFakeData.twoDifferent.first;
-
-        expect(
-          find.descendant(
-            of: find.byType(ItemTile).first,
-            matching: find.image(
-              NetworkImage(firstItem['url']!),
-            ),
-          ),
-          findsOneWidget,
-        );
-
-        expect(
-          find.image(
-            NetworkImage(firstItem['hdurl']!),
-          ),
-          findsNothing,
-        );
-      });
-    });
-
-    testWidgets(
-      'Navigate between pictures screen and home screen',
+      'renders LaunchScreen (initial route) and then navigates to homescreen',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(
-            overrides: [galleryServiceOverride],
-          ),
+          appWithOverridenProviders(overrides: [galleryServiceOverride]),
         );
 
+        expect(find.byType(LaunchScreen), findsOneWidget);
+
         await mockNetworkImages(() async {
-          await tester.pumpAndSettle(
-            durationOfSplashWithoutAnimations,
-          );
-
-          await tester.tap(find.byType(ItemTile).first);
-          await tester.pumpAndSettle();
-
-          expect(find.byType(PicturesScreen), findsOneWidget);
-          expect(find.byType(HomeScreen), findsNothing);
-
-          await tester.tap(find.byType(BackButton));
-          await tester.pumpAndSettle();
-
+          await tester.pumpAndSettle(durationOfSplashWithoutAnimations);
           expect(find.byType(HomeScreen), findsOneWidget);
-          expect(find.byType(PicturesScreen), findsNothing);
         });
       },
     );
 
     testWidgets(
+      'displays list of items in a gridview on homescreen with scrollable grid of pictures',
+      (tester) async {
+        await tester.pumpWidget(
+          appWithOverridenProviders(overrides: [galleryServiceOverride]),
+        );
+
+        expect(find.byType(LaunchScreen), findsOneWidget);
+
+        await mockNetworkImages(() async {
+          await tester.pumpAndSettle(durationOfSplashWithoutAnimations);
+
+          expect(find.byType(HomeScreen), findsOneWidget);
+
+          expect(find.byType(ItemTile), findsNWidgets(2));
+          expect(find.byType(Image), findsNWidgets(2));
+
+          final firstItem = GalleryFakeData.twoDifferent.first;
+
+          expect(
+            find.descendant(
+              of: find.byType(ItemTile).first,
+              matching: find.image(NetworkImage(firstItem['url']!)),
+            ),
+            findsOneWidget,
+          );
+
+          expect(find.image(NetworkImage(firstItem['hdurl']!)), findsNothing);
+        });
+      },
+    );
+
+    testWidgets('Navigate between pictures screen and home screen', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        appWithOverridenProviders(overrides: [galleryServiceOverride]),
+      );
+
+      await mockNetworkImages(() async {
+        await tester.pumpAndSettle(durationOfSplashWithoutAnimations);
+
+        await tester.tap(find.byType(ItemTile).first);
+        await tester.pumpAndSettle();
+
+        expect(find.byType(PicturesScreen), findsOneWidget);
+        expect(find.byType(HomeScreen), findsNothing);
+
+        await tester.tap(find.byType(BackButton));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(HomeScreen), findsOneWidget);
+        expect(find.byType(PicturesScreen), findsNothing);
+      });
+    });
+
+    testWidgets(
       'Navigates to pictures screen and verifies if image is HD, metadata is visible and can be toggled',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(
-            overrides: [galleryServiceOverride],
-          ),
+          appWithOverridenProviders(overrides: [galleryServiceOverride]),
         );
 
         await mockNetworkImages(() async {
-          await tester.pumpAndSettle(
-            durationOfSplashWithoutAnimations,
-          );
+          await tester.pumpAndSettle(durationOfSplashWithoutAnimations);
 
           await tester.tap(find.byType(ItemTile).first);
           await tester.pumpAndSettle();
@@ -172,9 +133,7 @@ void main() {
           expect(
             find.descendant(
               of: metadataWidget,
-              matching: find.text(
-                firstItem['title']!,
-              ),
+              matching: find.text(firstItem['title']!),
             ),
             findsOneWidget,
           );
@@ -182,9 +141,7 @@ void main() {
           expect(
             find.descendant(
               of: metadataWidget,
-              matching: find.text(
-                firstItem['explanation']!,
-              ),
+              matching: find.text(firstItem['explanation']!),
             ),
             findsOneWidget,
           );
@@ -194,10 +151,7 @@ void main() {
 
           expect(
             tester.widget(
-              find.descendant(
-                of: metadataButton,
-                matching: find.byType(Icon),
-              ),
+              find.descendant(of: metadataButton, matching: find.byType(Icon)),
             ),
             isA<Icon>().having(
               (s) => s.icon,
@@ -222,27 +176,17 @@ void main() {
             matching: find.byType(PicturePage),
           );
 
-          expect(
-            firstPage,
-            findsOneWidget,
-          );
+          expect(firstPage, findsOneWidget);
 
           expect(
             find.descendant(
               of: firstPage,
-              matching: find.image(
-                NetworkImage(firstItem['hdurl']!),
-              ),
+              matching: find.image(NetworkImage(firstItem['hdurl']!)),
             ),
             findsOneWidget,
           );
 
-          expect(
-            find.image(
-              NetworkImage(firstItem['url']!),
-            ),
-            findsNothing,
-          );
+          expect(find.image(NetworkImage(firstItem['url']!)), findsNothing);
         });
       },
     );
@@ -251,15 +195,11 @@ void main() {
       'Navigates to pictures screen and tries to change pages using arrow buttons',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(
-            overrides: [galleryServiceOverride],
-          ),
+          appWithOverridenProviders(overrides: [galleryServiceOverride]),
         );
 
         await mockNetworkImages(() async {
-          await tester.pumpAndSettle(
-            durationOfSplashWithoutAnimations,
-          );
+          await tester.pumpAndSettle(durationOfSplashWithoutAnimations);
 
           await tester.tap(find.byType(ItemTile).first);
           await tester.pumpAndSettle();
@@ -274,9 +214,7 @@ void main() {
           expect(
             find.descendant(
               of: metadataWidget,
-              matching: find.text(
-                firstItem['title']!,
-              ),
+              matching: find.text(firstItem['title']!),
             ),
             findsOneWidget,
           );
@@ -284,9 +222,7 @@ void main() {
           expect(
             find.descendant(
               of: metadataWidget,
-              matching: find.text(
-                firstItem['explanation']!,
-              ),
+              matching: find.text(firstItem['explanation']!),
             ),
             findsOneWidget,
           );
@@ -299,10 +235,7 @@ void main() {
             matching: find.byType(PicturePage),
           );
 
-          expect(
-            page,
-            findsOneWidget,
-          );
+          expect(page, findsOneWidget);
 
           final metadataButton = find.byType(MetadataToggleButton);
           expect(metadataButton, findsOneWidget);
@@ -314,9 +247,7 @@ void main() {
 
           await tester.tap(find.byType(NextPageButton));
 
-          await tester.pumpAndSettle(
-            const Duration(milliseconds: 400),
-          );
+          await tester.pumpAndSettle(const Duration(milliseconds: 400));
 
           final pageView = find.byType(PageView);
           expect(
@@ -336,9 +267,7 @@ void main() {
           expect(
             find.descendant(
               of: metadataWidget,
-              matching: find.text(
-                secondItem['title']!,
-              ),
+              matching: find.text(secondItem['title']!),
             ),
             findsOneWidget,
           );
@@ -346,9 +275,7 @@ void main() {
           expect(
             find.descendant(
               of: metadataWidget,
-              matching: find.text(
-                secondItem['explanation']!,
-              ),
+              matching: find.text(secondItem['explanation']!),
             ),
             findsOneWidget,
           );
@@ -356,9 +283,7 @@ void main() {
           expect(
             find.descendant(
               of: page,
-              matching: find.image(
-                NetworkImage(secondItem['hdurl']!),
-              ),
+              matching: find.image(NetworkImage(secondItem['hdurl']!)),
             ),
             findsOneWidget,
           );
@@ -370,15 +295,11 @@ void main() {
       'Navigates to pictures screen and tries to change pages by swiping',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(
-            overrides: [galleryServiceOverride],
-          ),
+          appWithOverridenProviders(overrides: [galleryServiceOverride]),
         );
 
         await mockNetworkImages(() async {
-          await tester.pumpAndSettle(
-            durationOfSplashWithoutAnimations,
-          );
+          await tester.pumpAndSettle(durationOfSplashWithoutAnimations);
 
           await tester.tap(find.byType(ItemTile).first);
           await tester.pumpAndSettle();
@@ -396,10 +317,7 @@ void main() {
             ),
           );
 
-          await tester.drag(
-            picturesPageView,
-            const Offset(-600.0, 0.0),
-          );
+          await tester.drag(picturesPageView, const Offset(-600.0, 0.0));
           await tester.pumpAndSettle();
 
           expect(
@@ -411,10 +329,7 @@ void main() {
             ),
           );
 
-          await tester.drag(
-            picturesPageView,
-            const Offset(-600.0, 0.0),
-          );
+          await tester.drag(picturesPageView, const Offset(-600.0, 0.0));
           await tester.pumpAndSettle();
 
           expect(
@@ -427,10 +342,7 @@ void main() {
             reason: 'Overscrolled. There should be no next page here.',
           );
 
-          await tester.drag(
-            picturesPageView,
-            const Offset(600.0, 0.0),
-          );
+          await tester.drag(picturesPageView, const Offset(600.0, 0.0));
           await tester.pumpAndSettle();
 
           expect(

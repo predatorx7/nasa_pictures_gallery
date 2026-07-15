@@ -41,21 +41,9 @@ void main() {
       const size = 10;
       final sample1 = getSampleValues(page, size);
 
-      final value1a = await cache.run(
-        page,
-        size,
-        () => Future.value(
-          sample1,
-        ),
-      );
+      final value1a = await cache.run(page, size, () => Future.value(sample1));
 
-      final value1b = await cache.run(
-        page,
-        size,
-        () => Future.value(
-          sample1,
-        ),
-      );
+      final value1b = await cache.run(page, size, () => Future.value(sample1));
 
       expect(value1a, isNotEmpty);
       expect(value1a, same(value1b));
@@ -65,13 +53,7 @@ void main() {
 
       expect(sample1, isNot(same(sample2)));
 
-      final value2a = await cache.run(
-        page,
-        size,
-        () => Future.value(
-          sample2,
-        ),
-      );
+      final value2a = await cache.run(page, size, () => Future.value(sample2));
 
       expect(
         sample2,
@@ -82,15 +64,10 @@ void main() {
       final value2b = await cache.run(
         page + 1,
         size,
-        () => Future.value(
-          sample2,
-        ),
+        () => Future.value(sample2),
       );
 
-      expect(
-        sample2,
-        same(value2b),
-      );
+      expect(sample2, same(value2b));
     });
   });
 }

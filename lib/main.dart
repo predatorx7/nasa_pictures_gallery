@@ -7,7 +7,5 @@ import 'configs/logging.dart';
 void main() {
   setupLogging();
 
-  runApp(const ProviderScope(
-    child: MainApp(),
-  ));
+  runApp(const ProviderScope(child: MainApp()));
 }

@@ -12,50 +12,31 @@ void main() {
       repository = GalleryRepository(GalleryService(), GalleryInMemoryCache());
     });
 
-    test('equality of values returned from same query multiple times',
-        () async {
-      const page1 = 0;
-      const size1 = 10;
-      final a1 = await repository.getPictures(
-        page: page1,
-        size: size1,
-      );
-      final a2 = await repository.getPictures(
-        page: page1,
-        size: size1,
-      );
-      expect(a1, a2);
-      final b1 = await repository.getPictures(
-        page: page1 + 1,
-        size: size1,
-      );
-      expect(a1, isNot(b1));
-    });
+    test(
+      'equality of values returned from same query multiple times',
+      () async {
+        const page1 = 0;
+        const size1 = 10;
+        final a1 = await repository.getPictures(page: page1, size: size1);
+        final a2 = await repository.getPictures(page: page1, size: size1);
+        expect(a1, a2);
+        final b1 = await repository.getPictures(page: page1 + 1, size: size1);
+        expect(a1, isNot(b1));
+      },
+    );
 
     test('illegal arguments', () async {
       expect(
-        () => repository.getPictures(
-          page: -1,
-          size: 10,
-        ),
+        () => repository.getPictures(page: -1, size: 10),
         throwsAssertionError,
       );
 
       expect(
-        () => repository.getPictures(
-          page: 0,
-          size: -10,
-        ),
+        () => repository.getPictures(page: 0, size: -10),
         throwsAssertionError,
       );
 
-      expect(
-        () => repository.getPictures(
-          page: 0,
-          size: 10,
-        ),
-        returnsNormally,
-      );
+      expect(() => repository.getPictures(page: 0, size: 10), returnsNormally);
     });
   });
 }

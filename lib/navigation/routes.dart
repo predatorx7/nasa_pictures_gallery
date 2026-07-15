@@ -6,9 +6,5 @@ import '../app/launch_screen.dart';
 import '../app/pictures/pictures.dart';
 
 final routesProvider = Provider<List<GoRoute>>((ref) {
-  return [
-    LaunchScreen.route,
-    HomeScreen.route,
-    PicturesScreen.route,
-  ];
+  return [LaunchScreen.route, HomeScreen.route, PicturesScreen.route];
 });

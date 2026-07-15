@@ -14,10 +14,7 @@ class SliverNoResults extends ConsumerWidget {
   final VoidCallback onRefreshPress;
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SliverFillRemaining(
       hasScrollBody: false,
       child: NoResults(
@@ -47,10 +44,7 @@ class NoResults extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            FluentIcons.search_48_filled,
-            size: 100,
-          ),
+          const Icon(FluentIcons.search_48_filled, size: 100),
           Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),

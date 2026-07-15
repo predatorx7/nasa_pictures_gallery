@@ -62,15 +62,17 @@ class LocaleController extends StateNotifier<Locale?> {
 
 final localeControllerProvider =
     StateNotifierProvider<LocaleController, Locale?>((ref) {
-  final localePreference = ref.watch(localePreferenceProvider);
-  final savedLocale = ref.watch(savedLocaleProvider.select(
-    (value) {
-      return (value is AsyncData || value is AsyncLoading) ? value.value : null;
-    },
-  ));
+      final localePreference = ref.watch(localePreferenceProvider);
+      final savedLocale = ref.watch(
+        savedLocaleProvider.select((value) {
+          return (value is AsyncData || value is AsyncLoading)
+              ? value.value
+              : null;
+        }),
+      );
 
-  return LocaleController(localePreference, savedLocale);
-});
+      return LocaleController(localePreference, savedLocale);
+    });
 
 final localePreferenceProvider = Provider((ref) {
   return LocalePreference();

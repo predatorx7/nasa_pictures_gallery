@@ -6,17 +6,9 @@ Widget widgetWithOverridenProviders(
   Widget child, {
   List<Override> overrides = const [],
 }) {
-  return ProviderScope(
-    overrides: overrides,
-    child: child,
-  );
+  return ProviderScope(overrides: overrides, child: child);
 }
 
-Widget appWithOverridenProviders({
-  List<Override> overrides = const [],
-}) {
-  return widgetWithOverridenProviders(
-    const MainApp(),
-    overrides: overrides,
-  );
+Widget appWithOverridenProviders({List<Override> overrides = const []}) {
+  return widgetWithOverridenProviders(const MainApp(), overrides: overrides);
 }

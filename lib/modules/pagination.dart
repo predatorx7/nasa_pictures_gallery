@@ -7,10 +7,8 @@ import 'package:nasa_pictures/configs/logging.dart';
 import '../configs/config.dart';
 import '../data/pagination.dart';
 
-typedef OnFetchCallback<T> = Future<Iterable<T>> Function(
-  int currentPage,
-  int limit,
-);
+typedef OnFetchCallback<T> =
+    Future<Iterable<T>> Function(int currentPage, int limit);
 
 class PaginatedDataController<T> extends StateNotifier<PaginationData<T>> {
   PaginatedDataController({
@@ -18,19 +16,18 @@ class PaginatedDataController<T> extends StateNotifier<PaginationData<T>> {
     int initialPage = 0,
     this.limit = 20,
     this.loadThreshold = 200,
-  }) : super(PaginationData<T>(
-          initialPage - 1,
-          limit,
-          null,
-          const AsyncValue.loading(),
-        )) {
+  }) : super(
+         PaginationData<T>(
+           currentPage: initialPage - 1,
+           limit: limit,
+           iterable: null,
+           value: const AsyncValue.loading(),
+         ),
+       ) {
     requestFetch();
   }
 
-  final Future<Iterable<T>> Function(
-    int currentPage,
-    int limit,
-  ) fetch;
+  final Future<Iterable<T>> Function(int currentPage, int limit) fetch;
   final int limit;
   final double loadThreshold;
 
@@ -73,10 +70,7 @@ class PaginatedDataController<T> extends StateNotifier<PaginationData<T>> {
       final nextPage = state.currentPage + 1;
       final data = await fetch(nextPage, state.limit);
 
-      final newValues = List<T>.unmodifiable([
-        ...?state.iterable,
-        ...data,
-      ]);
+      final newValues = List<T>.unmodifiable([...?state.iterable, ...data]);
 
       final asyncValue = AsyncValue<Iterable<T>>.data(newValues);
 

@@ -6,10 +6,7 @@ import 'package:nasa_pictures/configs/logging.dart';
 import '../../configs/config.dart';
 import '../../modules/logging.dart';
 
-const _loading = ShimmerLoadingWidget(
-  isDarkMode: false,
-  radius: 8,
-);
+const _loading = ShimmerLoadingWidget(isDarkMode: false, radius: 8);
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key});
@@ -25,9 +22,7 @@ class LoadingWidget extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 8,
-      ).add(const EdgeInsets.only(
-        bottom: 40.0,
-      )),
+      ).add(const EdgeInsets.only(bottom: 40.0)),
       itemBuilder: (context, index) {
         return _loading;
       },
@@ -165,9 +160,7 @@ class LoadingListenableImage extends StatelessWidget {
         );
       }
 
-      return Center(
-        child: child,
-      );
+      return Center(child: child);
     }
 
     Widget onFrameBuild(
@@ -183,9 +176,7 @@ class LoadingListenableImage extends StatelessWidget {
     }
 
     return ProviderScope(
-      overrides: [
-        loggingProvider.overrideWithValue(logger),
-      ],
+      overrides: [loggingProvider.overrideWithValue(logger)],
       child: Image(
         image: image,
         fit: fit,
@@ -221,9 +212,7 @@ class ImageLoadingProgress extends StatelessWidget {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     final progress = progressFrom(event);
 
     if (progress == null) return child;
@@ -233,19 +222,14 @@ class ImageLoadingProgress extends StatelessWidget {
       fit: StackFit.passthrough,
       clipBehavior: Clip.none,
       children: [
-        Center(
-          child: child,
-        ),
+        Center(child: child),
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 30.0),
             child: SizedBox(
               width: 200,
-              child: LinearProgressIndicator(
-                value: progress,
-                minHeight: 2,
-              ),
+              child: LinearProgressIndicator(value: progress, minHeight: 2),
             ),
           ),
         ),

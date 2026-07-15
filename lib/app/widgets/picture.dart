@@ -6,10 +6,7 @@ import '../../data/picture.dart';
 import '../../utils/date.dart';
 import '../../utils/image.dart';
 
-enum ImageQuality {
-  regular,
-  hd,
-}
+enum ImageQuality { regular, hd }
 
 class ItemImage extends StatelessWidget {
   const ItemImage({
@@ -41,8 +38,6 @@ class ItemImage extends StatelessWidget {
       case ImageQuality.regular:
         imageUrl = item.url ?? item.hdurl;
         break;
-      default:
-        imageUrl = '';
     }
 
     return Hero(
@@ -124,10 +119,7 @@ class InteractiveItemImage extends StatelessWidget {
 }
 
 class ItemTileBar extends StatelessWidget {
-  const ItemTileBar({
-    super.key,
-    required this.item,
-  });
+  const ItemTileBar({super.key, required this.item});
 
   final SamplePicture item;
 
@@ -146,10 +138,7 @@ class ItemTileBar extends StatelessWidget {
 }
 
 class ItemFooter extends StatelessWidget {
-  const ItemFooter({
-    super.key,
-    required this.picture,
-  });
+  const ItemFooter({super.key, required this.picture});
 
   final SamplePicture picture;
 
@@ -169,10 +158,7 @@ class ItemFooter extends StatelessWidget {
 }
 
 class ItemDateLabel extends StatelessWidget {
-  const ItemDateLabel({
-    super.key,
-    required this.item,
-  });
+  const ItemDateLabel({super.key, required this.item});
 
   final SamplePicture item;
 
@@ -188,24 +174,18 @@ class ItemDateLabel extends StatelessWidget {
             const WidgetSpan(
               child: Padding(
                 padding: EdgeInsetsDirectional.only(end: 4.0),
-                child: Icon(
-                  FluentIcons.calendar_ltr_12_regular,
-                  size: 12,
-                ),
+                child: Icon(FluentIcons.calendar_ltr_12_regular, size: 12),
               ),
             ),
-            TextSpan(
-              text: neatlyFormatDate(
-                context,
-                item.date,
-              ),
-            ),
+            TextSpan(text: neatlyFormatDate(context, item.date)),
           ],
         ),
-        style: textTheme.bodySmall?.merge(TextStyle(
-          color: Theme.of(context).colorScheme.primary.withRed(200),
-          fontSize: 10,
-        )),
+        style: textTheme.bodySmall?.merge(
+          TextStyle(
+            color: Theme.of(context).colorScheme.primary.withRed(200),
+            fontSize: 10,
+          ),
+        ),
         textAlign: TextAlign.start,
       ),
     );

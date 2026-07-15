@@ -33,8 +33,9 @@ class GalleryItems extends ConsumerWidget {
           if (valueAsync is AsyncLoading) {
             return const LoadingWidget();
           } else if (values == null || values.isEmpty) {
-            final errorValue =
-                valueAsync is AsyncError ? (valueAsync as AsyncError) : null;
+            final errorValue = valueAsync is AsyncError
+                ? (valueAsync as AsyncError)
+                : null;
             return ErrorPlaceholderWidget(
               errorValue?.error,
               errorValue?.stackTrace,
@@ -64,10 +65,7 @@ class GalleryItems extends ConsumerWidget {
 }
 
 class ItemsGridView extends ConsumerWidget {
-  const ItemsGridView({
-    super.key,
-    required this.data,
-  });
+  const ItemsGridView({super.key, required this.data});
 
   final Iterable<SamplePicture> data;
 
@@ -89,7 +87,7 @@ class ItemsGridView extends ConsumerWidget {
       return SliverNoResults(
         wasSearched: ref.watch(isSearchedAttemptedProvider),
         onRefreshPress: () {
-          ref.refresh(itemsPaginationControllerProvider);
+          return ref.refresh(itemsPaginationControllerProvider);
         },
       );
     }
@@ -97,9 +95,7 @@ class ItemsGridView extends ConsumerWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(
         horizontal: 8,
-      ).add(const EdgeInsets.only(
-        bottom: 40.0,
-      )),
+      ).add(const EdgeInsets.only(bottom: 40.0)),
       sliver: SliverGrid(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
@@ -107,35 +103,26 @@ class ItemsGridView extends ConsumerWidget {
           mainAxisSpacing: 8.0,
           crossAxisSpacing: 8.0,
         ),
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            final item = values.elementAt(index);
+        delegate: SliverChildBuilderDelegate((context, index) {
+          final item = values.elementAt(index);
 
-            final isLastItem = values.length - 1 == index;
-            if (isLastItem) {
-              ref
-                  .read(itemsPaginationControllerProvider.notifier)
-                  .requestFetch();
-            }
+          final isLastItem = values.length - 1 == index;
+          if (isLastItem) {
+            ref.read(itemsPaginationControllerProvider.notifier).requestFetch();
+          }
 
-            return ItemTile(
-              picture: item,
-              onItemSelected: () => onGridTileSelected(context, index, item),
-            );
-          },
-          childCount: values.length,
-        ),
+          return ItemTile(
+            picture: item,
+            onItemSelected: () => onGridTileSelected(context, index, item),
+          );
+        }, childCount: values.length),
       ),
     );
   }
 }
 
 class ItemTile extends StatelessWidget {
-  const ItemTile({
-    super.key,
-    required this.picture,
-    this.onItemSelected,
-  });
+  const ItemTile({super.key, required this.picture, this.onItemSelected});
 
   final SamplePicture picture;
   final VoidCallback? onItemSelected;
@@ -162,9 +149,7 @@ class ItemTile extends StatelessWidget {
                 ),
               ),
             ),
-            ItemTileBar(
-              item: picture,
-            ),
+            ItemTileBar(item: picture),
           ],
         ),
       ),

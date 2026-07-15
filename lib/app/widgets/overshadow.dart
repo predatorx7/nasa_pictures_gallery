@@ -4,11 +4,7 @@ const _decorationIfNotVisible = BoxDecoration(
   gradient: LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [
-      Colors.transparent,
-      Colors.transparent,
-      Colors.transparent,
-    ],
+    colors: [Colors.transparent, Colors.transparent, Colors.transparent],
     stops: [0.0, 0.5, 1.0],
   ),
 );
@@ -17,21 +13,13 @@ const _decorationIfVisible = BoxDecoration(
   gradient: LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [
-      Colors.black45,
-      Colors.black12,
-      Colors.black45,
-    ],
+    colors: [Colors.black45, Colors.black12, Colors.black45],
     stops: [0.0, 0.5, 1.0],
   ),
 );
 
 class Overshadow extends StatelessWidget {
-  const Overshadow({
-    super.key,
-    this.isVisible = false,
-    required this.child,
-  });
+  const Overshadow({super.key, this.isVisible = false, required this.child});
 
   final Widget child;
   final bool isVisible;

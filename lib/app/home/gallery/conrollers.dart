@@ -6,15 +6,19 @@ import '../../../modules/gallery.dart';
 import '../../../modules/pagination.dart';
 import '../../../modules/search.dart';
 
-final itemsPaginationControllerProvider = StateNotifierProvider<
-    PaginatedDataController<SamplePicture>,
-    PaginationData<SamplePicture>>((ref) {
-  final repo = ref.watch(galleryItemsRepository);
+final itemsPaginationControllerProvider =
+    StateNotifierProvider<
+      PaginatedDataController<SamplePicture>,
+      PaginationData<SamplePicture>
+    >((ref) {
+      final repo = ref.watch(galleryItemsRepository);
 
-  return PaginatedDataController(fetch: (current, limit) {
-    return repo.getPictures(page: current, size: limit);
-  });
-});
+      return PaginatedDataController(
+        fetch: (current, limit) {
+          return repo.getPictures(page: current, size: limit);
+        },
+      );
+    });
 
 final paginationProvider = Provider.autoDispose((ref) {
   return ref.watch(
@@ -40,12 +44,10 @@ Iterable<SamplePicture> performSearch(
   String query,
   Iterable<SamplePicture> data,
 ) {
-  return data.where(
-    (item) {
-      return item.title?.toLowerCase().trim().contains(
-                query.toLowerCase().trim(),
-              ) ==
-          true;
-    },
-  );
+  return data.where((item) {
+    return item.title?.toLowerCase().trim().contains(
+          query.toLowerCase().trim(),
+        ) ==
+        true;
+  });
 }

@@ -59,15 +59,9 @@ void main() {
         final data = await service.getRawData();
         final count = data.length;
 
-        final positiveOutOfRangeQuery = await service.getPictures(
-          count,
-          size,
-        );
+        final positiveOutOfRangeQuery = await service.getPictures(count, size);
 
-        final negativeOutOfRangeQuery = await service.getPictures(
-          -1,
-          size,
-        );
+        final negativeOutOfRangeQuery = await service.getPictures(-1, size);
 
         expect(
           positiveOutOfRangeQuery,

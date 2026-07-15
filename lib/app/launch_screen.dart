@@ -11,10 +11,7 @@ import 'home/home.dart';
 class LaunchScreen extends ConsumerStatefulWidget {
   final String redirect;
 
-  const LaunchScreen({
-    super.key,
-    required this.redirect,
-  });
+  const LaunchScreen({super.key, required this.redirect});
 
   static const String routeName = '/';
 
@@ -24,9 +21,7 @@ class LaunchScreen extends ConsumerStatefulWidget {
     builder: (context, s) {
       final redirectPath = getTypeIf<String>(s.uri.queryParameters['redirect']);
 
-      return LaunchScreen(
-        redirect: redirectPath ?? HomeScreen.routeName,
-      );
+      return LaunchScreen(redirect: redirectPath ?? HomeScreen.routeName);
     },
   );
 
@@ -73,8 +68,6 @@ class _LaunchScreenState extends ConsumerState<LaunchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: splashWithoutAnimationUI,
-    );
+    return const Scaffold(body: splashWithoutAnimationUI);
   }
 }

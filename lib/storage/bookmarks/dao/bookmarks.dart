@@ -30,15 +30,17 @@ class BookmarksDao extends DatabaseAccessor<AppDatabase>
     if (date == null) {
       throw ArgumentError.notNull('picture.date');
     }
-    return into(bookmarks).insert(BookmarksCompanion.insert(
-      title: Value.ofNullable(picture.title),
-      date: date,
-      hdurl: Value.ofNullable(picture.hdurl),
-      explanation: Value.ofNullable(picture.explanation),
-      url: Value.ofNullable(picture.url),
-      mediaType: Value.ofNullable(picture.mediaType),
-      serviceVersion: Value.ofNullable(picture.serviceVersion),
-      copyright: Value.ofNullable(picture.copyright),
-    ));
+    return into(bookmarks).insert(
+      BookmarksCompanion.insert(
+        title: Value.absentIfNull(picture.title),
+        date: date,
+        hdurl: Value.absentIfNull(picture.hdurl),
+        explanation: Value.absentIfNull(picture.explanation),
+        url: Value.absentIfNull(picture.url),
+        mediaType: Value.absentIfNull(picture.mediaType),
+        serviceVersion: Value.absentIfNull(picture.serviceVersion),
+        copyright: Value.absentIfNull(picture.copyright),
+      ),
+    );
   }
 }

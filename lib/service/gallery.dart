@@ -39,7 +39,7 @@ class GalleryService {
     return parseJsonInIsolate(nasaGalleryRawTextData);
   }
 
-  static int compareByDate(a, b) {
+  static int compareByDate(dynamic a, dynamic b) {
     final as = a['date'];
     final bs = b['date'];
     if (as is! String && bs is! String) return 0;

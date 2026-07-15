@@ -19,9 +19,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: HomeAppBar(),
-      body: const GalleryItems(),
-    );
+    return Scaffold(appBar: HomeAppBar(), body: const GalleryItems());
   }
 }

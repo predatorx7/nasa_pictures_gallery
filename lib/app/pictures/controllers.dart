@@ -11,13 +11,15 @@ final indexedItemProvider = Provider.family.autoDispose((ref, int index) {
   );
   if (values == null) return null;
 
-  return ref.watch(filteredValuesProvider(values).select((data) {
-    final length = data.length;
-    if (length - 1 == index) {
-      pagination.requestFetch();
-    }
-    return data.elementAt(index);
-  }));
+  return ref.watch(
+    filteredValuesProvider(values).select((data) {
+      final length = data.length;
+      if (length - 1 == index) {
+        pagination.requestFetch();
+      }
+      return data.elementAt(index);
+    }),
+  );
 });
 
 final informationVisibilityController = StateProvider((ref) {
@@ -29,11 +31,15 @@ final isInteractiveViewEnabledController = StateProvider((ref) {
 });
 
 final filteredValuesLengthProvider = Provider((ref) {
-  return ref.watch(filteredValuesProvider(ref.watch(
-    itemsPaginationControllerProvider.select(
-      (value) => value.iterable ?? const [],
-    ),
-  )).select((value) => value.length));
+  return ref.watch(
+    filteredValuesProvider(
+      ref.watch(
+        itemsPaginationControllerProvider.select(
+          (value) => value.iterable ?? const [],
+        ),
+      ),
+    ).select((value) => value.length),
+  );
 });
 
 final picturesPageViewControllerProvider = Provider<PageController>((ref) {
@@ -75,12 +81,9 @@ class PageChange {
   }
 }
 
-final picturesPageViewChangeNotifierProvider = ChangeNotifierProvider(
-  (ref) {
-    return ref.watch(picturesPageViewControllerProvider);
-  },
-  dependencies: [picturesPageViewControllerProvider],
-);
+final picturesPageViewChangeNotifierProvider = ChangeNotifierProvider((ref) {
+  return ref.watch(picturesPageViewControllerProvider);
+}, dependencies: [picturesPageViewControllerProvider]);
 
 final picturesPageNumberProvider = Provider.autoDispose(
   (ref) {

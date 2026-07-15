@@ -37,15 +37,9 @@ class GalleryRepository {
   final GalleryService service;
   final GalleryInMemoryCache cache;
 
-  GalleryRepository(
-    this.service,
-    this.cache,
-  );
+  GalleryRepository(this.service, this.cache);
 
-  Future<List<SamplePicture>> getPictures({
-    int page = 0,
-    int size = 10,
-  }) async {
+  Future<List<SamplePicture>> getPictures({int page = 0, int size = 10}) async {
     assert(page >= 0, 'page must be a positive integer');
     assert(size > 0, 'size should be greater than 0');
 
@@ -65,11 +59,7 @@ class GalleryRepository {
     try {
       return await service.getTotalPictureCount();
     } catch (e, s) {
-      logging.severe(
-        'Failed to get total picture count',
-        e,
-        s,
-      );
+      logging.severe('Failed to get total picture count', e, s);
       return 0;
     }
   }

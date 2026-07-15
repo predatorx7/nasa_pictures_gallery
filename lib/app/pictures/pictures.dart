@@ -19,10 +19,7 @@ part 'buttons.dart';
 part 'controllers.dart';
 
 class PicturesScreen extends StatefulWidget {
-  const PicturesScreen({
-    super.key,
-    required this.index,
-  });
+  const PicturesScreen({super.key, required this.index});
   final int index;
 
   static const $routePath = '/item/:index';
@@ -55,9 +52,9 @@ class _PicturesScreenState extends State<PicturesScreen> {
     super.didUpdateWidget(oldWidget);
     final currentPage = pageController.page?.round();
     if (currentPage != null && widget.index != currentPage) {
-      logging('_PicturesScreenState.didUpdateWidget').info(
-        'animating to page ${widget.index}',
-      );
+      logging(
+        '_PicturesScreenState.didUpdateWidget',
+      ).info('animating to page ${widget.index}');
 
       pageController.animateToPage(
         widget.index,
@@ -80,10 +77,7 @@ class _PicturesScreenState extends State<PicturesScreen> {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
       appBar: AppBar(
-        actions: const [
-          InteractiveViewToggleButton(),
-          MetadataToggleButton(),
-        ],
+        actions: const [InteractiveViewToggleButton(), MetadataToggleButton()],
         foregroundColor: Colors.white,
         backgroundColor: Colors.transparent,
       ),
@@ -98,15 +92,13 @@ class _PicturesScreenState extends State<PicturesScreen> {
 }
 
 class PicturesScreenBody extends ConsumerWidget {
-  const PicturesScreenBody({
-    super.key,
-  });
+  const PicturesScreenBody({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final valuesLHaveLengthZero = ref.watch(filteredValuesLengthProvider.select(
-      (value) => value == 0,
-    ));
+    final valuesLHaveLengthZero = ref.watch(
+      filteredValuesLengthProvider.select((value) => value == 0),
+    );
 
     if (valuesLHaveLengthZero) {
       return const _NoResultsPage();
@@ -129,15 +121,10 @@ class PicturesScreenBody extends ConsumerWidget {
 }
 
 class PicturesPageView extends ConsumerWidget {
-  const PicturesPageView({
-    super.key,
-  });
+  const PicturesPageView({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final valuesLength = ref.watch(filteredValuesLengthProvider);
 
     return PageView.builder(
@@ -149,9 +136,7 @@ class PicturesPageView extends ConsumerWidget {
           return ErrorPlaceholderWidget('Failed loading at $index', null);
         }
 
-        return PicturePage(
-          item: item,
-        );
+        return PicturePage(item: item);
       },
       onPageChanged: (index) {
         context.replace(PicturesScreen.routePath(index));
@@ -162,10 +147,7 @@ class PicturesPageView extends ConsumerWidget {
 }
 
 class PicturePage extends ConsumerStatefulWidget {
-  const PicturePage({
-    super.key,
-    required this.item,
-  });
+  const PicturePage({super.key, required this.item});
 
   final SamplePicture item;
 
@@ -194,8 +176,9 @@ class _PicturePageState extends ConsumerState<PicturePage> {
       children: [
         Consumer(
           builder: (context, ref, child) {
-            final isInteractiveViewEnabled =
-                ref.watch(isInteractiveViewEnabledController);
+            final isInteractiveViewEnabled = ref.watch(
+              isInteractiveViewEnabledController,
+            );
             return InteractiveItemImage(
               controller: controller,
               item: widget.item,
@@ -210,21 +193,12 @@ class _PicturePageState extends ConsumerState<PicturePage> {
 
             return IgnorePointer(
               ignoring: !isVisible,
-              child: Overshadow(
-                isVisible: isVisible,
-                child: child!,
-              ),
+              child: Overshadow(isVisible: isVisible, child: child!),
             );
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Flexible(
-                child: ItemMetaData(
-                  item: widget.item,
-                ),
-              ),
-            ],
+            children: [Flexible(child: ItemMetaData(item: widget.item))],
           ),
         ),
       ],
@@ -233,10 +207,7 @@ class _PicturePageState extends ConsumerState<PicturePage> {
 }
 
 class ItemMetaData extends StatelessWidget {
-  const ItemMetaData({
-    super.key,
-    required this.item,
-  });
+  const ItemMetaData({super.key, required this.item});
 
   final SamplePicture item;
 
@@ -260,10 +231,7 @@ class ItemMetaData extends StatelessWidget {
           style: textTheme.headlineLarge,
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            top: 10.0,
-            bottom: 20.0,
-          ),
+          padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
           child: Text.rich(
             TextSpan(
               children: [
@@ -277,17 +245,12 @@ class ItemMetaData extends StatelessWidget {
                     ),
                   ),
                 ),
-                TextSpan(
-                  text: neatlyFormatDate(
-                    context,
-                    item.date,
-                  ),
-                ),
+                TextSpan(text: neatlyFormatDate(context, item.date)),
               ],
             ),
-            style: textTheme.labelSmall?.merge(TextStyle(
-              color: Theme.of(context).colorScheme.tertiary,
-            )),
+            style: textTheme.labelSmall?.merge(
+              TextStyle(color: Theme.of(context).colorScheme.tertiary),
+            ),
             textAlign: TextAlign.start,
           ),
         ),
@@ -309,7 +272,7 @@ class _NoResultsPage extends ConsumerWidget {
     return NoResults(
       wasSearched: ref.watch(isSearchedAttemptedProvider),
       onRefreshPress: () {
-        ref.refresh(itemsPaginationControllerProvider);
+        return ref.refresh(itemsPaginationControllerProvider);
       },
     );
   }

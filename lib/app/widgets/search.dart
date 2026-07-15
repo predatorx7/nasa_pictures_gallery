@@ -52,9 +52,7 @@ class _BrowsingSearchBarState extends ConsumerState<BrowsingSearchBar> {
       controller: _controller,
       textInputAction: TextInputAction.search,
       keyboardType: TextInputType.text,
-      style: textTheme.labelLarge?.merge(const TextStyle(
-        color: Colors.black,
-      )),
+      style: textTheme.labelLarge?.merge(const TextStyle(color: Colors.black)),
       autofocus: false,
       scrollPadding: EdgeInsets.zero,
       decoration: InputDecoration(
@@ -68,18 +66,13 @@ class _BrowsingSearchBarState extends ConsumerState<BrowsingSearchBar> {
         ),
         border: inputBorder,
         focusedBorder: inputBorder.copyWith(
-            borderSide: const BorderSide(
-          color: Colors.black,
-          width: 0.4,
-        )),
-        hintText: context.l10n.searchPictures,
-        hintStyle: textTheme.labelMedium?.merge(TextStyle(
-          color: Colors.grey.shade600,
-        )),
-        suffixIcon: ClearSearch(
-          focusNode: _focusNode,
-          controller: _controller,
+          borderSide: const BorderSide(color: Colors.black, width: 0.4),
         ),
+        hintText: context.l10n.searchPictures,
+        hintStyle: textTheme.labelMedium?.merge(
+          TextStyle(color: Colors.grey.shade600),
+        ),
+        suffixIcon: ClearSearch(focusNode: _focusNode, controller: _controller),
       ),
     );
   }
@@ -90,8 +83,8 @@ class ClearSearch extends StatelessWidget {
     super.key,
     required FocusNode focusNode,
     required TextEditingController controller,
-  })  : _focusNode = focusNode,
-        _controller = controller;
+  }) : _focusNode = focusNode,
+       _controller = controller;
 
   final FocusNode _focusNode;
   final TextEditingController _controller;
@@ -117,9 +110,7 @@ class ClearSearch extends StatelessWidget {
                 if (!hasFocus) _controller.clear();
                 _focusNode.unfocus();
               },
-              icon: const Icon(
-                Icons.close,
-              ),
+              icon: const Icon(Icons.close),
               color: Colors.grey,
             );
           },

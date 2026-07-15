@@ -15,7 +15,6 @@ extension LoggerExtension on Logger {
   }
 }
 
-
 final _logDateFormat = DateFormat('hh:mm:ss aa');
 
 void _onLogsToConsole(LogRecord record) {
@@ -29,11 +28,7 @@ void _onLogsToConsole(LogRecord record) {
   final error = record.error;
   if (error != null) debugPrintThrottled('$label [Error] $error');
   if (record.level >= Level.WARNING) {
-    debugPrintStack(
-      stackTrace: record.stackTrace,
-      label: label,
-      maxFrames: 20,
-    );
+    debugPrintStack(stackTrace: record.stackTrace, label: label, maxFrames: 20);
   }
 }
 
@@ -46,11 +41,7 @@ void setupLogging([Level? level]) {
   final flutterErrorLogger = logging('FlutterError');
   // Pass all uncaught "fatal" errors from the framework to logging
   FlutterError.onError = (details) {
-    flutterErrorLogger.severe(
-      details,
-      details.exception,
-      details.stack,
-    );
+    flutterErrorLogger.severe(details, details.exception, details.stack);
   };
 
   final platformDispatcherLogger = logging('PlatformDispatcher');

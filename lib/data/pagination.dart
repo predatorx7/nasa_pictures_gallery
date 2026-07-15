@@ -5,14 +5,21 @@ part 'pagination.freezed.dart';
 
 @freezed
 class PaginationData<T> with _$PaginationData<T> {
-  const PaginationData._();
+  const PaginationData({
+    required this.currentPage,
+    required this.limit,
+    this.iterable,
+    required this.value,
+  });
 
-  const factory PaginationData(
-    int currentPage,
-    int limit,
-    Iterable<T>? iterable,
-    AsyncValue<Iterable<T>> value,
-  ) = _PaginationData<T>;
+  @override
+  final AsyncValue<Iterable<T>> value;
+  @override
+  final int currentPage;
+  @override
+  final int limit;
+  @override
+  final Iterable<T>? iterable;
 
   int? get length => iterable?.length;
 

@@ -5,14 +5,7 @@ import 'table/bookmarks.dart';
 
 part 'db.g.dart';
 
-@DriftDatabase(
-  tables: [
-    Bookmarks,
-  ],
-  daos: [
-    BookmarksDao,
-  ],
-)
+@DriftDatabase(tables: [Bookmarks], daos: [BookmarksDao])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
@@ -26,16 +19,19 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   MigrationStrategy get migration {
-    return MigrationStrategy(onCreate: (Migrator m) {
-      return m.createAll();
-    }, beforeOpen: (details) async {
-      if (kDebugMode && _deleteEverythingBeforeStartupInDebug) {
-        final m = Migrator(this);
-        for (final table in allTables) {
-          await m.deleteTable(table.actualTableName);
-          await m.createTable(table);
+    return MigrationStrategy(
+      onCreate: (Migrator m) {
+        return m.createAll();
+      },
+      beforeOpen: (details) async {
+        if (kDebugMode && _deleteEverythingBeforeStartupInDebug) {
+          final m = Migrator(this);
+          for (final table in allTables) {
+            await m.deleteTable(table.actualTableName);
+            await m.createTable(table);
+          }
         }
-      }
-    });
+      },
+    );
   }
 }

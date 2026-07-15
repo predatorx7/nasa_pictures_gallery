@@ -22,7 +22,7 @@ class GalleryFakeData {
       "service_version": "v1",
       "title": "An Annular Solar Eclipse over New Mexico",
       "url":
-          "https://apod.nasa.gov/apod/image/1912/AnnularEclipse_Pinski_960.jpg"
+          "https://apod.nasa.gov/apod/image/1912/AnnularEclipse_Pinski_960.jpg",
     },
   ];
 
@@ -38,7 +38,7 @@ class GalleryFakeData {
       "service_version": "v1",
       "title": "An Annular Solar Eclipse over New Mexico",
       "url":
-          "https://apod.nasa.gov/apod/image/1912/AnnularEclipse_Pinski_960.jpg"
+          "https://apod.nasa.gov/apod/image/1912/AnnularEclipse_Pinski_960.jpg",
     },
     {
       "copyright": "Tomas Slovinsky",
@@ -51,7 +51,7 @@ class GalleryFakeData {
       "service_version": "v1",
       "title": "A Northern Winter Sky Panorama",
       "url":
-          "https://apod.nasa.gov/apod/image/1912/WinterStars_Slovinsky_1080.jpg"
+          "https://apod.nasa.gov/apod/image/1912/WinterStars_Slovinsky_1080.jpg",
     },
   ];
 

@@ -12,9 +12,7 @@ class _AppSplashFragment extends StatelessWidget {
       extendBodyBehindAppBar: true,
       body: Center(
         child: Image(
-          image: AssetImage(
-            Assets.brand.icon.path,
-          ),
+          image: AssetImage(Assets.brand.icon.path),
           height: iconSize,
           width: iconSize,
           fit: BoxFit.scaleDown,

@@ -72,8 +72,10 @@ String generateConstructorParameterDeclaration(String fieldKeyName) {
   return '''  this.$parameterName''';
 }
 
-String guessDataType(Object? value,
-    [bool changeUnknownWithDynamicJson = true]) {
+String guessDataType(
+  Object? value, [
+  bool changeUnknownWithDynamicJson = true,
+]) {
   if (value is String) {
     return 'String';
   } else if (value is int || value is double) {
@@ -99,10 +101,7 @@ String typed(String dataType, [bool makeNullable = true]) {
   }
 }
 
-String generateFieldDeclaration(
-  String fieldKeyName,
-  Object? fieldValue,
-) {
+String generateFieldDeclaration(String fieldKeyName, Object? fieldValue) {
   final fieldVariableName = lowerCamelCase(fieldKeyName);
   final fieldDataType = typed(guessDataType(fieldValue));
 

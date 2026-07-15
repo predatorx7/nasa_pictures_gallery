@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'pagination.dart';
@@ -9,201 +9,195 @@ part of 'pagination.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$PaginationData<T> {
-  int get currentPage => throw _privateConstructorUsedError;
-  int get limit => throw _privateConstructorUsedError;
-  Iterable<T>? get iterable => throw _privateConstructorUsedError;
-  AsyncValue<Iterable<T>> get value => throw _privateConstructorUsedError;
 
-  /// Create a copy of PaginationData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PaginationDataCopyWith<T, PaginationData<T>> get copyWith =>
-      throw _privateConstructorUsedError;
+ AsyncValue<Iterable<T>> get value; int get currentPage; int get limit; Iterable<T>? get iterable;
+/// Create a copy of PaginationData
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PaginationDataCopyWith<T, PaginationData<T>> get copyWith => _$PaginationDataCopyWithImpl<T, PaginationData<T>>(this as PaginationData<T>, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaginationData<T>&&(identical(other.value, value) || other.value == value)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.limit, limit) || other.limit == limit)&&const DeepCollectionEquality().equals(other.iterable, iterable));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,value,currentPage,limit,const DeepCollectionEquality().hash(iterable));
+
+@override
+String toString() {
+  return 'PaginationData<$T>(value: $value, currentPage: $currentPage, limit: $limit, iterable: $iterable)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PaginationDataCopyWith<T, $Res> {
-  factory $PaginationDataCopyWith(
-          PaginationData<T> value, $Res Function(PaginationData<T>) then) =
-      _$PaginationDataCopyWithImpl<T, $Res, PaginationData<T>>;
-  @useResult
-  $Res call(
-      {int currentPage,
-      int limit,
-      Iterable<T>? iterable,
-      AsyncValue<Iterable<T>> value});
-}
+abstract mixin class $PaginationDataCopyWith<T,$Res>  {
+  factory $PaginationDataCopyWith(PaginationData<T> value, $Res Function(PaginationData<T>) _then) = _$PaginationDataCopyWithImpl;
+@useResult
+$Res call({
+ int currentPage, int limit, Iterable<T>? iterable, AsyncValue<Iterable<T>> value
+});
 
+
+
+
+}
 /// @nodoc
-class _$PaginationDataCopyWithImpl<T, $Res, $Val extends PaginationData<T>>
+class _$PaginationDataCopyWithImpl<T,$Res>
     implements $PaginationDataCopyWith<T, $Res> {
-  _$PaginationDataCopyWithImpl(this._value, this._then);
+  _$PaginationDataCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PaginationData<T> _self;
+  final $Res Function(PaginationData<T>) _then;
 
-  /// Create a copy of PaginationData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? currentPage = null,
-    Object? limit = null,
-    Object? iterable = freezed,
-    Object? value = null,
-  }) {
-    return _then(_value.copyWith(
-      currentPage: null == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      limit: null == limit
-          ? _value.limit
-          : limit // ignore: cast_nullable_to_non_nullable
-              as int,
-      iterable: freezed == iterable
-          ? _value.iterable
-          : iterable // ignore: cast_nullable_to_non_nullable
-              as Iterable<T>?,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<Iterable<T>>,
-    ) as $Val);
-  }
+/// Create a copy of PaginationData
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? currentPage = null,Object? limit = null,Object? iterable = freezed,Object? value = null,}) {
+  return _then(PaginationData(
+currentPage: null == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
+as int,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,iterable: freezed == iterable ? _self.iterable : iterable // ignore: cast_nullable_to_non_nullable
+as Iterable<T>?,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as AsyncValue<Iterable<T>>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PaginationDataImplCopyWith<T, $Res>
-    implements $PaginationDataCopyWith<T, $Res> {
-  factory _$$PaginationDataImplCopyWith(_$PaginationDataImpl<T> value,
-          $Res Function(_$PaginationDataImpl<T>) then) =
-      __$$PaginationDataImplCopyWithImpl<T, $Res>;
-  @override
-  @useResult
-  $Res call(
-      {int currentPage,
-      int limit,
-      Iterable<T>? iterable,
-      AsyncValue<Iterable<T>> value});
 }
 
-/// @nodoc
-class __$$PaginationDataImplCopyWithImpl<T, $Res>
-    extends _$PaginationDataCopyWithImpl<T, $Res, _$PaginationDataImpl<T>>
-    implements _$$PaginationDataImplCopyWith<T, $Res> {
-  __$$PaginationDataImplCopyWithImpl(_$PaginationDataImpl<T> _value,
-      $Res Function(_$PaginationDataImpl<T>) _then)
-      : super(_value, _then);
 
-  /// Create a copy of PaginationData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? currentPage = null,
-    Object? limit = null,
-    Object? iterable = freezed,
-    Object? value = null,
-  }) {
-    return _then(_$PaginationDataImpl<T>(
-      null == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      null == limit
-          ? _value.limit
-          : limit // ignore: cast_nullable_to_non_nullable
-              as int,
-      freezed == iterable
-          ? _value.iterable
-          : iterable // ignore: cast_nullable_to_non_nullable
-              as Iterable<T>?,
-      null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<Iterable<T>>,
-    ));
-  }
+/// Adds pattern-matching-related methods to [PaginationData].
+extension PaginationDataPatterns<T> on PaginationData<T> {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-
-class _$PaginationDataImpl<T> extends _PaginationData<T> {
-  const _$PaginationDataImpl(
-      this.currentPage, this.limit, this.iterable, this.value)
-      : super._();
-
-  @override
-  final int currentPage;
-  @override
-  final int limit;
-  @override
-  final Iterable<T>? iterable;
-  @override
-  final AsyncValue<Iterable<T>> value;
-
-  @override
-  String toString() {
-    return 'PaginationData<$T>(currentPage: $currentPage, limit: $limit, iterable: $iterable, value: $value)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaginationDataImpl<T> &&
-            (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage) &&
-            (identical(other.limit, limit) || other.limit == limit) &&
-            const DeepCollectionEquality().equals(other.iterable, iterable) &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, currentPage, limit,
-      const DeepCollectionEquality().hash(iterable), value);
-
-  /// Create a copy of PaginationData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaginationDataImplCopyWith<T, _$PaginationDataImpl<T>> get copyWith =>
-      __$$PaginationDataImplCopyWithImpl<T, _$PaginationDataImpl<T>>(
-          this, _$identity);
 }
 
-abstract class _PaginationData<T> extends PaginationData<T> {
-  const factory _PaginationData(
-      final int currentPage,
-      final int limit,
-      final Iterable<T>? iterable,
-      final AsyncValue<Iterable<T>> value) = _$PaginationDataImpl<T>;
-  const _PaginationData._() : super._();
-
-  @override
-  int get currentPage;
-  @override
-  int get limit;
-  @override
-  Iterable<T>? get iterable;
-  @override
-  AsyncValue<Iterable<T>> get value;
-
-  /// Create a copy of PaginationData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaginationDataImplCopyWith<T, _$PaginationDataImpl<T>> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on
