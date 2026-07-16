@@ -46,6 +46,5 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    - assets/data/
     - assets/icons/
     - assets/brand/

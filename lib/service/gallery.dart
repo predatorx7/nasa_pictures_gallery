@@ -1,50 +1,60 @@
-import 'package:flutter/services.dart';
-import 'package:nasa_pictures/data/picture.dart';
-import 'package:nasa_pictures/gen/assets.gen.dart';
+import 'dart:convert';
 
-import '../utils/compute/json_decode.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart' as intl;
+import 'package:nasa_pictures/data/picture.dart';
 
 class GalleryService {
-  Future<List<SamplePicture>> getPictures(int page, int size) async {
-    final start = page * size;
-    final end = start + size;
-    final _rawData = await getRawData();
+  GalleryService({http.Client? client, this.apiKey = _defaultApiKey})
+    : _client = client ?? http.Client();
 
-    final total = _rawData.length;
+  /// NASA APOD API key. Override via `--dart-define=NASA_API_KEY=...`.
+  /// Falls back to NASA's public DEMO_KEY (heavily rate-limited).
+  static const _defaultApiKey = String.fromEnvironment(
+    'NASA_API_KEY',
+    defaultValue: 'DEMO_KEY',
+  );
 
-    const int lowerLimit = 0;
-    final int upperLimit = total;
+  static const _apodHost = 'api.nasa.gov';
+  static const _apodPath = '/planetary/apod';
 
-    int limited(int value) {
-      return value.clamp(lowerLimit, upperLimit);
+  final http.Client _client;
+  final String apiKey;
+
+  /// Fetches APOD entries for the inclusive date range [start, end] directly
+  /// from the network. Callers are responsible for caching the result.
+  Future<List<SamplePicture>> fetchRange(DateTime start, DateTime end) async {
+    final uri = Uri.https(_apodHost, _apodPath, {
+      'api_key': apiKey,
+      'start_date': _formatDate(start),
+      'end_date': _formatDate(end),
+    });
+
+    final response = await _client.get(uri);
+
+    if (response.statusCode != 200) {
+      throw http.ClientException(
+        'APOD API returned ${response.statusCode}: ${response.body}',
+        uri,
+      );
     }
 
-    _rawData.sort(compareByDate);
+    final decoded = jsonDecode(response.body);
+    if (decoded is! List) {
+      throw const FormatException('APOD API did not return a list');
+    }
 
-    return SamplePicture.fromJsonList(
-      _rawData.sublist(limited(start), limited(end)),
-    );
+    // Only keep image entries; APOD also serves videos which the gallery
+    // cannot render.
+    return decoded
+        .whereType<Map<String, dynamic>>()
+        .where((e) => e['media_type'] == 'image')
+        .map(SamplePicture.fromJson)
+        .toList();
   }
 
-  Future<int> getTotalPictureCount() {
-    return getRawData().then((data) {
-      return data.length;
-    });
-  }
-
-  Future<dynamic> getRawData() async {
-    final nasaGalleryRawTextData = await rootBundle.loadString(
-      Assets.data.data,
-    );
-    return parseJsonInIsolate(nasaGalleryRawTextData);
-  }
-
-  static int compareByDate(dynamic a, dynamic b) {
-    final as = a['date'];
-    final bs = b['date'];
-    if (as is! String && bs is! String) return 0;
-    if (as is! String) return -1;
-    if (bs is! String) return 1;
-    return as.compareTo(bs) * -1;
+  static String _formatDate(DateTime date) {
+    final format = intl.DateFormat('yyyy-MM-dd');
+    return format.format(date);
   }
 }

@@ -1,5 +1,5 @@
 import '../../utils/connection.dart';
-import '../bookmarks/db.dart';
+import '../db.dart';
 
 AppDatabase $userAccount(String databaseName) {
   final _dbConnectionProvider = DatabaseConnectionProvider(databaseName);

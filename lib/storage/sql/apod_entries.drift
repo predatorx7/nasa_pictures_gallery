@@ -1,0 +1,21 @@
+import 'tables.drift';
+
+getApodEntriesInRange: SELECT * FROM apod_entries
+  WHERE date >= :startDate AND date <= :endDate
+  ORDER BY date DESC;
+
+getApodEntryByDate: SELECT * FROM apod_entries WHERE date = :date;
+
+upsertApodEntry: INSERT INTO apod_entries
+  (date, copyright, explanation, hdurl, media_type, service_version, title, url, fetched_at)
+VALUES
+  (:date, :copyright, :explanation, :hdurl, :mediaType, :serviceVersion, :title, :url, CAST(strftime('%s', 'now') AS INTEGER))
+ON CONFLICT (date) DO UPDATE SET
+  copyright = :copyright,
+  explanation = :explanation,
+  hdurl = :hdurl,
+  media_type = :mediaType,
+  service_version = :serviceVersion,
+  title = :title,
+  url = :url,
+  fetched_at = CAST(strftime('%s', 'now') AS INTEGER);

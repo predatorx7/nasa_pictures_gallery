@@ -1,0 +1,24 @@
+CREATE TABLE bookmarks (
+  date TEXT NOT NULL PRIMARY KEY,
+  copyright TEXT,
+  explanation TEXT,
+  hdurl TEXT,
+  media_type TEXT,
+  service_version TEXT,
+  title TEXT,
+  url TEXT,
+  created_at DATETIME NOT NULL DEFAULT (CAST(strftime('%s', 'now') AS INTEGER)),
+  updated_at DATETIME NOT NULL DEFAULT (CAST(strftime('%s', 'now') AS INTEGER))
+);
+
+CREATE TABLE apod_entries (
+  date TEXT NOT NULL PRIMARY KEY,
+  copyright TEXT,
+  explanation TEXT,
+  hdurl TEXT,
+  media_type TEXT,
+  service_version TEXT,
+  title TEXT,
+  url TEXT,
+  fetched_at DATETIME NOT NULL DEFAULT (CAST(strftime('%s', 'now') AS INTEGER))
+);

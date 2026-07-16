@@ -1,4 +1,4 @@
-import 'bookmarks/db.dart';
+import 'db.dart';
 import 'provider/unsupported.dart'
     if (dart.library.ffi) 'provider/native.dart'
     if (dart.library.html) 'provider/web.dart';

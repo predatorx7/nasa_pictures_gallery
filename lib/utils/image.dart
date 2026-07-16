@@ -10,6 +10,11 @@ ImageProvider<Object> defaultImageProvider(String url) {
           defaultTargetPlatform == TargetPlatform.iOS ||
           defaultTargetPlatform == TargetPlatform.macOS)) {
     return CachedNetworkImageProvider(url);
+  } else if (kIsWeb) {
+    return NetworkImage(
+      url,
+      webHtmlElementStrategy: WebHtmlElementStrategy.fallback,
+    );
   } else {
     return NetworkImage(url);
   }

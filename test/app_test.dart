@@ -1,3 +1,4 @@
+import 'package:drift/native.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +10,9 @@ import 'package:nasa_pictures/app/launch_screen.dart';
 import 'package:nasa_pictures/app/pictures/pictures.dart';
 import 'package:nasa_pictures/app/widgets/splash.dart';
 import 'package:nasa_pictures/configs/config.dart';
+import 'package:nasa_pictures/modules/database.dart';
 import 'package:nasa_pictures/modules/gallery.dart';
+import 'package:nasa_pictures/storage/db.dart';
 
 import 'package:nasa_pictures/service/gallery.dart';
 
@@ -19,21 +22,26 @@ import 'helpers.dart';
 void main() {
   group('Gallery in App with 2 items', () {
     late GalleryService galleryService;
-    late Override galleryServiceOverride;
+    late AppDatabase database;
+    late List<Override> overrides;
 
     setUp(() {
       galleryService = FakeGalleryService(GalleryFakeData.twoDifferent);
+      database = AppDatabase(NativeDatabase.memory());
 
-      galleryServiceOverride = galleryServiceProvider.overrideWithValue(
-        galleryService,
-      );
+      overrides = [
+        galleryServiceProvider.overrideWithValue(galleryService),
+        appDatabaseProvider.overrideWithValue(database),
+      ];
       buildConfigurations.isTestMode = true;
     });
 
+    tearDown(() async {
+      await database.close();
+    });
+
     testWidgets('renders LaunchScreen', (tester) async {
-      await tester.pumpWidget(
-        appWithOverridenProviders(overrides: [galleryServiceOverride]),
-      );
+      await tester.pumpWidget(appWithOverridenProviders(overrides: overrides));
 
       expect(find.byType(LaunchScreen), findsOneWidget);
     });
@@ -42,7 +50,7 @@ void main() {
       'renders LaunchScreen (initial route) and then navigates to homescreen',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(overrides: [galleryServiceOverride]),
+          appWithOverridenProviders(overrides: overrides),
         );
 
         expect(find.byType(LaunchScreen), findsOneWidget);
@@ -58,7 +66,7 @@ void main() {
       'displays list of items in a gridview on homescreen with scrollable grid of pictures',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(overrides: [galleryServiceOverride]),
+          appWithOverridenProviders(overrides: overrides),
         );
 
         expect(find.byType(LaunchScreen), findsOneWidget);
@@ -90,7 +98,7 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        appWithOverridenProviders(overrides: [galleryServiceOverride]),
+        appWithOverridenProviders(overrides: overrides),
       );
 
       await mockNetworkImages(() async {
@@ -114,7 +122,7 @@ void main() {
       'Navigates to pictures screen and verifies if image is HD, metadata is visible and can be toggled',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(overrides: [galleryServiceOverride]),
+          appWithOverridenProviders(overrides: overrides),
         );
 
         await mockNetworkImages(() async {
@@ -195,7 +203,7 @@ void main() {
       'Navigates to pictures screen and tries to change pages using arrow buttons',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(overrides: [galleryServiceOverride]),
+          appWithOverridenProviders(overrides: overrides),
         );
 
         await mockNetworkImages(() async {
@@ -295,7 +303,7 @@ void main() {
       'Navigates to pictures screen and tries to change pages by swiping',
       (tester) async {
         await tester.pumpWidget(
-          appWithOverridenProviders(overrides: [galleryServiceOverride]),
+          appWithOverridenProviders(overrides: overrides),
         );
 
         await mockNetworkImages(() async {

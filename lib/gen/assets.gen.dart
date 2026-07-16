@@ -21,16 +21,6 @@ class $AssetsBrandGen {
   List<AssetGenImage> get values => [icon];
 }
 
-class $AssetsDataGen {
-  const $AssetsDataGen();
-
-  /// File path: assets/data/data.json
-  String get data => 'assets/data/data.json';
-
-  /// List of all assets
-  List<String> get values => [data];
-}
-
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -64,7 +54,6 @@ class $AssetsIconsGen {
 
 abstract final class Assets {
   static const $AssetsBrandGen brand = $AssetsBrandGen();
-  static const $AssetsDataGen data = $AssetsDataGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
 }
 

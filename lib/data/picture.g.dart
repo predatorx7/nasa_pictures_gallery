@@ -6,19 +6,19 @@ part of 'picture.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SamplePicture _$SamplePictureFromJson(Map<String, dynamic> json) =>
-    SamplePicture(
-      json['copyright'] as String?,
-      json['date'] as String?,
-      json['explanation'] as String?,
-      json['hdurl'] as String?,
-      json['media_type'] as String?,
-      json['service_version'] as String?,
-      json['title'] as String?,
-      json['url'] as String?,
+_SamplePicture _$SamplePictureFromJson(Map<String, dynamic> json) =>
+    _SamplePicture(
+      copyright: json['copyright'] as String?,
+      date: json['date'] as String?,
+      explanation: json['explanation'] as String?,
+      hdurl: json['hdurl'] as String?,
+      mediaType: json['media_type'] as String?,
+      serviceVersion: json['service_version'] as String?,
+      title: json['title'] as String?,
+      url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$SamplePictureToJson(SamplePicture instance) =>
+Map<String, dynamic> _$SamplePictureToJson(_SamplePicture instance) =>
     <String, dynamic>{
       'copyright': instance.copyright,
       'date': instance.date,

@@ -1,0 +1,21 @@
+import 'tables.drift';
+
+getAllBookmarks: SELECT * FROM bookmarks ORDER BY date DESC;
+
+getBookmarkByDate: SELECT * FROM bookmarks WHERE date = :date;
+
+upsertBookmark: INSERT INTO bookmarks
+  (date, copyright, explanation, hdurl, media_type, service_version, title, url, updated_at)
+VALUES
+  (:date, :copyright, :explanation, :hdurl, :mediaType, :serviceVersion, :title, :url, CAST(strftime('%s', 'now') AS INTEGER))
+ON CONFLICT (date) DO UPDATE SET
+  copyright = :copyright,
+  explanation = :explanation,
+  hdurl = :hdurl,
+  media_type = :mediaType,
+  service_version = :serviceVersion,
+  title = :title,
+  url = :url,
+  updated_at = CAST(strftime('%s', 'now') AS INTEGER);
+
+deleteBookmarkByDate: DELETE FROM bookmarks WHERE date = :date;

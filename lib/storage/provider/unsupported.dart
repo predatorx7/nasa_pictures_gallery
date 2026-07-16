@@ -1,4 +1,4 @@
-import '../bookmarks/db.dart';
+import '../db.dart';
 
 AppDatabase $userAccount(String databaseName) {
   throw UnimplementedError();
