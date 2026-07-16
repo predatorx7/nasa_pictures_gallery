@@ -1,6 +1,6 @@
 # NASA Pictures App
 
-A simple app to browse nasa astronomy pictures from Astronomy Picture of the Day (December 2019)
+A simple app to browse NASA's Astronomy Picture of the Day (APOD).
 
 ## Frontend designs
 
@@ -9,13 +9,55 @@ A simple app to browse nasa astronomy pictures from Astronomy Picture of the Day
 
 ## Flutter application
 
-- Following the rules of the assignment, the app can be run by just a simple `flutter run` command.
-- The required JSON file is located at `assets/data/data.json` as is available to the app as an asset.
-- yarn (or npm) can optionally be used with `package.json` for managing the project, for ex., `yarn dev` runs the app in debug mode.
-- All tests are located in the `test` folder and they can be run by executing the `flutter test` command.
+- The app fetches pictures live from [NASA's APOD API](https://api.nasa.gov/), caching fetched date ranges in a local SQLite database (via [drift](https://pub.dev/packages/drift)) so repeat visits to the same dates don't re-hit the network.
 - https://pub.dev/packages/logging package is used to handle logs in the app.
 - https://pub.dev/packages/flutter_riverpod package is used for di & state management.
 - https://pub.dev/packages/go_router package is used for navigation.
+- https://pub.dev/packages/drift package is used for local caching/persistence (see [Local database](#local-database) below).
+- https://pub.dev/packages/freezed package is used for immutable data/model classes.
+
+### Setup
+
+1. Get a free NASA API key at https://api.nasa.gov/ (optional — the app falls back to NASA's rate-limited `DEMO_KEY` if none is provided).
+2. Create a `.env` file at the repo root with your key:
+   ```
+   NASA_API_KEY=your_key_here
+   ```
+   A `development.env` file (using `DEMO_KEY`) is provided for local development without a personal key.
+3. Run code generation once (and after changing any `.drift`, `.dart` model, or `@JsonSerializable`/`@freezed` annotated file):
+   ```
+   make gen
+   ```
+4. Run the app:
+   ```
+   make prod    # uses .env
+   make devel   # uses development.env / DEMO_KEY
+   make dev     # plain `flutter run`, no dart-define env file
+   ```
+
+### Local database
+
+- `lib/storage/sql/*.drift` files contain the SQL table definitions and queries (e.g. `apod_entries.drift`, `bookmarks.drift`, `tables.drift`). Drift's code generator (`build_runner`, via `make gen`) turns these into type-safe Dart query methods on the generated `AppDatabase` class in `lib/storage/db.g.dart` — write/modify SQL there rather than hand-writing Dart query code.
+- `lib/storage/db.dart` declares the `AppDatabase` and wires up the included `.drift` files.
+- `lib/storage/apod/` maps between drift row types and the app's plain data models.
+
+### Project management via Makefile
+
+All common commands are defined in the `Makefile` (run with `make <target>`):
+
+| Target | Description |
+| --- | --- |
+| `make dev` | `flutter run` |
+| `make dev-web` / `make dev-windows` / `make dev-macos` | `flutter run` targeting a specific platform |
+| `make devel` | `flutter run` using `development.env` (`DEMO_KEY`) |
+| `make prod` | `flutter run` using `.env` (your personal API key) |
+| `make gen` | `dart pub get` + `dart run build_runner build --delete-conflicting-outputs` |
+| `make gen-new` | Same as `gen`, without deleting conflicting outputs |
+| `make lint` | `flutter analyze` |
+| `make fmt` | `dart format .` |
+| `make clean` | `flutter clean` |
+| `make test` | `flutter test test` |
+| `make test-macos` | `flutter test integration_test` |
 
 ### Tests
 
@@ -30,8 +72,8 @@ Tests atleast verifies the following goals:
 
 #### How to run tests?
 
-1. Run tests _headlessly_ by running `flutter test`
-2. Run integration tests on a device by running `flutter test ./integration_test/app_test.dart`.
+1. Run tests _headlessly_ by running `make test` (or `flutter test`)
+2. Run integration tests on a device by running `make test-macos` (or `flutter test ./integration_test/app_test.dart`).
 3. Learn more about integration testing at https://docs.flutter.dev/testing/integration-tests#run-integration-tests. 
 
 #### Structure
@@ -64,6 +106,10 @@ Tests atleast verifies the following goals:
 ├───repo
 ├───service
 ├───storage
+│   ├── apod
+│   ├── sql
+│   ├── db.dart
+│   └── provider/
 └───utils
 ```
 
@@ -89,7 +135,7 @@ App configurations for startup, logging, (firebase if added) etc
 
 6. `data`
 
-Collection of model data classes for json serializable, forms, plain models, etc
+Collection of model data classes for json serializable, freezed, forms, plain models, etc
 
 7. `modules`
 
@@ -109,7 +155,7 @@ Contains services which provide data using http, local storage, etc.
 
 11. `storage`
 
-Code related to local data persistence, migrations, database, etc.
+Code related to local data persistence, migrations, database, etc. `storage/sql/*.drift` files hold the raw SQL schema/queries that drift's code generator turns into type-safe Dart; `storage/apod/` maps DB rows to app models; `storage/provider/` selects the right platform-specific database connection (native/web).
 
 12. `app`
 
