@@ -1,7 +1,7 @@
 name: nasa_pictures
 description: A simple app to browse nasa astronomy pictures from apod
 publish_to: 'none'
-version: 0.0.3+22080008
+version: 0.0.4+26070016
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
